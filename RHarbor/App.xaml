@@ -1,0 +1,18 @@
+﻿<Application x:Class="kenzauros.RHarbor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Styles/DataGridStyles.xaml"/>
+                <ResourceDictionary Source="./Styles/Misc.xaml"/>
+                <ResourceDictionary Source="./Styles/SemanticUIBrushes.xaml"/>
+                <ResourceDictionary Source="./Styles/SemanticUIStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

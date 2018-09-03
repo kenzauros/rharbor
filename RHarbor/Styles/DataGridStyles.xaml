@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:kenzauros.RHarbor">
+    <ControlTemplate x:Key="ColumnManagerCellTemplate" TargetType="xcdg:ColumnManagerCell">
+        <Grid Background="{TemplateBinding Background}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                <xcdg:DataCell Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center"
+                               HorizontalContentAlignment="Left"
+                               VerticalContentAlignment="Center"/>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type xcdg:ColumnManagerCell}">
+        <Setter Property="Template" Value="{StaticResource ColumnManagerCellTemplate}"/>
+        <Setter Property="Padding" Value="4,2"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+    </Style>
+    <Style TargetType="{x:Type xcdg:DataRow}">
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+    <Style TargetType="{x:Type xcdg:DataCell}">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="4,2"/>
+    </Style>
+
+</ResourceDictionary>

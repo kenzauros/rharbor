@@ -1,0 +1,34 @@
+﻿<Window x:Class="kenzauros.RHarbor.MvvmDialog.ConfirmationDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="180"
+        Title="{Binding Title}" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/SemanticUIBrushes.xaml"/>
+                <ResourceDictionary Source="/Styles/SemanticUIStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/SemanticUIDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <DockPanel Margin="8">
+            <Grid DockPanel.Dock="Bottom">
+                <Button Style="{StaticResource CopyToClipboardButton}" HorizontalAlignment="Left"/>
+                <WrapPanel HorizontalAlignment="Right">
+                    <Button Command="{Binding AcceptCommand}" Style="{StaticResource AcceptButtonStyle}" Content="Yes" IsDefault="True"
+                        Height="24" MinWidth="100"/>
+                    <Button Command="{Binding RejectCommand}" Style="{StaticResource RejectButtonStyle}" Content="No" IsCancel="True"
+                        Height="24" MinWidth="100" Margin="4,0,0,0"/>
+                </WrapPanel>
+            </Grid>
+            <Grid Margin="0,0,0,8">
+                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,116 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styles/SemanticUIBrushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <!-- Default button base style -->
+    <Style x:Key="DefaultFlatButton" TargetType="Button">
+        <Setter Property="Padding" Value="12,0"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource GreyBrush}"/>
+        <Setter Property="Opacity" Value="1.0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" CornerRadius="3" SnapsToDevicePixels="true"
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Border x:Name="whiten" CornerRadius="3" SnapsToDevicePixels="true" Background="White" Opacity="0"/>
+                            <Border x:Name="darken" CornerRadius="3" SnapsToDevicePixels="true" Background="Black" Opacity="0"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                                      TextElement.Foreground="{TemplateBinding Foreground}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      RecognizesAccessKey="True"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <Border x:Name="gray" CornerRadius="3" SnapsToDevicePixels="true" Background="#333" Opacity="0"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#33000000"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" TargetName="whiten" Value="0.2"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity" TargetName="darken" Value="0.2"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="gray" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Default button sytle -->
+    <Style x:Key="DefaultButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultFlatButton}"></Style>
+    <!-- Button contains only an icon -->
+    <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultFlatButton}">
+        <Setter Property="Padding" Value="0,0"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="24"/>
+    </Style>
+    <!-- Icon in IconButtonStyle -->
+    <Style x:Key="ButtonIconStyle" TargetType="fa:ImageAwesome">
+        <Setter Property="Foreground" Value="{StaticResource OffWhiteBrush}"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="Width" Value="12"/>
+    </Style>
+    <!-- Disconnect button (Icon only, transparent) -->
+    <Style x:Key="BanButton" TargetType="Button">
+        <Setter Property="Padding" Value="4,0"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Opacity" Value="1.0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" CornerRadius="3" SnapsToDevicePixels="true"
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <Border x:Name="whiten" CornerRadius="3" SnapsToDevicePixels="true" Background="White" Opacity="0"/>
+                            <Border x:Name="darken" CornerRadius="3" SnapsToDevicePixels="true" Background="Black" Opacity="0"/>
+                            <fa:ImageAwesome Icon="TimesCircle" Foreground="{TemplateBinding Foreground}" Style="{DynamicResource ButtonIconStyle}" />
+                            <Border x:Name="gray" CornerRadius="3" SnapsToDevicePixels="true" Background="#333" Opacity="0"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="{StaticResource LightRedBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity" TargetName="darken" Value="0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="gray" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
