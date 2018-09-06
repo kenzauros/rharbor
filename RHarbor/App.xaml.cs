@@ -1,4 +1,6 @@
-﻿using System;
+﻿using kenzauros.RHarbor.Models;
+using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -13,6 +15,7 @@ namespace kenzauros.RHarbor
         public App()
         {
             InitializeUnhandledExceptionHandlers();
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppDbContext, kenzauros.RHarbor.Migrations.Configuration>());
             MyLogger.Log("Application starting...");
         }
 

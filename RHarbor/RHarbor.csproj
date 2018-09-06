@@ -155,9 +155,9 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\SecurePasswordBindingBehavior.cs" />
     <Compile Include="Behaviors\WindowCloseControlBehavior.cs" />
-    <Compile Include="Migrations\201808160737105_Initial.cs" />
-    <Compile Include="Migrations\201808160737105_Initial.Designer.cs">
-      <DependentUpon>201808160737105_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201809050658328_Initial.cs" />
+    <Compile Include="Migrations\201809050658328_Initial.Designer.cs">
+      <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
@@ -283,8 +283,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="rharbor.ico" />
-    <EmbeddedResource Include="Migrations\201808160737105_Initial.resx">
-      <DependentUpon>201808160737105_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809050658328_Initial.resx">
+      <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
