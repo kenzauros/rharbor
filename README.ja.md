@@ -16,7 +16,9 @@ SSH サーバーを経由しないリモートデスクトップ接続も管理�
 - Windows 7 以降
 - .NET Framework 4.6.1
 
-## インストール
+## ダウンロードとインストール
+
+[リリースページ](https://github.com/kenzauros/rharbor/releases) から zip ファイル (`RHarbor_vN.N.N.zip`) をダウンロードしてください。
 
 インストール作業は特にありません。ダウンロードした zip ファイルを適当なフォルダーに展開し、 RHarbor.exe を起動してください。
 
