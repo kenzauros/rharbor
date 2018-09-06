@@ -86,23 +86,30 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 var selectedItem = SelectedItem.Value;
                 var item = EditingItem.Value;
-                var result = await Save(item);
-                if (result) // ADDED
+                try
                 {
-                    Items.Add(item);
-                }
-                else // UPDATED
-                {
-                    var oldItem = Items.FirstOrDefault(x => x.Id == item.Id);
-                    if (oldItem != null)
+                    var result = await Save(item);
+                    if (result) // ADDED
                     {
-                        var index = Items.IndexOf(oldItem);
-                        if (index >= 0)
+                        Items.Add(item);
+                    }
+                    else // UPDATED
+                    {
+                        var oldItem = Items.FirstOrDefault(x => x.Id == item.Id);
+                        if (oldItem != null)
                         {
-                            Items.RemoveAt(index);
-                            Items.Insert(index, item);
+                            var index = Items.IndexOf(oldItem);
+                            if (index >= 0)
+                            {
+                                Items.RemoveAt(index);
+                                Items.Insert(index, item);
+                            }
                         }
                     }
+                }
+                catch (OperationCanceledException) // User manually canceled
+                {
+                    return;
                 }
                 SelectedItem.Value = item;
                 IsItemEditing.Value = false;
@@ -149,7 +156,7 @@ namespace kenzauros.RHarbor.ViewModels
         protected virtual async Task<bool> Save(T item)
         {
             var result = await MainWindow.ShowConfirmationDialog("Save the changes?", "Saving connection info");
-            if (!result) return false;
+            if (!result) throw new OperationCanceledException();
             try
             {
                 MyLogger.Log($"Saving {item.ToString()}...");
