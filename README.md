@@ -12,7 +12,9 @@ RHarbor can also manage Remote Desktop connections without SSH tunnel.
 - Windows 7 or later
 - .NET Framework 4.6.1
 
-## Install
+## Download and Install
+
+Download the zip file (`RHarbor_vN.N.N.zip`) from [Release Page](https://github.com/kenzauros/rharbor/releases).
 
 RHarbor needs no special installation. Please unzip the downloaded file into a suitable folder and just start RHarbor.exe.
 
