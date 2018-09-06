@@ -48,5 +48,12 @@ namespace kenzauros.RHarbor.ViewModels
                 EditingItem.Value.PortForwardingCollection.Remove(item);
             }).AddTo(Disposable);
         }
+
+        protected override async Task<bool> Save(SSHConnectionInfo item)
+        {
+            var result = await base.Save(item);
+            await SSHConnectionInfo.RefreshAll(MainWindow.DbContext);
+            return result;
+        }
     }
 }
