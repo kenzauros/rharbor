@@ -48,7 +48,7 @@ namespace kenzauros.RHarbor.Models
         private string _Settings = "";
 
         [ForeignKey("RequiredConnection")]
-        [Category("Other Settings"), PropertyOrder(2), DisplayName("Required Connection")]
+        [Category("Other"), PropertyOrder(2), DisplayName("Required Connection")]
         public long? RequiredConnectionId { get; set; }
 
         #region Relation Ships

@@ -13,7 +13,7 @@ namespace kenzauros.RHarbor.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808160737105_Initial"; }
+            get { return "201809050658328_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -5,9 +5,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Security;
+using System.Threading.Tasks;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
@@ -26,6 +28,14 @@ namespace kenzauros.RHarbor.Models
         #region Static
 
         public static IEnumerable<SSHConnectionInfo> All { get; set; }
+
+        public static async Task RefreshAll(AppDbContext db)
+        {
+            All = await db.SSHConnectionInfos
+                .Include("RequiredConnection")
+                .ToListAsync().ConfigureAwait(false);
+        }
+
         public static readonly SSHConnectionInfo Empty = new SSHConnectionInfo();
 
         #endregion

@@ -40,15 +40,13 @@ namespace kenzauros.RHarbor.ViewModels
         {
             IsLoading.Value = true;
             MyLogger.Log("Data loading...");
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                SSHConnectionInfo.All = DbContext.SSHConnectionInfos
-                    .Include("RequiredConnection")
-                    .ToList();
+                await SSHConnectionInfo.RefreshAll(DbContext);
                 DbContext.SSHConnectionInfos.ToList()
-                .ForEach(x => App.Current.Dispatcher.Invoke(() => SSHConnectionInfos.Items.Add(x)));
+                    .ForEach(x => App.Current.Dispatcher.Invoke(() => SSHConnectionInfos.Items.Add(x)));
                 DbContext.RDPConnectionInfos.ToList()
-                .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
+                    .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
                 DbContext.InitSecurePasswords();
             });
             MyLogger.Log("Data loaded.");
