@@ -12,12 +12,6 @@ namespace kenzauros.RHarbor.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        FullScreen = c.Boolean(nullable: false),
-                        DesktopWidth = c.Int(),
-                        DesktopHeight = c.Int(),
-                        Admin = c.Boolean(nullable: false),
-                        Settings = c.String(maxLength: 2147483647),
-                        RequiredConnectionId = c.Long(),
                         Name = c.String(nullable: false, maxLength: 2147483647),
                         Host = c.String(nullable: false, maxLength: 2147483647),
                         Port = c.Int(nullable: false),
@@ -25,6 +19,12 @@ namespace kenzauros.RHarbor.Migrations
                         SaveUsername = c.Boolean(nullable: false),
                         Password = c.String(maxLength: 2147483647),
                         SavePassword = c.Boolean(nullable: false),
+                        FullScreen = c.Boolean(nullable: false),
+                        DesktopWidth = c.Int(),
+                        DesktopHeight = c.Int(),
+                        Admin = c.Boolean(nullable: false),
+                        Settings = c.String(maxLength: 2147483647),
+                        RequiredConnectionId = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ssh_connection_infos", t => t.RequiredConnectionId)
@@ -36,12 +36,6 @@ namespace kenzauros.RHarbor.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        PrivateKeyFilePath = c.String(maxLength: 2147483647),
-                        ExpectedFingerPrint = c.String(maxLength: 2147483647),
-                        KeepAliveEnabled = c.Boolean(nullable: false),
-                        KeepAliveInterval = c.Int(nullable: false),
-                        RequiredConnectionId = c.Long(),
-                        PortForwardings = c.String(maxLength: 2147483647),
                         Name = c.String(nullable: false, maxLength: 2147483647),
                         Host = c.String(nullable: false, maxLength: 2147483647),
                         Port = c.Int(nullable: false),
@@ -49,6 +43,12 @@ namespace kenzauros.RHarbor.Migrations
                         SaveUsername = c.Boolean(nullable: false),
                         Password = c.String(maxLength: 2147483647),
                         SavePassword = c.Boolean(nullable: false),
+                        PrivateKeyFilePath = c.String(maxLength: 2147483647),
+                        ExpectedFingerPrint = c.String(maxLength: 2147483647),
+                        KeepAliveEnabled = c.Boolean(nullable: false),
+                        KeepAliveInterval = c.Int(nullable: false),
+                        RequiredConnectionId = c.Long(),
+                        PortForwardings = c.String(maxLength: 2147483647),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ssh_connection_infos", t => t.RequiredConnectionId)
