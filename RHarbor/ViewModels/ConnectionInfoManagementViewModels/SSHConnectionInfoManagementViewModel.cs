@@ -49,7 +49,7 @@ namespace kenzauros.RHarbor.ViewModels
             }).AddTo(Disposable);
         }
 
-        protected override async Task<bool> Save(SSHConnectionInfo item)
+        protected override async Task<(bool result, SSHConnectionInfo record)> Save(SSHConnectionInfo item)
         {
             var result = await base.Save(item);
             await SSHConnectionInfo.RefreshAll(MainWindow.DbContext);

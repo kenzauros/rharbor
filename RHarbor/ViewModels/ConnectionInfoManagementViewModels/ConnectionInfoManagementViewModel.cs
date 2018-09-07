@@ -88,7 +88,9 @@ namespace kenzauros.RHarbor.ViewModels
                 var item = EditingItem.Value;
                 try
                 {
-                    var result = await Save(item);
+                    var (result, resultItem) = await Save(item);
+                    if (resultItem == null) return; // FAILED
+                    item = resultItem; // Replace with the saved item
                     if (result) // ADDED
                     {
                         Items.Add(item);
@@ -153,7 +155,7 @@ namespace kenzauros.RHarbor.ViewModels
             }
         }
 
-        protected virtual async Task<bool> Save(T item)
+        protected virtual async Task<(bool result, T record)> Save(T item)
         {
             var result = await MainWindow.ShowConfirmationDialog("Save the changes?", "Saving connection info");
             if (!result) throw new OperationCanceledException();
@@ -170,13 +172,13 @@ namespace kenzauros.RHarbor.ViewModels
                 }
                 currentItem.RewriteWith(item);
                 await MainWindow.DbContext.SaveChangesAsync();
-                return res;
+                return (res, currentItem);
             }
             catch (Exception ex)
             {
                 MyLogger.Log($"Failed to save {item.ToString()}.", ex);
                 await MainWindow.ShowMessageDialog(ex.Message, "Saving connection info");
-                return false;
+                return (false, null);
             }
         }
 
