@@ -43,7 +43,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 throw new FileNotFoundException("Private key file does not exist.", info.PrivateKeyFilePath);
             }
-            if (createRegisteredForwardedPorts)
+            if (createRegisteredForwardedPorts && info.PortForwardingCollection != null)
             {
                 CreateForwardedPorts(info.PortForwardingCollection);
             }

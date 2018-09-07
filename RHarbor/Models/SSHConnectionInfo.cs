@@ -89,7 +89,11 @@ namespace kenzauros.RHarbor.Models
         [RewriteableIgnore]
         [Browsable(false)]
         [NotMapped]
-        public ObservableCollection<PortForwarding> PortForwardingCollection { get { return _PortForwardingCollection; } set { SetProp(ref _PortForwardingCollection, value); } }
+        public ObservableCollection<PortForwarding> PortForwardingCollection
+        {
+            get { return _PortForwardingCollection ?? (_PortForwardingCollection = new ObservableCollection<PortForwarding>()); }
+            set { SetProp(ref _PortForwardingCollection, value); }
+        }
         private ObservableCollection<PortForwarding> _PortForwardingCollection;
 
         #region Relation Ships
