@@ -43,6 +43,7 @@ namespace kenzauros.RHarbor.ViewModels
                 {
                     ForwardedPort.Start();
                 });
+                SetDisplayText();
                 IsConnected.Value = true;
             }
         }
