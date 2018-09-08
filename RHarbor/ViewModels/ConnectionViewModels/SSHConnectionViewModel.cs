@@ -325,11 +325,6 @@ namespace kenzauros.RHarbor.ViewModels
         /// <returns></returns>
         public override async Task Disconnect()
         {
-            if (RequiredConnection != null)
-            {
-                await RequiredConnection.Disconnect();
-                Children.Remove(RequiredConnection);
-            }
             if (SshClient != null)
             {
                 this.WriteLog("Disconnecting...");
@@ -363,6 +358,11 @@ namespace kenzauros.RHarbor.ViewModels
                 {
                     this.WriteLog("Failed to disconnect or dispose.", ex);
                 }
+            }
+            if (RequiredConnection != null)
+            {
+                await RequiredConnection.Disconnect();
+                Children.Remove(RequiredConnection);
             }
             IsConnecting.Value = false;
             IsConnected.Value = false;

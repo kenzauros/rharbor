@@ -77,14 +77,14 @@ namespace kenzauros.RHarbor.ViewModels
         public override async Task Disconnect()
         {
             this.WriteLog("Disconnecting...");
+            if (RDPClient?.IsOpened == true)
+            {
+                await RDPClient.Close();
+            }
             if (RequiredConnection != null)
             {
                 await RequiredConnection.Disconnect();
                 Children.Remove(RequiredConnection);
-            }
-            if (RDPClient?.IsOpened == true)
-            {
-                await RDPClient.Close();
             }
             this.WriteLog("Disconnected.");
             IsConnecting.Value = false;
