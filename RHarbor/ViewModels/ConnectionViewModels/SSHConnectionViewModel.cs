@@ -141,13 +141,13 @@ namespace kenzauros.RHarbor.ViewModels
             if (string.IsNullOrWhiteSpace(ConnectionInfo.PrivateKeyFilePath))
             {
                 // Password Auth
-                var auth = new PasswordAuthenticationMethod(username, password.GetPlainString());
+                var auth = new PasswordAuthenticationMethod(username, password?.GetPlainString() ?? "");
                 authMethods.Add(auth);
             }
             else
             {
                 // Private key auth
-                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password.GetPlainString());
+                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password?.GetPlainString() ?? "");
                 var auth = new PrivateKeyAuthenticationMethod(username, pkeyfile);
                 authMethods.Add(auth);
             }
