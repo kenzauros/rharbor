@@ -167,7 +167,7 @@ namespace kenzauros.RHarbor.ViewModels
             var password = ConnectionInfo.SecurePassword;
             var savePassword = ConnectionInfo.SavePassword;
             bool passwordChanged = false;
-            if (forceInput || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password?.GetPlainString()))
+            if (forceInput || username == null || password?.GetPlainString() == null)
             {
                 bool result;
                 (result, username, password, savePassword) = await MainWindow.ShowAuthenticationDialog(

@@ -34,7 +34,7 @@ namespace kenzauros.RHarbor.MvvmDialog
                 SavePassword = savePassword,
             };
             var result = await host.ShowDialog(vm);
-            return (result, vm.Username, vm.Password, vm.SavePassword);
+            return (result, vm.Username, vm.Password ?? new SecureString(), vm.SavePassword);
         }
     }
 }
