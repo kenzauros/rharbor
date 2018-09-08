@@ -7,6 +7,7 @@
         xmlns:behaviors="clr-namespace:kenzauros.RHarbor.Behaviors"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="180"
+        MaxWidth="480" MaxHeight="480"
         Title="{Binding Title}" WindowStyle="ToolWindow">
     <Window.Resources>
         <ResourceDictionary>
@@ -28,7 +29,8 @@
                 </WrapPanel>
             </Grid>
             <Grid Margin="0,0,0,8" DockPanel.Dock="Top">
-                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"/>
+                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             </Grid>
             <Grid Margin="0,0,0,8" Height="72">
                 <Grid>

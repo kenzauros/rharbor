@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="180"
+        MaxWidth="480" MaxHeight="480"
         Title="{Binding Title}" WindowStyle="ToolWindow">
     <Window.Resources>
         <ResourceDictionary>
@@ -25,7 +26,8 @@
                 </WrapPanel>
             </Grid>
             <Grid Margin="0,0,0,8">
-                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"/>
+                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             </Grid>
         </DockPanel>
     </Grid>
