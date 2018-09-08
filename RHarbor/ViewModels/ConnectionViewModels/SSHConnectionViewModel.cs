@@ -1,6 +1,5 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
-using Reactive.Bindings;
 using Renci.SshNet;
 using Renci.SshNet.Common;
 using System;
@@ -260,20 +259,14 @@ namespace kenzauros.RHarbor.ViewModels
             IsConnecting.Value = true;
             IsConnected.Value = false;
             this.WriteLog($"Connecting...");
-            // Establish the required connections.
-            if (RequiredConnection != null)
-            {
-                this.WriteLog($"Connection \"{RequiredConnection.ToString()}\" Required.");
-                await RequiredConnection.Connect();
-            }
-            // Try to establish this connection until connected.
+            await EstablishRequiredConnection();
             string username;
             SecureString password;
             bool savePassword;
             bool passwordChanged;
             bool forceInput = false;
             string additionalMessage = "";
-            while (true)
+            while (true) // Try to establish this connection until connected.
             {
                 (username, password, savePassword, passwordChanged)
                     = await GetUsernameAndPassword(
@@ -359,11 +352,7 @@ namespace kenzauros.RHarbor.ViewModels
                     this.WriteLog("Failed to disconnect or dispose.", ex);
                 }
             }
-            if (RequiredConnection != null)
-            {
-                await RequiredConnection.Disconnect();
-                Children.Remove(RequiredConnection);
-            }
+            await DisconnectRequiredConnection();
             IsConnecting.Value = false;
             IsConnected.Value = false;
         }

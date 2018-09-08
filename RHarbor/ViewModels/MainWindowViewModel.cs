@@ -40,7 +40,8 @@ namespace kenzauros.RHarbor.ViewModels
         {
             IsLoading.Value = true;
             MyLogger.Log("Data loading...");
-            await Task.Run(async () =>
+            var cacheLoading = PortNumberCache.Load();
+            var dbLoading = Task.Run(async () =>
             {
                 await SSHConnectionInfo.RefreshAll(DbContext);
                 DbContext.SSHConnectionInfos.ToList()
@@ -48,6 +49,11 @@ namespace kenzauros.RHarbor.ViewModels
                 DbContext.RDPConnectionInfos.ToList()
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
                 DbContext.InitSecurePasswords();
+            });
+            await Task.WhenAll(new[]
+            {
+                cacheLoading,
+                dbLoading,
             });
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
@@ -61,11 +67,12 @@ namespace kenzauros.RHarbor.ViewModels
 
         #region IDisposable
 
-        public override void Dispose()
+        public override async void Dispose()
         {
             SSHConnectionInfos.Dispose();
             Connections.Dispose();
             DbContext.Dispose();
+            await PortNumberCache.Save();
             base.Dispose();
         }
 

@@ -5,6 +5,7 @@ using Renci.SshNet;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.ViewModels
 {
@@ -74,16 +75,22 @@ namespace kenzauros.RHarbor.ViewModels
 
         protected SSHConnectionViewModel RequiredConnection { get; set; }
 
-        protected void PrepareRequiredConnection(SSHConnectionInfo info)
+        protected void PrepareRequiredConnection(SSHConnectionInfo requiredConnectionInfo)
         {
-            if (info == null) return;
+            if (requiredConnectionInfo == null) return;
             var additionalPF = new PortForwarding
             {
                 Type = "Local",
                 RemoteHost = ConnectionInfo.Host,
                 RemotePort = ConnectionInfo.Port,
             };
-            var conn = new SSHConnectionViewModel(info, false, additionalPF)
+            // Try to re-use recently used port.
+            var recentlyUsedPort = ConnectionInfo.GetAvailableCachedPort();
+            if (recentlyUsedPort > 0)
+            {
+                additionalPF.LocalPort = recentlyUsedPort;
+            }
+            var conn = new SSHConnectionViewModel(requiredConnectionInfo, false, additionalPF)
             {
                 Parent = this
             };
@@ -106,6 +113,29 @@ namespace kenzauros.RHarbor.ViewModels
                 return (pf.BoundHost, (int)pf.BoundPort);
             }
             return (host, port);
+        }
+
+        /// <summary>
+        /// Establish the required connections if needed.
+        /// </summary>
+        /// <returns></returns>
+        protected async Task EstablishRequiredConnection()
+        {
+            if (RequiredConnection == null) return;
+            this.WriteLog($"Connection \"{RequiredConnection.ToString()}\" Required.");
+            await RequiredConnection.Connect();
+            ConnectionInfo.AddPortCache(GetActualEndPoint().port); // Cache the current forwarding port number
+        }
+
+        /// <summary>
+        /// Disconnect the required connections if needed.
+        /// </summary>
+        /// <returns></returns>
+        protected async Task DisconnectRequiredConnection()
+        {
+            if (RequiredConnection == null) return;
+            await RequiredConnection.Disconnect();
+            Children.Remove(RequiredConnection);
         }
 
         #endregion

@@ -173,6 +173,7 @@
     <Compile Include="Utilities\MD5.cs" />
     <Compile Include="Utilities\MyLogger.cs" />
     <Compile Include="Utilities\PathUtil.cs" />
+    <Compile Include="Utilities\PortNumberCache.cs" />
     <Compile Include="Utilities\SecureStringEx.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\ConnectionViewModel%28T%29.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />
