@@ -161,7 +161,7 @@ namespace kenzauros.RHarbor.ViewModels
             return new ConnectionInfo(host, port, username, authMethods);
         }
 
-        private async Task<(string username, SecureString password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput)
+        private async Task<(string username, SecureString password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput, string message = null)
         {
             var username = ConnectionInfo.Username;
             var password = ConnectionInfo.SecurePassword;
@@ -172,7 +172,8 @@ namespace kenzauros.RHarbor.ViewModels
                 bool result;
                 (result, username, password, savePassword) = await MainWindow.ShowAuthenticationDialog(
                     username: username,
-                    savePassword: savePassword
+                    savePassword: savePassword,
+                    message: message
                     );
                 // User cancel
                 if (!result) throw new OperationCanceledException();
@@ -181,7 +182,7 @@ namespace kenzauros.RHarbor.ViewModels
             return (username, password, savePassword, passwordChanged);
         }
 
-        private async Task<bool> TryEstablishConnection(string username, SecureString password)
+        private async Task TryEstablishConnection(string username, SecureString password)
         {
             var client = new SshClient(CreateSshConnectionInfo(username, password))
             {
@@ -220,25 +221,16 @@ namespace kenzauros.RHarbor.ViewModels
                     }
                 });
             }
-            try
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    client.HostKeyReceived += hostKeyEventHandler;
-                    this.WriteLog("Connecting...");
-                    client.Connect();
-                    ev.Wait(); // Wait for checking out the finger print
-                    this.WriteLog("Connected...");
-                    client.HostKeyReceived -= hostKeyEventHandler;
-                });
-                SshClient = client;
-            }
-            catch (Exception ex)
-            {
-                MyLogger.Log("Connection Failed.", ex);
-                return false;
-            }
-            return true;
+                client.HostKeyReceived += hostKeyEventHandler;
+                this.WriteLog("Connecting...");
+                client.Connect();
+                ev.Wait(); // Wait for checking out the finger print
+                this.WriteLog("Connected...");
+                client.HostKeyReceived -= hostKeyEventHandler;
+            });
+            SshClient = client;
         }
 
         private async Task EstablishForwardedPorts()
@@ -280,21 +272,36 @@ namespace kenzauros.RHarbor.ViewModels
             bool savePassword;
             bool passwordChanged;
             bool forceInput = false;
+            string additionalMessage = "";
             while (true)
             {
-                (username, password, savePassword, passwordChanged) = await GetUsernameAndPassword(forceInput);
-                if (await TryEstablishConnection(username, password))
+                (username, password, savePassword, passwordChanged)
+                    = await GetUsernameAndPassword(
+                        forceInput,
+                        $"Connecting to \"{ToString()}\"...\n{additionalMessage}");
+                additionalMessage = "";
+                try
                 {
-                    if (passwordChanged)
-                    {
-                        await MainWindow.DbContext.SavePassword(ConnectionInfo, savePassword, password);
-                        this.WriteLog($"Password Saved.");
-                    }
-                    break; // Connection established.
+                    await TryEstablishConnection(username, password);
                 }
-                forceInput = true; // Force showing auth dialog.
+                catch (SshAuthenticationException ex) // Authentication Failed.
+                {
+                    // Reauth
+                    additionalMessage = $"{ex.Message}";
+                    forceInput = true; // Force showing auth dialog.
+                    continue;
+                }
+                catch (Exception) // Other exception.
+                {
+                    throw;
+                }
+                if (passwordChanged)
+                {
+                    await MainWindow.DbContext.SavePassword(ConnectionInfo, savePassword, password);
+                    this.WriteLog($"Password Saved.");
+                }
+                break; // Connection established.
             }
-
             if (SshClient.IsConnected)
             {
                 this.WriteLog("Connection Established.");
