@@ -1,11 +1,11 @@
 RHarbor - Remote Desktop via SSH Servers
 =====
 
+- [English](index.md)
+
 RHarbor は **SSH を経由したリモートデスクトップ接続** のサポートツールです。
 
 また、複数の SSH を経由する **多段 SSH 越しのポートフォワード機能** も備えています。
-
-- [English](index.md)
 
 ## 説明
 

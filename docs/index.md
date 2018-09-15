@@ -1,9 +1,9 @@
 RHarbor - Remote Desktop via SSH Servers
 =====
 
-RHarbor helps you to connect to Windows by Remote Desktop (RDP) via multi-hop SSH tunnel.
-
 - [日本語](index.ja.md)
+
+RHarbor helps you to connect to Windows by Remote Desktop (RDP) via multi-hop SSH tunnel.
 
 ## Description
 
