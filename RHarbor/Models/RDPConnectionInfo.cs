@@ -145,9 +145,9 @@ kdcproxyname:s:
         [IgnoreDataMember]
         [RewriteableIgnore]
         [Category("Screen"), PropertyOrder(2), DisplayName("Desktop Size")]
-        public DesktopResulution DesktopResulution
+        public DesktopResolution DesktopResulution
         {
-            get => DesktopResulution.Find(DesktopWidth ?? 0, DesktopHeight ?? 0);
+            get => DesktopResolution.Find(DesktopWidth ?? 0, DesktopHeight ?? 0);
             set
             {
                 if (value != null)

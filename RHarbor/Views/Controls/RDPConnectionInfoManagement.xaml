@@ -135,7 +135,7 @@
                                     <DataTemplate>
                                         <ComboBox BorderThickness="0"
                                                   IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  ItemsSource="{x:Static local:DesktopResulution.List}"
+                                                  ItemsSource="{x:Static local:DesktopResolution.List}"
                                                   SelectedValue="{Binding Value}"/>
                                     </DataTemplate>
                                 </xctk:EditorTemplateDefinition.EditingTemplate>

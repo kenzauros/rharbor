@@ -1,20 +1,32 @@
 ﻿using kenzauros.RHarbor.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor
 {
+    /// <summary>
+    /// DB file backup utility
+    /// </summary>
     internal class DbBackup
     {
+        /// <summary>
+        /// File extension of db files
+        /// </summary>
         public const string DB_FILE_EXTENSION = ".db";
 
+        /// <summary>
+        /// Target directory path in which backup files are saved.
+        /// </summary>
         public static string BackupDirectory =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), App.AssemblyName, "DbBackup");
 
+        /// <summary>
+        /// Get a hash of the latest backup file in <see cref="BackupDirectory"/>.
+        /// Returns null if no directory or no files found.
+        /// </summary>
+        /// <returns></returns>
         private static async Task<string> GetLatestBackupFileHash()
         {
             if (!Directory.Exists(BackupDirectory)) return null;
@@ -32,6 +44,10 @@ namespace kenzauros.RHarbor
             });
         }
 
+        /// <summary>
+        /// Backup the current DB file to <see cref="BackupDirectory"/> if modified.
+        /// </summary>
+        /// <returns></returns>
         public static async Task Execute()
         {
             var latestHash = await GetLatestBackupFileHash();
