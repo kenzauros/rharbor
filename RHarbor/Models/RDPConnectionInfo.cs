@@ -30,12 +30,12 @@ namespace kenzauros.RHarbor.Models
         public bool FullScreen { get { return _FullScreen; } set { SetProp(ref _FullScreen, value); } }
         private bool _FullScreen = false;
 
-        [Category("Screen"), PropertyOrder(2), DisplayName("Desktop Width"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int? DesktopWidth { get { return _DesktopWidth; } set { SetProp(ref _DesktopWidth, value); } }
+        [Category("Screen"), PropertyOrder(3), DisplayName("Desktop Width"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        public int? DesktopWidth { get { return _DesktopWidth; } set { SetProp(ref _DesktopWidth, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopWidth;
 
-        [Category("Screen"), PropertyOrder(3), DisplayName("Desktop Height"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int? DesktopHeight { get { return _DesktopHeight; } set { SetProp(ref _DesktopHeight, value); } }
+        [Category("Screen"), PropertyOrder(4), DisplayName("Desktop Height"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        public int? DesktopHeight { get { return _DesktopHeight; } set { SetProp(ref _DesktopHeight, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopHeight;
 
         [Required]
@@ -139,5 +139,25 @@ kdcproxyname:s:
 
         #endregion
 
+        #region Desktop resolution suggestion
+
+        [NotMapped]
+        [IgnoreDataMember]
+        [RewriteableIgnore]
+        [Category("Screen"), PropertyOrder(2), DisplayName("Desktop Size")]
+        public DesktopResulution DesktopResulution
+        {
+            get => DesktopResulution.Find(DesktopWidth ?? 0, DesktopHeight ?? 0);
+            set
+            {
+                if (value != null)
+                {
+                    DesktopWidth = value.Width;
+                    DesktopHeight = value.Height;
+                }
+            }
+        }
+
+        #endregion
     }
 }

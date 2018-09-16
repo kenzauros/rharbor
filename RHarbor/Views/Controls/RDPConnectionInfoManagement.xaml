@@ -130,6 +130,16 @@
                                     </DataTemplate>
                                 </xctk:EditorTemplateDefinition.EditingTemplate>
                             </xctk:EditorTemplateDefinition>
+                            <xctk:EditorTemplateDefinition TargetProperties="DesktopResulution">
+                                <xctk:EditorTemplateDefinition.EditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox BorderThickness="0"
+                                                  IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
+                                                  ItemsSource="{x:Static local:DesktopResulution.List}"
+                                                  SelectedValue="{Binding Value}"/>
+                                    </DataTemplate>
+                                </xctk:EditorTemplateDefinition.EditingTemplate>
+                            </xctk:EditorTemplateDefinition>
                         </xctk:PropertyGrid.EditorDefinitions>
                     </xctk:PropertyGrid>
                     <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
