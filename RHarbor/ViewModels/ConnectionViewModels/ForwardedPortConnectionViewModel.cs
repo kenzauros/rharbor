@@ -21,10 +21,10 @@ namespace kenzauros.RHarbor.ViewModels
                 switch (fp_)
                 {
                     case ForwardedPortLocal fp:
-                        endpoints = $"{fp.BoundHost}:{fp.BoundPort} → {fp.Host}:{fp.Port}";
+                        endpoints = $"{fp.BoundHost}:{fp.BoundPort} => {fp.Host}:{fp.Port}";
                         break;
                     case ForwardedPortRemote fp:
-                        endpoints = $"{fp.BoundHost}:{fp.BoundPort} → {fp.Host}:{fp.Port}";
+                        endpoints = $"{fp.BoundHost}:{fp.BoundPort} => {fp.Host}:{fp.Port}";
                         break;
                     case ForwardedPortDynamic fp:
                         endpoints = $"{fp.BoundHost}:{fp.BoundPort}";
