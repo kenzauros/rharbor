@@ -11,6 +11,7 @@ namespace kenzauros.RHarbor
     /// </summary>
     public partial class App : Application
     {
+        public static string AssemblyName => System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
         public App()
         {

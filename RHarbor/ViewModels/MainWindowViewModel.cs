@@ -25,7 +25,7 @@ namespace kenzauros.RHarbor.ViewModels
         public SSHConnectionInfoManagementViewModel SSHConnectionInfos { get; set; } = new SSHConnectionInfoManagementViewModel();
         public RDPConnectionInfoManagementViewModel RDPConnectionInfos { get; set; } = new RDPConnectionInfoManagementViewModel();
         public ConnectionManagementViewModel Connections { get; set; } = new ConnectionManagementViewModel();
-        public AppDbContext DbContext { get; } = new AppDbContext();
+        public AppDbContext DbContext { get; private set; }
 
         public MainWindowViewModel()
         {
@@ -39,7 +39,16 @@ namespace kenzauros.RHarbor.ViewModels
         public async Task Load()
         {
             IsLoading.Value = true;
+            try
+            {
+                await DbBackup.Execute();
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Log("Exception occured on DB backup.", ex);
+            }
             MyLogger.Log("Data loading...");
+            DbContext = new AppDbContext();
             var cacheLoading = PortNumberCache.Load();
             var dbLoading = Task.Run(async () =>
             {

@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="RDP\RDPClient.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
+    <Compile Include="Utilities\DbBackup.cs" />
     <Compile Include="Utilities\DesktopResulution.cs" />
     <Compile Include="Utilities\MD5.cs" />
     <Compile Include="Utilities\MyLogger.cs" />

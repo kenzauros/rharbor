@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Text;
 
 namespace kenzauros.RHarbor
 {
@@ -21,6 +23,16 @@ namespace kenzauros.RHarbor
                 result.Append(b.ToString("x2"));
             }
             return result.ToString();
+        }
+
+        public static string GetFileMD5Hash(string filepath)
+        {
+            using (var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
+            using (var crypt = new System.Security.Cryptography.MD5CryptoServiceProvider())
+            {
+                var hashedBytes = crypt.ComputeHash(fs);
+                return BitConverter.ToString(hashedBytes).ToLower();
+            }
         }
     }
 }
