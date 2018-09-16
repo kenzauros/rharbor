@@ -14,7 +14,7 @@ namespace kenzauros.RHarbor.Models
     {
         [PropertyOrder(1), DisplayName("Type")]
         public string Type { get { return _Type; } set { SetProp(ref _Type, value); } }
-        private string _Type;
+        private string _Type = "Local";
 
         [PropertyOrder(2), DisplayName("Local Host")]
         public string LocalHost { get { return _LocalHost; } set { SetProp(ref _LocalHost, value); } }
@@ -32,5 +32,8 @@ namespace kenzauros.RHarbor.Models
         public int? RemotePort { get { return _RemotePort; } set { SetProp(ref _RemotePort, value); } }
         private int? _RemotePort;
 
+        [PropertyOrder(0), DisplayName("Name")]
+        public string Name { get { return _Name; } set { SetProp(ref _Name, value); } }
+        private string _Name;
     }
 }

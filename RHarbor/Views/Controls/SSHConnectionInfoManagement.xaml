@@ -186,6 +186,7 @@
                                         </DataTemplate>
                                     </xcdg:Column.CellContentTemplate>
                                 </xcdg:Column>
+                                <xcdg:Column FieldName="Name" Title="Name" Width="100"/>
                                 <xcdg:Column FieldName="Type" Title="Type" Width="100">
                                     <xcdg:Column.CellEditor>
                                         <xcdg:CellEditor>

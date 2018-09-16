@@ -73,7 +73,7 @@ namespace kenzauros.RHarbor.ViewModels
         {
             foreach (var pf in portForwardings)
             {
-                Children.Add(new ForwardedPortConnectionViewModel(CreateForwardedPort(pf)));
+                Children.Add(new ForwardedPortConnectionViewModel(CreateForwardedPort(pf), pf.Name));
             }
         }
 
@@ -238,7 +238,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 try
                 {
-                    SshClient.AddForwardedPort(fp.ForwardedPort);
+                    SshClient.AddForwardedPort(fp.ForwardedPort.Value);
                     await fp.Connect();
                     this.WriteLog($"Port Forwarding Established ({fp.ToString()}).");
                 }

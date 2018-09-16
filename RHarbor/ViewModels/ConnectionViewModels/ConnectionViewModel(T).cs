@@ -107,7 +107,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 // Use required connection's port forwarding
                 var pf = RequiredConnection.ForwardedPorts
-                    .Select(x => x.ForwardedPort as ForwardedPortLocal)
+                    .Select(x => x.ForwardedPort.Value as ForwardedPortLocal)
                     .FirstOrDefault(x => x?.IsStarted == true && x.Host == ConnectionInfo.Host)
                     ?? throw new Exception($"Port forwarding for {ConnectionInfo.Host} has not be established.");
                 return (pf.BoundHost, (int)pf.BoundPort);
