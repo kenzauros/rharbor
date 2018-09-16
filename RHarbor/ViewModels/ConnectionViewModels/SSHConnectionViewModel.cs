@@ -202,22 +202,19 @@ namespace kenzauros.RHarbor.ViewModels
                 }
                 App.Current.Dispatcher.Invoke(async () =>
                 {
-                    var truested = await MainWindow.ShowConfirmationDialog(
+                    e.CanTrust = await MainWindow.ShowConfirmationDialog(
                         $"Please check the finger print of the SSH Server.\n{fingerprint}", "SSH FingerPrint");
-                    if (truested)
+                    if (e.CanTrust)
                     {
-                        e.CanTrust = true;
                         // Save fingerprint
                         await MainWindow.DbContext.UpdateSSHFingerPrint(ConnectionInfo, fingerprint);
                         this.WriteLog("Finger Print Mathed and Successfully Saved.");
-                        ev.Set();
                     }
                     else
                     {
-                        e.CanTrust = false;
                         this.WriteLog("Finger Print Rejected.");
-                        ev.Set();
                     }
+                    ev.Set();
                 });
             }
             await Task.Run(() =>
