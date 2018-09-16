@@ -27,24 +27,24 @@ namespace kenzauros.RHarbor.Models
 
         [Required]
         [Category("Screen"), PropertyOrder(1)]
-        public bool FullScreen { get { return _FullScreen; } set { SetProp(ref _FullScreen, value); } }
+        public bool FullScreen { get => _FullScreen; set => SetProp(ref _FullScreen, value); }
         private bool _FullScreen = false;
 
         [Category("Screen"), PropertyOrder(3), DisplayName("Desktop Width"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int? DesktopWidth { get { return _DesktopWidth; } set { SetProp(ref _DesktopWidth, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
+        public int? DesktopWidth { get => _DesktopWidth; set { SetProp(ref _DesktopWidth, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopWidth;
 
         [Category("Screen"), PropertyOrder(4), DisplayName("Desktop Height"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int? DesktopHeight { get { return _DesktopHeight; } set { SetProp(ref _DesktopHeight, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
+        public int? DesktopHeight { get => _DesktopHeight; set { SetProp(ref _DesktopHeight, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopHeight;
 
         [Required]
         [Category("Other"), PropertyOrder(1), DisplayName("Admin mode")]
-        public bool Admin { get { return _Admin; } set { SetProp(ref _Admin, value); } }
+        public bool Admin { get => _Admin; set => SetProp(ref _Admin, value); }
         private bool _Admin = false;
 
         [Browsable(false)]
-        public string Settings { get { return _Settings; } set { SetProp(ref _Settings, value); } }
+        public string Settings { get => _Settings; set => SetProp(ref _Settings, value); }
         private string _Settings = "";
 
         [ForeignKey("RequiredConnection")]
@@ -55,7 +55,7 @@ namespace kenzauros.RHarbor.Models
 
         [RewriteableIgnore]
         [Browsable(false)]
-        public virtual SSHConnectionInfo RequiredConnection { get { return _RequiredConnection; } set { SetProp(ref _RequiredConnection, (value == SSHConnectionInfo.Empty) ? null : value); } }
+        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, (value == SSHConnectionInfo.Empty) ? null : value); } }
         [NonSerialized]
         private SSHConnectionInfo _RequiredConnection;
 

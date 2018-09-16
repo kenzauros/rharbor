@@ -17,42 +17,42 @@ namespace kenzauros.RHarbor.Models
 
         [Key]
         [Browsable(false)]
-        public long Id { get { return _Id; } set { SetProp(ref _Id, value); } }
+        public long Id { get => _Id; set => SetProp(ref _Id, value); }
         private long _Id;
 
         [Required]
         [Category("General"), PropertyOrder(1), DisplayName("Connection Name")]
-        public string Name { get { return _Name; } set { SetProp(ref _Name, value); } }
+        public string Name { get => _Name; set => SetProp(ref _Name, value); }
         private string _Name;
 
         [Required]
         [Category("Remote"), PropertyOrder(1)]
-        public string Host { get { return _Host; } set { SetProp(ref _Host, value); } }
+        public string Host { get => _Host; set => SetProp(ref _Host, value); }
         private string _Host;
 
         [Required]
         [Category("Remote"), PropertyOrder(2), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int Port { get { return _Port; } set { SetProp(ref _Port, value); } }
+        public int Port { get => _Port; set => SetProp(ref _Port, value); }
         private int _Port = 3389;
 
         [Category("Authentication"), PropertyOrder(1)]
-        public string Username { get { return _Username; } set { SetProp(ref _Username, value); } }
+        public string Username { get => _Username; set => SetProp(ref _Username, value); }
         private string _Username;
 
         [Required]
         [Browsable(false)]
-        public bool SaveUsername { get { return _SaveUsername; } set { SetProp(ref _SaveUsername, value); } }
+        public bool SaveUsername { get => _SaveUsername; set => SetProp(ref _SaveUsername, value); }
         private bool _SaveUsername = true;
 
         [Browsable(false)]
-        public string Password { get { return _Password; } set { SetProp(ref _Password, value); } }
+        public string Password { get => _Password; set => SetProp(ref _Password, value); }
         private string _Password;
 
         [Required]
         [Browsable(false)]
         public bool SavePassword
         {
-            get { return _SavePassword; }
+            get => _SavePassword;
             set { if (SetProp(ref _SavePassword, value)) { RaisePropertyChanged(nameof(DisplayPassword)); } }
         }
         private bool _SavePassword = false;
@@ -64,7 +64,7 @@ namespace kenzauros.RHarbor.Models
         [Category("Authentication"), PropertyOrder(2), DisplayName("Password")]
         public SecureString SecurePassword
         {
-            get { return _SecurePassword; }
+            get => _SecurePassword;
             set
             {
                 if (SetProp(ref _SecurePassword, value))
