@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Security;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
@@ -60,6 +61,14 @@ namespace kenzauros.RHarbor.Models
         private SSHConnectionInfo _RequiredConnection;
 
         #endregion
+
+        /// <summary>
+        /// The override is to hide the password input since the authentication should be delegated to RDP itself.
+        /// </summary>
+        [IgnoreDataMember]
+        [NotMapped]
+        [Browsable(false)]
+        public override SecureString SecurePassword { get => base.SecurePassword; set => base.SecurePassword = value; }
 
         #region Save as file
 

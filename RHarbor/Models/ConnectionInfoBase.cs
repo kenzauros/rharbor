@@ -62,7 +62,7 @@ namespace kenzauros.RHarbor.Models
         [IgnoreDataMember]
         [NotMapped]
         [Category("Authentication"), PropertyOrder(2), DisplayName("Password")]
-        public SecureString SecurePassword
+        public virtual SecureString SecurePassword
         {
             get => _SecurePassword;
             set
