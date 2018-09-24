@@ -1,5 +1,6 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
+using kenzauros.RHarbor.Properties;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -134,7 +135,9 @@ namespace kenzauros.RHarbor.ViewModels
 
         protected virtual async Task<bool> Remove(T item)
         {
-            var result = await MainWindow.ShowConfirmationDialog($"Are you sure you want to remove \"{item.ToString()}\"?\nThis operation cannot be canceled.", "Removing connection info");
+            var result = await MainWindow.ShowConfirmationDialog(
+                string.Format(Resources.ConnectionInfo_Dialog_Remove_Message, item.ToString()),
+                Resources.ConnectionInfo_Dialog_Remove_Title);
             if (!result) return false;
             try
             {
@@ -150,14 +153,18 @@ namespace kenzauros.RHarbor.ViewModels
             catch (Exception ex)
             {
                 MyLogger.Log($"Failed to remove {item.ToString()}.", ex);
-                await MainWindow.ShowMessageDialog(ex.Message, "Removing connection info");
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Remove_Error, item.ToString(), ex.Message),
+                    Resources.ConnectionInfo_Dialog_Remove_Title);
                 return false;
             }
         }
 
         protected virtual async Task<(bool result, T record)> Save(T item)
         {
-            var result = await MainWindow.ShowConfirmationDialog("Save the changes?", "Saving connection info");
+            var result = await MainWindow.ShowConfirmationDialog(
+                string.Format(Resources.ConnectionInfo_Dialog_Save_Message, item.ToString()),
+                Resources.ConnectionInfo_Dialog_Save_Title);
             if (!result) throw new OperationCanceledException();
             try
             {
@@ -177,14 +184,18 @@ namespace kenzauros.RHarbor.ViewModels
             catch (Exception ex)
             {
                 MyLogger.Log($"Failed to save {item.ToString()}.", ex);
-                await MainWindow.ShowMessageDialog(ex.Message, "Saving connection info");
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Save_Error, item.ToString(), ex.Message),
+                    Resources.ConnectionInfo_Dialog_Save_Title);
                 return (false, null);
             }
         }
 
         protected virtual async Task Connect(T item)
         {
-            var result = await MainWindow.ShowConfirmationDialog($"Start to connect to \"{item.Name}\"?", "Starting connection");
+            var result = await MainWindow.ShowConfirmationDialog(
+                string.Format(Resources.ConnectionInfo_Dialog_Connect_Message, item.ToString()),
+                Resources.ConnectionInfo_Dialog_Connect_Title);
             if (!result) return;
             MyLogger.Log($"Connecting to {item.ToString()}...");
             var conn = ConnectionViewModel<T>.CreateFromConnectionInfo(item);
@@ -203,7 +214,9 @@ namespace kenzauros.RHarbor.ViewModels
                         return;
                 }
                 MyLogger.Log($"Failed to connect to {item.ToString()}.", ex);
-                await MainWindow.ShowMessageDialog($"Failed to connect to \"{item.Name}\".\n{ex.Message}", "Starting connection");
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Save_Error, item.ToString(), ex.Message),
+                    Resources.ConnectionInfo_Dialog_Connect_Title);
             }
         }
     }

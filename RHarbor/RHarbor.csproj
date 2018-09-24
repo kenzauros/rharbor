@@ -172,10 +172,12 @@
     <Compile Include="Utilities\AESEncryption.cs" />
     <Compile Include="Utilities\DbBackup.cs" />
     <Compile Include="Utilities\DesktopResolution.cs" />
+    <Compile Include="Utilities\LocalizedPropertyGridAttributes.cs" />
     <Compile Include="Utilities\MD5.cs" />
     <Compile Include="Utilities\MyLogger.cs" />
     <Compile Include="Utilities\PathUtil.cs" />
     <Compile Include="Utilities\PortNumberCache.cs" />
+    <Compile Include="Utilities\LocalizedResources.cs" />
     <Compile Include="Utilities\SecureStringEx.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\ConnectionViewModel%28T%29.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />
@@ -290,8 +292,9 @@
     <EmbeddedResource Include="Migrations\201809050658328_Initial.resx">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="NLog.config">

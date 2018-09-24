@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using kenzauros.RHarbor.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,12 +17,10 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 namespace kenzauros.RHarbor.Models
 {
     [Serializable]
-    [CategoryOrder("General", 1)]
-    [CategoryOrder("Remote", 2)]
-    [CategoryOrder("Authentication", 3)]
-    [CategoryOrder("KeepAlive", 4)]
-    [CategoryOrder("Optional Settings", 5)]
-    [CategoryOrder("Other", 7)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_General", 1)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_Authentication", 2)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_KeepAlive", 3)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_Other", 4)]
     [Table("ssh_connection_infos")]
     internal class SSHConnectionInfo : ConnectionInfoBase
     {
@@ -40,14 +39,15 @@ namespace kenzauros.RHarbor.Models
 
         #endregion
 
-        public override string ToString() => this == Empty ? $" " : $"{Name} ({Host}:{Port})";
+        public override string ToString() => this == Empty ? $" " : base.ToString();
 
         public SSHConnectionInfo()
         {
             Port = 22;
         }
 
-        [Category("Authentication"), PropertyOrder(4), DisplayName("Private Key File")]
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(4)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(PrivateKeyFilePath))]
         public string PrivateKeyFilePath { get => _PrivateKeyFilePath; set => SetProp(ref _PrivateKeyFilePath, value); }
         private string _PrivateKeyFilePath;
 
@@ -56,17 +56,20 @@ namespace kenzauros.RHarbor.Models
         private string _ExpectedFingerPrint;
 
         [Required]
-        [Category("KeepAlive"), PropertyOrder(1), DisplayName("Enabled")]
+        [LocalizedCategory("ConnectionInfo_Category_KeepAlive"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(KeepAliveEnabled))]
         public bool KeepAliveEnabled { get => _KeepAliveEnabled; set => SetProp(ref _KeepAliveEnabled, value); }
         private bool _KeepAliveEnabled = false;
 
         [Required]
-        [Category("KeepAlive"), PropertyOrder(2), DisplayName("Interval")]
+        [LocalizedCategory("ConnectionInfo_Category_KeepAlive"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(KeepAliveInterval))]
         public int KeepAliveInterval { get => _KeepAliveInterval; set => SetProp(ref _KeepAliveInterval, value); }
         private int _KeepAliveInterval = 10000;
 
         [ForeignKey("RequiredConnection")]
-        [Category("Optional Settings"), PropertyOrder(1), DisplayName("Required Connection")]
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(RequiredConnection))]
         public long? RequiredConnectionId { get => _RequiredConnectionId; set => SetProp(ref _RequiredConnectionId, value); }
         private long? _RequiredConnectionId;
 

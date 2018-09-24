@@ -76,9 +76,9 @@ namespace kenzauros.RHarbor
         /// <returns>true means user wanted to continue.</returns>
         protected bool ConfirmUnhandledException(Exception e, string sourceName)
         {
-            var message = $"Unhandled exception occured.\nAre you want to continute the program?";
+            var message = RHarbor.Properties.Resources.UnhandledException_Dialog_Confirmation_Message;
             if (e != null) message += $"\n({e.Message} @ {e.TargetSite.Name})";
-            var result = MessageBox.Show(message, $"Unhandled exception ({sourceName})", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show(message, $"{RHarbor.Properties.Resources.UnhandledException_Dialog_Confirmation_Title} ({sourceName})", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             return result == MessageBoxResult.Yes;
         }
 
@@ -89,9 +89,9 @@ namespace kenzauros.RHarbor
         /// <param name="sender"></param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var message = $"Unhandled exception occured.";
+            var message = RHarbor.Properties.Resources.UnhandledException_Dialog_Notice_Message;
             if (e.ExceptionObject is Exception exception) message += $"\n({exception.Message} @ {exception.TargetSite.Name})";
-            MessageBox.Show(message, "Unhandled exception", MessageBoxButton.OK, MessageBoxImage.Stop);
+            MessageBox.Show(message, RHarbor.Properties.Resources.UnhandledException_Dialog_Notice_Title, MessageBoxButton.OK, MessageBoxImage.Stop);
             Environment.Exit(1);
         }
 

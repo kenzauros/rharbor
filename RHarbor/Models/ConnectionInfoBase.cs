@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kenzauros.RHarbor.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,11 @@ namespace kenzauros.RHarbor.Models
     [Serializable]
     internal class ConnectionInfoBase : RewriteableBase, IConnectionInfo, IPassword
     {
+        #region ToString
+
+        public override string ToString() => string.IsNullOrWhiteSpace(Name) ? $"{Host}:{Port}" : $"{Name} ({Host}:{Port})";
+
+        #endregion
 
         [Key]
         [Browsable(false)]
@@ -21,21 +27,25 @@ namespace kenzauros.RHarbor.Models
         private long _Id;
 
         [Required]
-        [Category("General"), PropertyOrder(1), DisplayName("Connection Name")]
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Name))]
         public string Name { get => _Name; set => SetProp(ref _Name, value); }
         private string _Name;
 
         [Required]
-        [Category("Remote"), PropertyOrder(1)]
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Host))]
         public string Host { get => _Host; set => SetProp(ref _Host, value); }
         private string _Host;
 
         [Required]
-        [Category("Remote"), PropertyOrder(2), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(3), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Port))]
         public int Port { get => _Port; set => SetProp(ref _Port, value); }
         private int _Port = 3389;
 
-        [Category("Authentication"), PropertyOrder(1)]
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Username))]
         public string Username { get => _Username; set => SetProp(ref _Username, value); }
         private string _Username;
 
@@ -61,7 +71,8 @@ namespace kenzauros.RHarbor.Models
 
         [IgnoreDataMember]
         [NotMapped]
-        [Category("Authentication"), PropertyOrder(2), DisplayName("Password")]
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Password))]
         public virtual SecureString SecurePassword
         {
             get => _SecurePassword;

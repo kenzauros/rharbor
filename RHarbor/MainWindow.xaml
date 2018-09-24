@@ -12,7 +12,7 @@
         xmlns:sshnet="clr-namespace:Renci.SshNet;assembly=Renci.SshNet"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="RHarbor"
+        Title="{Binding MainWindow_Title, Source={StaticResource resources}}"
         Height="800" Width="1000"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -55,7 +55,7 @@
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
                     <HierarchicalDataTemplate DataType="{x:Type vm:SSHConnectionViewModel}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="SSH"/>
+                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="SSH" ToolTip="{Binding MainWindow_Connections_SSH_ToolTip, Source={StaticResource resources}}"/>
                             <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
                             <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
                                     Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -64,7 +64,7 @@
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type vm:RDPConnectionViewModel}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="RDP"/>
+                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="RDP" ToolTip="{Binding MainWindow_Connections_RDP_ToolTip, Source={StaticResource resources}}"/>
                             <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
                             <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
                                     Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -75,7 +75,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Border Width="24" Height="24" Margin="0,0,4,0" VerticalAlignment="Center">
                                 <Grid>
-                                    <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="FP" ToolTip="Forwarded Port"/>
+                                    <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="FP" ToolTip="{Binding MainWindow_Connections_ForwardedPort_ToolTip, Source={StaticResource resources}}"/>
                                     <Border Background="{StaticResource BlueBrush}" Height="10" Width="10" CornerRadius="5"
                                             HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                         <TextBlock Text="{Binding TypeInitial.Value}"

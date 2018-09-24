@@ -1,5 +1,6 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
+using kenzauros.RHarbor.Properties;
 using Renci.SshNet;
 using Renci.SshNet.Common;
 using System;
@@ -36,11 +37,11 @@ namespace kenzauros.RHarbor.ViewModels
         {
             if (string.IsNullOrWhiteSpace(info.Username))
             {
-                throw new InvalidOperationException("Username should be assigned.");
+                throw new InvalidOperationException(Resources.SSHConnection_Exception_UsernameNotAssigned);
             }
             if (!string.IsNullOrWhiteSpace(info.PrivateKeyFilePath) && !File.Exists(info.PrivateKeyFilePath))
             {
-                throw new FileNotFoundException("Private key file does not exist.", info.PrivateKeyFilePath);
+                throw new FileNotFoundException(Resources.SSHConnection_Exception_PrivateKeyFileNotExists, info.PrivateKeyFilePath);
             }
             if (createRegisteredForwardedPorts && info.PortForwardingCollection != null)
             {
@@ -88,12 +89,12 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 if (pf.RemotePort == null)
                 {
-                    throw new InvalidOperationException("Remote Port should be assigned.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_RemotePortNotAssigned);
                 }
                 if (!pf.RemotePort.HasValue || !pf.RemotePort.Value.IsValidIPPort()
                     || !pf.LocalPort.HasValue || !pf.LocalPort.Value.IsValidIPPort())
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 // LocalHost and LocalPort are the information of the SSH server.
                 return (string.IsNullOrWhiteSpace(pf.LocalHost))
@@ -105,7 +106,7 @@ namespace kenzauros.RHarbor.ViewModels
                 // RemoteHost and RemotePort don't care.
                 if (!pf.LocalPort.HasValue || !pf.LocalPort.Value.IsValidIPPort())
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 var boundHost = string.IsNullOrWhiteSpace(pf.LocalHost) ? "127.0.0.1" : pf.LocalHost;
                 return (string.IsNullOrWhiteSpace(pf.LocalHost))
@@ -116,12 +117,12 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(pf.RemoteHost) || pf.RemotePort == null)
                 {
-                    throw new InvalidOperationException("Remote Host and Port should be assigned.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_RemoteHostPortNotAssigned);
                 }
                 if (!pf.RemotePort.Value.IsValidIPPort() ||
                     (pf.LocalPort.HasValue && !pf.LocalPort.Value.IsValidIPPort()))
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 var boundHost = string.IsNullOrWhiteSpace(pf.LocalHost) ? "127.0.0.1" : pf.LocalHost;
                 return (pf.LocalPort == null)
@@ -190,7 +191,7 @@ namespace kenzauros.RHarbor.ViewModels
             var ev = new ManualResetEventSlim(false);
             void hostKeyEventHandler(object o, HostKeyEventArgs e)
             {
-                if (e.FingerPrint == null) throw new Exception("Empty finger print received.");
+                if (e.FingerPrint == null) throw new Exception(Resources.SSHConnection_Exception_FingerPrintIsEmpty);
                 var fingerprint = e.FingerPrint?.ToFingerPrintString();
                 if (ConnectionInfo.ExpectedFingerPrint == fingerprint)
                 {
@@ -203,7 +204,7 @@ namespace kenzauros.RHarbor.ViewModels
                 App.Current.Dispatcher.Invoke(async () =>
                 {
                     e.CanTrust = await MainWindow.ShowConfirmationDialog(
-                        $"Please check the finger print of the SSH Server.\n{fingerprint}", "SSH FingerPrint");
+                        $"{Resources.SSHConnection_Dialog_FingerPrintValidation_Messsage}\n{fingerprint}", Resources.SSHConnection_Dialog_FingerPrintValidation_Title);
                     if (e.CanTrust)
                     {
                         // Save fingerprint
@@ -268,7 +269,7 @@ namespace kenzauros.RHarbor.ViewModels
                 (username, password, savePassword, passwordChanged)
                     = await GetUsernameAndPassword(
                         forceInput,
-                        $"Connecting to \"{ToString()}\"...\n{additionalMessage}");
+                        $"{string.Format(Resources.SSHConnection_Dialog_Auth_Message, ToString())}\n{additionalMessage}");
                 additionalMessage = "";
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using kenzauros.RHarbor.Models;
+using kenzauros.RHarbor.Properties;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Renci.SshNet;
@@ -53,7 +54,7 @@ namespace kenzauros.RHarbor.ViewModels
                 {
                     var hostport = host + (port == null ? "" : $":{port}");
                     var status = "";
-                    if (isConnecting) status = " - Connecting...";
+                    if (isConnecting) status = $" - {Resources.Connection_ConnectingText}";
                     var identity = string.IsNullOrWhiteSpace(name)
                         ? hostport
                         : $"{name} ({hostport})";

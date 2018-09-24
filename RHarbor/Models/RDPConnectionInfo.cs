@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kenzauros.RHarbor.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -12,11 +13,10 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 namespace kenzauros.RHarbor.Models
 {
     [Serializable]
-    [CategoryOrder("General", 1)]
-    [CategoryOrder("Remote", 2)]
-    [CategoryOrder("Authentication", 3)]
-    [CategoryOrder("Screen", 5)]
-    [CategoryOrder("Other", 7)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_General", 1)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_Authentication", 2)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_Screen", 3)]
+    [LocalizedCategoryOrder("ConnectionInfo_Category_Other", 4)]
     [Table("rdp_connection_infos")]
     internal class RDPConnectionInfo : ConnectionInfoBase
     {
@@ -26,21 +26,27 @@ namespace kenzauros.RHarbor.Models
 
         #endregion
 
+        public override string ToString() => this == Empty ? $" " : base.ToString();
+
         [Required]
-        [Category("Screen"), PropertyOrder(1)]
+        [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(FullScreen))]
         public bool FullScreen { get => _FullScreen; set => SetProp(ref _FullScreen, value); }
         private bool _FullScreen = false;
 
-        [Category("Screen"), PropertyOrder(3), DisplayName("Desktop Width"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(3), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(DesktopWidth))]
         public int? DesktopWidth { get => _DesktopWidth; set { SetProp(ref _DesktopWidth, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopWidth;
 
-        [Category("Screen"), PropertyOrder(4), DisplayName("Desktop Height"), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(4), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(DesktopHeight))]
         public int? DesktopHeight { get => _DesktopHeight; set { SetProp(ref _DesktopHeight, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopHeight;
 
         [Required]
-        [Category("Other"), PropertyOrder(1), DisplayName("Admin mode")]
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(Admin))]
         public bool Admin { get => _Admin; set => SetProp(ref _Admin, value); }
         private bool _Admin = false;
 
@@ -49,7 +55,8 @@ namespace kenzauros.RHarbor.Models
         private string _Settings = "";
 
         [ForeignKey("RequiredConnection")]
-        [Category("Other"), PropertyOrder(2), DisplayName("Required Connection")]
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(RequiredConnection))]
         public long? RequiredConnectionId { get; set; }
 
         #region Relation Ships
@@ -153,7 +160,8 @@ kdcproxyname:s:
         [NotMapped]
         [IgnoreDataMember]
         [RewriteableIgnore]
-        [Category("Screen"), PropertyOrder(2), DisplayName("Desktop Size")]
+        [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(DesktopResulution))]
         public DesktopResolution DesktopResulution
         {
             get => DesktopResolution.Find(DesktopWidth ?? 0, DesktopHeight ?? 0);

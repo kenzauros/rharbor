@@ -31,7 +31,8 @@
                     </Border>
                 </Grid>
                 <Button Grid.Column="1" Command="{Binding AddNewItemCommand}" Style="{StaticResource IconButtonStyle}"
-                        Background="{StaticResource GreenBrush}" ToolTip="Add new connection info">
+                        Background="{StaticResource GreenBrush}"
+                        ToolTip="{Binding RDPConnectionInfoManagement_AddNewItemButton_ToolTip, Source={StaticResource resources}}">
                     <fa:ImageAwesome Icon="Plus" Style="{DynamicResource ButtonIconStyle}" />
                 </Button>
             </Grid>
@@ -67,21 +68,23 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}" ToolTip="Connect to this host">
+                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}" 
+                                                ToolTip="{Binding RDPConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
                                             <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
                                         </Button>
                                         <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" ToolTip="Remove this">
+                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}"
+                                                ToolTip="{Binding RDPConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}">
                                             <fa:ImageAwesome Icon="Trash" Style="{DynamicResource ButtonIconStyle}" />
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
                             </xcdg:Column.CellContentTemplate>
                         </xcdg:Column>
-                        <xcdg:Column FieldName="Name" Title="Name" Width="*" MinWidth="150" IsMainColumn="True"/>
-                        <xcdg:Column FieldName="Host" Title="Host" Width="*" MinWidth="150"/>
-                        <xcdg:Column FieldName="Port" Title="Port" Width="60"/>
-                        <xcdg:Column FieldName="Username" Title="Username" Width="100"/>
+                        <xcdg:Column FieldName="Name" Title="{Binding RDPConnectionInfoManagement_NameColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="150" IsMainColumn="True"/>
+                        <xcdg:Column FieldName="Host" Title="{Binding RDPConnectionInfoManagement_HostColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="150"/>
+                        <xcdg:Column FieldName="Port" Title="{Binding RDPConnectionInfoManagement_PortColumn_Title, Source={StaticResource resources}}" Width="60"/>
+                        <xcdg:Column FieldName="Username" Title="{Binding RDPConnectionInfoManagement_UsernameColumn_Title, Source={StaticResource resources}}" Width="100"/>
                     </xcdg:DataGridControl.Columns>
                 </xcdg:DataGridControl>
                 <GridSplitter Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Transparent"/>
@@ -92,7 +95,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Margin="0,4">
-                        <TextBlock Text="Properties"/>
+                        <TextBlock Text="{Binding RDPConnectionInfoManagement_Properties_Title, Source={StaticResource resources}}"/>
                     </Border>
                     <xctk:PropertyGrid Name="propertyGrid" Grid.Row="1"
                                        IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
@@ -146,18 +149,21 @@
                     </Border>
                     <Grid Grid.Row="2" Margin="0,4,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button ToolTip="Start edit" Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}"
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_StartEditButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}"
                                     Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <fa:ImageAwesome Icon="Pencil" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                                     Visibility="{Binding IsItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Button ToolTip="Save the changes" Command="{Binding SaveChangesCommand}"
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_SaveButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding SaveChangesCommand}"
                                     Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}">
                                 <fa:ImageAwesome Icon="Save" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
-                            <Button ToolTip="Discard the changes" Command="{Binding DiscardChangesCommand}"
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_DiscardButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding DiscardChangesCommand}"
                                     Style="{StaticResource IconButtonStyle}" Background="{StaticResource RedBrush}" Margin="8,0,0,0">
                                 <fa:ImageAwesome Icon="MinusCircle" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
