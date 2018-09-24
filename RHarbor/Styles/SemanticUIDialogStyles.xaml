@@ -5,21 +5,21 @@
         <ResourceDictionary Source="/Styles/SemanticUIBrushes.xaml"/>
         <ResourceDictionary Source="/Styles/SemanticUIStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <!-- OK ボタン -->
+    <!-- OK button -->
     <Style x:Key="AcceptButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultFlatButton}">
         <Setter Property="Background" Value="{StaticResource GreenBrush}"/>
     </Style>
-    <!-- キャンセルボタン -->
+    <!-- Cancel button -->
     <Style x:Key="RejectButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultFlatButton}">
         <Setter Property="Background" Value="{StaticResource RedBrush}"/>
     </Style>
-    <!-- クリップボードにコピーボタン -->
+    <!-- Copy to clipboard button -->
     <Style x:Key="CopyToClipboardButton" TargetType="Button" BasedOn="{StaticResource DefaultFlatButton}">
         <Setter Property="Padding" Value="8,0"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Height" Value="Auto"/>
         <Setter Property="Command" Value="{Binding CopyToClipboardCommand}"/>
-        <Setter Property="ToolTip" Value="クリップボードに表示内容をコピー"/>
+        <Setter Property="ToolTip" Value="{Binding Common_Dialog_CopyToClipboardButton_Content, Source={StaticResource resources}}"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="ContentTemplate">
             <Setter.Value>
@@ -31,7 +31,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!-- メッセージ系ダイアログのメッセージ表示用テキストボックス -->
+    <!-- Message textbox on dialog -->
     <Style x:Key="MessageDialogMessageTextBox" TargetType="TextBox">
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="IsReadOnly" Value="True"/>

@@ -173,6 +173,7 @@ namespace kenzauros.RHarbor.ViewModels
                 (result, username, password, savePassword) = await MainWindow.ShowAuthenticationDialog(
                     username: username,
                     savePassword: savePassword,
+                    title: Resources.SSHConnection_Dialog_Auth_Title,
                     message: message
                     );
                 // User cancel

@@ -61,6 +61,78 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Password/phrase に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_Password_Label {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_Password_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Password/phrase に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_SavePassword_CheckBox_Content {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_SavePassword_CheckBox_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_Username_Label {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_Username_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_CancelButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_CancelButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy the content to clipboard に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_CopyToClipboardButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_CopyToClipboardButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_NoButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_NoButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_OKButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_OKButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_YesButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_YesButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Connecting... に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Connection_ConnectingText {
@@ -439,6 +511,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnection_Dialog_Auth_Message {
             get {
                 return ResourceManager.GetString("SSHConnection_Dialog_Auth_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Authentication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Dialog_Auth_Title {
+            get {
+                return ResourceManager.GetString("SSHConnection_Dialog_Auth_Title", resourceCulture);
             }
         }
         
