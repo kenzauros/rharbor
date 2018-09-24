@@ -248,7 +248,7 @@
     <value>ポート</value>
   </data>
   <data name="RDPConnectionInfoManagement_Properties_Title" xml:space="preserve">
-    <value>属性</value>
+    <value>プロパティ</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
     <value>削除する</value>
