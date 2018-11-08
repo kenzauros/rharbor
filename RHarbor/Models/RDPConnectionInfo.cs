@@ -87,7 +87,10 @@ namespace kenzauros.RHarbor.Models
         /// <param name="port"></param>
         public void SaveAs(string filepath, string host = null, int? port = null)
         {
-            //winposstr:s:0,1,562,531,2482,1571
+            var workArea = System.Windows.SystemParameters.WorkArea;
+            var (w, h) = (DesktopWidth.Value + 50, DesktopHeight.Value + 100);
+            var (l, t) = ((workArea.Width - w) / 2, (workArea.Height - h) / 2);
+            var (r, b) = (l + w, t + h);
             File.WriteAllText(filepath,
                 $@"
 screen mode id:i:{(FullScreen ? 2 : 1)}
@@ -96,6 +99,7 @@ screen mode id:i:{(FullScreen ? 2 : 1)}
 username:s:{Username}
 use multimon:i:0
 session bpp:i:32
+winposstr:s:0,1,{l},{t},{r},{b}
 compression:i:1
 keyboardhook:i:2
 audiocapturemode:i:0
