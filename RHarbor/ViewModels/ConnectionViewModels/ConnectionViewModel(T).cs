@@ -1,10 +1,12 @@
 ﻿using kenzauros.RHarbor.Models;
+using kenzauros.RHarbor.Properties;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Renci.SshNet;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.ViewModels
 {
@@ -52,7 +54,7 @@ namespace kenzauros.RHarbor.ViewModels
                 {
                     var hostport = host + (port == null ? "" : $":{port}");
                     var status = "";
-                    if (isConnecting) status = " - Connecting...";
+                    if (isConnecting) status = $" - {Resources.Connection_ConnectingText}";
                     var identity = string.IsNullOrWhiteSpace(name)
                         ? hostport
                         : $"{name} ({hostport})";
@@ -74,16 +76,22 @@ namespace kenzauros.RHarbor.ViewModels
 
         protected SSHConnectionViewModel RequiredConnection { get; set; }
 
-        protected void PrepareRequiredConnection(SSHConnectionInfo info)
+        protected void PrepareRequiredConnection(SSHConnectionInfo requiredConnectionInfo)
         {
-            if (info == null) return;
+            if (requiredConnectionInfo == null) return;
             var additionalPF = new PortForwarding
             {
                 Type = "Local",
                 RemoteHost = ConnectionInfo.Host,
                 RemotePort = ConnectionInfo.Port,
             };
-            var conn = new SSHConnectionViewModel(info, false, additionalPF)
+            // Try to re-use recently used port.
+            var recentlyUsedPort = ConnectionInfo.GetAvailableCachedPort();
+            if (recentlyUsedPort > 0)
+            {
+                additionalPF.LocalPort = recentlyUsedPort;
+            }
+            var conn = new SSHConnectionViewModel(requiredConnectionInfo, false, additionalPF)
             {
                 Parent = this
             };
@@ -100,12 +108,35 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 // Use required connection's port forwarding
                 var pf = RequiredConnection.ForwardedPorts
-                    .Select(x => x.ForwardedPort as ForwardedPortLocal)
+                    .Select(x => x.ForwardedPort.Value as ForwardedPortLocal)
                     .FirstOrDefault(x => x?.IsStarted == true && x.Host == ConnectionInfo.Host)
                     ?? throw new Exception($"Port forwarding for {ConnectionInfo.Host} has not be established.");
                 return (pf.BoundHost, (int)pf.BoundPort);
             }
             return (host, port);
+        }
+
+        /// <summary>
+        /// Establish the required connections if needed.
+        /// </summary>
+        /// <returns></returns>
+        protected async Task EstablishRequiredConnection()
+        {
+            if (RequiredConnection == null) return;
+            this.WriteLog($"Connection \"{RequiredConnection.ToString()}\" Required.");
+            await RequiredConnection.Connect();
+            ConnectionInfo.AddPortCache(GetActualEndPoint().port); // Cache the current forwarding port number
+        }
+
+        /// <summary>
+        /// Disconnect the required connections if needed.
+        /// </summary>
+        /// <returns></returns>
+        protected async Task DisconnectRequiredConnection()
+        {
+            if (RequiredConnection == null) return;
+            await RequiredConnection.Disconnect();
+            Children.Remove(RequiredConnection);
         }
 
         #endregion

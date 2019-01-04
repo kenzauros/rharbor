@@ -1,10 +1,10 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
+using kenzauros.RHarbor.Properties;
 using Microsoft.Win32;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.ViewModels
@@ -31,7 +31,9 @@ namespace kenzauros.RHarbor.ViewModels
                 }
                 else
                 {
-                    var result = await MainWindow.ShowConfirmationDialog($"Clear path?", "Private key file path");
+                    var result = await MainWindow.ShowConfirmationDialog(
+                        Resources.SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message,
+                        Resources.SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Title);
                     if (result) EditingItem.Value.PrivateKeyFilePath = null;
                 }
             }).AddTo(Disposable);
@@ -49,7 +51,7 @@ namespace kenzauros.RHarbor.ViewModels
             }).AddTo(Disposable);
         }
 
-        protected override async Task<bool> Save(SSHConnectionInfo item)
+        protected override async Task<(bool result, SSHConnectionInfo record)> Save(SSHConnectionInfo item)
         {
             var result = await base.Save(item);
             await SSHConnectionInfo.RefreshAll(MainWindow.DbContext);

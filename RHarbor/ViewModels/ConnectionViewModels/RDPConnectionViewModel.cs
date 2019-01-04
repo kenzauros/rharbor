@@ -1,15 +1,6 @@
 ﻿using kenzauros.RHarbor.Models;
-using kenzauros.RHarbor.MvvmDialog;
 using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
-using Renci.SshNet;
-using Renci.SshNet.Common;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.ViewModels
@@ -45,11 +36,7 @@ namespace kenzauros.RHarbor.ViewModels
         {
             IsConnecting.Value = true;
             IsConnected.Value = false;
-            // Establish the required connections.
-            if (RequiredConnection != null)
-            {
-                await RequiredConnection.Connect();
-            }
+            await EstablishRequiredConnection();
             RDPClient = new RDPClient(ConnectionInfo);
             RDPClient.Closed += (s, e) =>
             {
@@ -77,15 +64,11 @@ namespace kenzauros.RHarbor.ViewModels
         public override async Task Disconnect()
         {
             this.WriteLog("Disconnecting...");
-            if (RequiredConnection != null)
-            {
-                await RequiredConnection.Disconnect();
-                Children.Remove(RequiredConnection);
-            }
             if (RDPClient?.IsOpened == true)
             {
                 await RDPClient.Close();
             }
+            await DisconnectRequiredConnection();
             this.WriteLog("Disconnected.");
             IsConnecting.Value = false;
             IsConnected.Value = false;

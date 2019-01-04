@@ -1,6 +1,8 @@
 RHarbor - Remote Desktop via SSH Servers
 =====
 
+- [English](index.md)
+
 RHarbor は **SSH を経由したリモートデスクトップ接続** のサポートツールです。
 
 また、複数の SSH を経由する **多段 SSH 越しのポートフォワード機能** も備えています。
@@ -22,6 +24,10 @@ SSH サーバーを経由しないリモートデスクトップ接続も管理�
 
 インストール作業は特にありません。ダウンロードした zip ファイルを適当なフォルダーに展開し、 RHarbor.exe を起動してください。
 
+## アップデート
+
+バージョンアップの際は zip ファイルに含まれるファイルをすべて元のインストールフォルダに上書きしてください。
+
 ## 使い方
 
 使い方については詳細ページを参照してください。
@@ -36,6 +42,14 @@ RHarbor.exe と同じフォルダーに RHarbor.db があります。このフ�
 再度 RHarbor を起動すると RHarbor.db が再生成されます。
 
 ## 注意
+
+### SSH の鍵ファイルについて
+
+鍵ファイルには `ssh-keygen` 等で生成できる OpenSSH 形式が利用できます。 (拡張子には依存しません)
+
+PuTTy 形式の鍵ファイルは [puttygen.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) を利用して OpenSSH 形式に変換する必要があります。
+
+### セキュリティについて
 
 RHarbor に保存されるパスワードは簡易的な暗号化を施していますが、完全ではありません。
 

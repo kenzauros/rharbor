@@ -22,7 +22,7 @@ namespace kenzauros.RHarbor.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace kenzauros.RHarbor.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("kenzauros.RHarbor.Properties.Resources", typeof(Resources).Assembly);
@@ -47,16 +47,824 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+        ///   すべてについて、現在のスレッドの CurrentUICulture プロパティをオーバーライドします
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Password/phrase に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_Password_Label {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_Password_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Password/phrase に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_SavePassword_CheckBox_Content {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_SavePassword_CheckBox_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AuthenticationDialog_Username_Label {
+            get {
+                return ResourceManager.GetString("AuthenticationDialog_Username_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_CancelButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_CancelButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy the content to clipboard に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_CopyToClipboardButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_CopyToClipboardButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_NoButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_NoButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_OKButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_OKButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Common_Dialog_YesButton_Content {
+            get {
+                return ResourceManager.GetString("Common_Dialog_YesButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connecting... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Connection_ConnectingText {
+            get {
+                return ResourceManager.GetString("Connection_ConnectingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Auth に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Category_Authentication {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Category_Authentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   General に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Category_General {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Category_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Keep Alive に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Category_KeepAlive {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Category_KeepAlive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Other に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Category_Other {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Category_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Screen に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Category_Screen {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Category_Screen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to connect to &quot;{0}&quot;.
+        ///{1} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Connect_Error {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Connect_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start to connect to &quot;{0}&quot;? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Connect_Message {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Connect_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start connecting に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Connect_Title {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Connect_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to remove to &quot;{0}&quot;.
+        ///{1} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Remove_Error {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Remove_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Are you sure you want to remove &quot;{0}&quot;?
+        ///This operation cannot be canceled. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Remove_Message {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Remove_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Removing connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Remove_Title {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Remove_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to save to &quot;{0}&quot;.
+        ///{1} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Save_Error {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save the changes? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Save_Message {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Saving connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Save_Title {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_Host {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connection Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_Name {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Password に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_Password {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_Port {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_Username {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Forwarded Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Connections_ForwardedPort_ToolTip {
+            get {
+                return ResourceManager.GetString("MainWindow_Connections_ForwardedPort_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   RDP に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Connections_RDP_ToolTip {
+            get {
+                return ResourceManager.GetString("MainWindow_Connections_RDP_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SSH に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Connections_SSH_ToolTip {
+            get {
+                return ResourceManager.GetString("MainWindow_Connections_SSH_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   RHarbor に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Title {
+            get {
+                return ResourceManager.GetString("MainWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Admin mode に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_Admin {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Desktop Height に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_DesktopHeight {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_DesktopHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Desktop Size に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_DesktopResulution {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_DesktopResulution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Desktop Width に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_DesktopWidth {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_DesktopWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Full Screen に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_FullScreen {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_FullScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Required Connection に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfo_RequiredConnection {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfo_RequiredConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add new connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_AddNewItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_AddNewItemButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connect to this host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_ConnectButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_ConnectButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Discard the changes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_DiscardButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_DiscardButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_HostColumn_Title {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_HostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_NameColumn_Title {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_NameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_PortColumn_Title {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_PortColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Properties に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_Properties_Title {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_Properties_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove this に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_RemoveButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_RemoveButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save the changes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_SaveButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_SaveButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start editing に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_StartEditButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_StartEditButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_UsernameColumn_Title {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_UsernameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connecting to &quot;{0}&quot;... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Dialog_Auth_Message {
+            get {
+                return ResourceManager.GetString("SSHConnection_Dialog_Auth_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Authentication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Dialog_Auth_Title {
+            get {
+                return ResourceManager.GetString("SSHConnection_Dialog_Auth_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please check the finger print of the SSH Server. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Dialog_FingerPrintValidation_Messsage {
+            get {
+                return ResourceManager.GetString("SSHConnection_Dialog_FingerPrintValidation_Messsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SSH Finger Print に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Dialog_FingerPrintValidation_Title {
+            get {
+                return ResourceManager.GetString("SSHConnection_Dialog_FingerPrintValidation_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Empty finger print received. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_FingerPrintIsEmpty {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_FingerPrintIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port number should be between 1 and 65535. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_PortNumberOutOfRange {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_PortNumberOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Private key file does not exist. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_PrivateKeyFileNotExists {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_PrivateKeyFileNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remote Host and Port should be assigned. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_RemoteHostPortNotAssigned {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_RemoteHostPortNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remote Port should be assigned. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_RemotePortNotAssigned {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_RemotePortNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username should be assigned. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnection_Exception_UsernameNotAssigned {
+            get {
+                return ResourceManager.GetString("SSHConnection_Exception_UsernameNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Clear the path for the key file? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Private key file path に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enabled に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_KeepAliveEnabled {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_KeepAliveEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Interval に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_KeepAliveInterval {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_KeepAliveInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Private Key File に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_PrivateKeyFilePath {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_PrivateKeyFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Required Connection に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_RequiredConnection {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_RequiredConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add new connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_AddNewItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_AddNewItemButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add a new port forwarding に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_AddNewPortForwardingButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_AddNewPortForwardingButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connect to this host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_ConnectButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_ConnectButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Discard the changes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_DiscardButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_DiscardButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Local Host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_LocalHostColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_LocalHostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Local Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_LocalPortColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_LocalPortColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_NameColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_NameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remote Host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_RemoteHostColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_RemoteHostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remote Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_RemotePortColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_RemotePortColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Type に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_FP_TypeColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_FP_TypeColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Host に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_HostColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_HostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_NameColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_NameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_PortColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_PortColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Properties に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_Properties_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_Properties_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove this に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_RemoveButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_RemoveButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove this port forwarding setting に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save the changes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_SaveButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_SaveButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select private key file に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start editing に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_StartEditButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_StartEditButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_UsernameColumn_Title {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_UsernameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unhandled exception occured.
+        ///Please contact to the developer when you get the error repeatedly.
+        ///Are you want to continute the program? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string UnhandledException_Dialog_Confirmation_Message {
+            get {
+                return ResourceManager.GetString("UnhandledException_Dialog_Confirmation_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unhandled exception に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string UnhandledException_Dialog_Confirmation_Title {
+            get {
+                return ResourceManager.GetString("UnhandledException_Dialog_Confirmation_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unhandled exception occured.
+        ///Please contact to the developer when you get the error repeatedly. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string UnhandledException_Dialog_Notice_Message {
+            get {
+                return ResourceManager.GetString("UnhandledException_Dialog_Notice_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unhandled exception に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string UnhandledException_Dialog_Notice_Title {
+            get {
+                return ResourceManager.GetString("UnhandledException_Dialog_Notice_Title", resourceCulture);
             }
         }
     }

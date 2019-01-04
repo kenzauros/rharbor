@@ -10,14 +10,14 @@ namespace kenzauros.RHarbor.Models
 {
     internal class AppDbContext : DbContext
     {
-        private static string sqlitePath;
+        public static readonly string DbFilePath;
 
         static AppDbContext()
         {
-            sqlitePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\RHarbor.db";
+            DbFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\RHarbor.db";
         }
 
-        public AppDbContext() : base(new SQLiteConnection($"DATA Source={sqlitePath}"), false)
+        public AppDbContext() : base(new SQLiteConnection($"DATA Source={DbFilePath}"), false)
         {
         }
 

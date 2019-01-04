@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kenzauros.RHarbor.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -14,45 +15,54 @@ namespace kenzauros.RHarbor.Models
     [Serializable]
     internal class ConnectionInfoBase : RewriteableBase, IConnectionInfo, IPassword
     {
+        #region ToString
+
+        public override string ToString() => string.IsNullOrWhiteSpace(Name) ? $"{Host}:{Port}" : $"{Name} ({Host}:{Port})";
+
+        #endregion
 
         [Key]
         [Browsable(false)]
-        public long Id { get { return _Id; } set { SetProp(ref _Id, value); } }
+        public long Id { get => _Id; set => SetProp(ref _Id, value); }
         private long _Id;
 
         [Required]
-        [Category("General"), PropertyOrder(1), DisplayName("Connection Name")]
-        public string Name { get { return _Name; } set { SetProp(ref _Name, value); } }
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Name))]
+        public string Name { get => _Name; set => SetProp(ref _Name, value); }
         private string _Name;
 
         [Required]
-        [Category("Remote"), PropertyOrder(1)]
-        public string Host { get { return _Host; } set { SetProp(ref _Host, value); } }
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Host))]
+        public string Host { get => _Host; set => SetProp(ref _Host, value); }
         private string _Host;
 
         [Required]
-        [Category("Remote"), PropertyOrder(2), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
-        public int Port { get { return _Port; } set { SetProp(ref _Port, value); } }
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(3), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Port))]
+        public int Port { get => _Port; set => SetProp(ref _Port, value); }
         private int _Port = 3389;
 
-        [Category("Authentication"), PropertyOrder(1)]
-        public string Username { get { return _Username; } set { SetProp(ref _Username, value); } }
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(1)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Username))]
+        public string Username { get => _Username; set => SetProp(ref _Username, value); }
         private string _Username;
 
         [Required]
         [Browsable(false)]
-        public bool SaveUsername { get { return _SaveUsername; } set { SetProp(ref _SaveUsername, value); } }
+        public bool SaveUsername { get => _SaveUsername; set => SetProp(ref _SaveUsername, value); }
         private bool _SaveUsername = true;
 
         [Browsable(false)]
-        public string Password { get { return _Password; } set { SetProp(ref _Password, value); } }
+        public string Password { get => _Password; set => SetProp(ref _Password, value); }
         private string _Password;
 
         [Required]
         [Browsable(false)]
         public bool SavePassword
         {
-            get { return _SavePassword; }
+            get => _SavePassword;
             set { if (SetProp(ref _SavePassword, value)) { RaisePropertyChanged(nameof(DisplayPassword)); } }
         }
         private bool _SavePassword = false;
@@ -61,10 +71,11 @@ namespace kenzauros.RHarbor.Models
 
         [IgnoreDataMember]
         [NotMapped]
-        [Category("Authentication"), PropertyOrder(2), DisplayName("Password")]
-        public SecureString SecurePassword
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Password))]
+        public virtual SecureString SecurePassword
         {
-            get { return _SecurePassword; }
+            get => _SecurePassword;
             set
             {
                 if (SetProp(ref _SecurePassword, value))

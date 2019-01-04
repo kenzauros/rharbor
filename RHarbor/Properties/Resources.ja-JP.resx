@@ -118,101 +118,107 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthenticationDialog_Password_Label" xml:space="preserve">
-    <value>Password/phrase</value>
+    <value>パスワード/フレーズ</value>
   </data>
   <data name="AuthenticationDialog_SavePassword_CheckBox_Content" xml:space="preserve">
-    <value>Save Password/phrase</value>
+    <value>パスワード/フレーズを保存する</value>
   </data>
   <data name="AuthenticationDialog_Username_Label" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="Common_Dialog_CancelButton_Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>キャンセル</value>
   </data>
   <data name="Common_Dialog_CopyToClipboardButton_Content" xml:space="preserve">
-    <value>Copy the content to clipboard</value>
+    <value>表示内容をクリップボードにコピー</value>
   </data>
   <data name="Common_Dialog_NoButton_Content" xml:space="preserve">
-    <value>No</value>
+    <value>いいえ</value>
   </data>
   <data name="Common_Dialog_OKButton_Content" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Common_Dialog_YesButton_Content" xml:space="preserve">
-    <value>Yes</value>
+    <value>はい</value>
+  </data>
+  <data name="ConnectionInfoBase_Category_Authentication" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="ConnectionInfoBase_Category_General" xml:space="preserve">
+    <value>一般</value>
   </data>
   <data name="ConnectionInfoBase_Host" xml:space="preserve">
-    <value>Host</value>
+    <value>ホスト</value>
   </data>
   <data name="ConnectionInfoBase_Name" xml:space="preserve">
-    <value>Connection Name</value>
+    <value>名前</value>
   </data>
   <data name="ConnectionInfoBase_Password" xml:space="preserve">
-    <value>Password</value>
+    <value>パスワード/フレーズ</value>
   </data>
   <data name="ConnectionInfoBase_Port" xml:space="preserve">
-    <value>Port</value>
+    <value>ポート</value>
   </data>
   <data name="ConnectionInfoBase_Username" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="ConnectionInfo_Category_Authentication" xml:space="preserve">
-    <value>Auth</value>
+    <value>認証</value>
   </data>
   <data name="ConnectionInfo_Category_General" xml:space="preserve">
-    <value>General</value>
+    <value>一般</value>
   </data>
   <data name="ConnectionInfo_Category_KeepAlive" xml:space="preserve">
-    <value>Keep Alive</value>
+    <value>キープアライブ</value>
   </data>
   <data name="ConnectionInfo_Category_Other" xml:space="preserve">
-    <value>Other</value>
+    <value>その他</value>
   </data>
   <data name="ConnectionInfo_Category_Screen" xml:space="preserve">
-    <value>Screen</value>
+    <value>画面</value>
   </data>
   <data name="ConnectionInfo_Dialog_Connect_Error" xml:space="preserve">
-    <value>Failed to connect to "{0}".
+    <value>"{0}" への接続に失敗しました。
 {1}</value>
     <comment>0: Item's description, 1: Error message</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Connect_Message" xml:space="preserve">
-    <value>Start to connect to "{0}"?</value>
+    <value>"{0}" へ接続を開始しますか？</value>
     <comment>0: Item's description</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Connect_Title" xml:space="preserve">
-    <value>Start connecting</value>
+    <value>接続開始</value>
   </data>
   <data name="ConnectionInfo_Dialog_Remove_Error" xml:space="preserve">
-    <value>Failed to remove to "{0}".
+    <value>"{0}" の削除に失敗しました。
 {1}</value>
     <comment>0: Item's description, 1: Error message</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Remove_Message" xml:space="preserve">
-    <value>Are you sure you want to remove "{0}"?
-This operation cannot be canceled.</value>
+    <value>"{0}" を削除しますか？
+この操作は取り消しできません。</value>
     <comment>0: Item's description</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Remove_Title" xml:space="preserve">
-    <value>Removing connection info</value>
+    <value>接続情報の削除</value>
   </data>
   <data name="ConnectionInfo_Dialog_Save_Error" xml:space="preserve">
-    <value>Failed to save to "{0}".
+    <value>"{0}" の保存に失敗しました。
 {1}</value>
     <comment>0: Item's description, 1: Error message</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Save_Message" xml:space="preserve">
-    <value>Save the changes?</value>
+    <value>変更を保存しますか？</value>
     <comment>0: Item's description</comment>
   </data>
   <data name="ConnectionInfo_Dialog_Save_Title" xml:space="preserve">
-    <value>Saving connection info</value>
+    <value>接続情報の保存</value>
   </data>
   <data name="Connection_ConnectingText" xml:space="preserve">
-    <value>Connecting...</value>
+    <value>接続しています...</value>
   </data>
   <data name="MainWindow_Connections_ForwardedPort_ToolTip" xml:space="preserve">
-    <value>Forwarded Port</value>
+    <value>ポートフォワード</value>
   </data>
   <data name="MainWindow_Connections_RDP_ToolTip" xml:space="preserve">
     <value>RDP</value>
@@ -224,180 +230,183 @@ This operation cannot be canceled.</value>
     <value>RHarbor</value>
   </data>
   <data name="RDPConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
-    <value>Add new connection info</value>
+    <value>接続情報を追加する</value>
   </data>
   <data name="RDPConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
-    <value>Connect to this host</value>
+    <value>このホストに接続する</value>
   </data>
   <data name="RDPConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
-    <value>Discard the changes</value>
+    <value>変更を破棄する</value>
   </data>
   <data name="RDPConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
-    <value>Host</value>
+    <value>ホスト</value>
   </data>
   <data name="RDPConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="RDPConnectionInfoManagement_PortColumn_Title" xml:space="preserve">
-    <value>Port</value>
+    <value>ポート</value>
   </data>
   <data name="RDPConnectionInfoManagement_Properties_Title" xml:space="preserve">
-    <value>Properties</value>
+    <value>プロパティ</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>Remove this</value>
+    <value>削除する</value>
   </data>
   <data name="RDPConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
-    <value>Save the changes</value>
+    <value>接続情報を保存する</value>
   </data>
   <data name="RDPConnectionInfoManagement_StartEditButton_ToolTip" xml:space="preserve">
-    <value>Start editing</value>
+    <value>接続情報の編集を開始する</value>
   </data>
   <data name="RDPConnectionInfoManagement_UsernameColumn_Title" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="RDPConnectionInfo_Admin" xml:space="preserve">
-    <value>Admin mode</value>
+    <value>Admin モード</value>
+  </data>
+  <data name="RDPConnectionInfo_Category_Other" xml:space="preserve">
+    <value>その他</value>
   </data>
   <data name="RDPConnectionInfo_DesktopHeight" xml:space="preserve">
-    <value>Desktop Height</value>
+    <value>画面高さ</value>
   </data>
   <data name="RDPConnectionInfo_DesktopResulution" xml:space="preserve">
-    <value>Desktop Size</value>
+    <value>画面サイズ</value>
   </data>
   <data name="RDPConnectionInfo_DesktopWidth" xml:space="preserve">
-    <value>Desktop Width</value>
+    <value>画面幅</value>
   </data>
   <data name="RDPConnectionInfo_FullScreen" xml:space="preserve">
-    <value>Full Screen</value>
+    <value>フルスクリーン</value>
   </data>
   <data name="RDPConnectionInfo_RequiredConnection" xml:space="preserve">
-    <value>Required Connection</value>
+    <value>必要な接続</value>
   </data>
   <data name="SSHConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
-    <value>Add new connection info</value>
+    <value>接続情報を追加する</value>
   </data>
   <data name="SSHConnectionInfoManagement_AddNewPortForwardingButton_ToolTip" xml:space="preserve">
-    <value>Add a new port forwarding</value>
+    <value>ポートフォワード設定を追加</value>
   </data>
   <data name="SSHConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
-    <value>Connect to this host</value>
+    <value>このホストに接続する</value>
   </data>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
-    <value>Discard the changes</value>
+    <value>変更を破棄する</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_LocalHostColumn_Title" xml:space="preserve">
-    <value>Local Host</value>
+    <value>ローカルホスト</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_LocalPortColumn_Title" xml:space="preserve">
-    <value>Local Port</value>
+    <value>ローカルポート</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_NameColumn_Title" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_RemoteHostColumn_Title" xml:space="preserve">
-    <value>Remote Host</value>
+    <value>リモートホスト</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_RemotePortColumn_Title" xml:space="preserve">
-    <value>Remote Port</value>
+    <value>リモートポート</value>
   </data>
   <data name="SSHConnectionInfoManagement_FP_TypeColumn_Title" xml:space="preserve">
-    <value>Type</value>
+    <value>種類</value>
   </data>
   <data name="SSHConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
-    <value>Host</value>
+    <value>ホスト</value>
   </data>
   <data name="SSHConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="SSHConnectionInfoManagement_PortColumn_Title" xml:space="preserve">
-    <value>Port</value>
+    <value>ポート</value>
   </data>
   <data name="SSHConnectionInfoManagement_Properties_Title" xml:space="preserve">
-    <value>Properties</value>
+    <value>プロパティ</value>
   </data>
   <data name="SSHConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>Remove this</value>
+    <value>削除する</value>
   </data>
   <data name="SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip" xml:space="preserve">
-    <value>Remove this port forwarding setting</value>
+    <value>このポートフォワード設定を削除する</value>
   </data>
   <data name="SSHConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
-    <value>Save the changes</value>
+    <value>接続情報を保存する</value>
   </data>
   <data name="SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip" xml:space="preserve">
-    <value>Select private key file</value>
+    <value>鍵ファイルを選択する</value>
   </data>
   <data name="SSHConnectionInfoManagement_StartEditButton_ToolTip" xml:space="preserve">
-    <value>Start editing</value>
+    <value>接続情報の編集を開始する</value>
   </data>
   <data name="SSHConnectionInfoManagement_UsernameColumn_Title" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message" xml:space="preserve">
-    <value>Clear the path for the key file?</value>
+    <value>鍵ファイルのパスをクリアしますか？</value>
   </data>
   <data name="SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Title" xml:space="preserve">
-    <value>Private key file path</value>
+    <value>鍵ファイルのパス</value>
   </data>
   <data name="SSHConnectionInfo_KeepAliveEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>有効</value>
   </data>
   <data name="SSHConnectionInfo_KeepAliveInterval" xml:space="preserve">
-    <value>Interval</value>
+    <value>間隔</value>
   </data>
   <data name="SSHConnectionInfo_PrivateKeyFilePath" xml:space="preserve">
-    <value>Private Key File</value>
+    <value>鍵ファイルのパス</value>
   </data>
   <data name="SSHConnectionInfo_RequiredConnection" xml:space="preserve">
-    <value>Required Connection</value>
+    <value>必要な接続</value>
   </data>
   <data name="SSHConnection_Dialog_Auth_Message" xml:space="preserve">
-    <value>Connecting to "{0}"...</value>
+    <value>"{0}" へ接続します...</value>
     <comment>0: Item's description</comment>
   </data>
   <data name="SSHConnection_Dialog_Auth_Title" xml:space="preserve">
-    <value>Authentication</value>
+    <value>認証</value>
   </data>
   <data name="SSHConnection_Dialog_FingerPrintValidation_Messsage" xml:space="preserve">
-    <value>Please check the finger print of the SSH Server.</value>
+    <value>SSH サーバーのフィンガープリントを確認してください。</value>
   </data>
   <data name="SSHConnection_Dialog_FingerPrintValidation_Title" xml:space="preserve">
-    <value>SSH Finger Print</value>
+    <value>SSH フィンガープリント</value>
   </data>
   <data name="SSHConnection_Exception_FingerPrintIsEmpty" xml:space="preserve">
-    <value>Empty finger print received.</value>
+    <value>空のフィンガープリントを受信しました。</value>
   </data>
   <data name="SSHConnection_Exception_PortNumberOutOfRange" xml:space="preserve">
-    <value>Port number should be between 1 and 65535.</value>
+    <value>ポート番号は 1 から 65535 の範囲でなければなりません。</value>
   </data>
   <data name="SSHConnection_Exception_PrivateKeyFileNotExists" xml:space="preserve">
-    <value>Private key file does not exist.</value>
+    <value>鍵ファイルが見つかりません。</value>
   </data>
   <data name="SSHConnection_Exception_RemoteHostPortNotAssigned" xml:space="preserve">
-    <value>Remote Host and Port should be assigned.</value>
+    <value>リモートホストとポートが指定されていません。</value>
   </data>
   <data name="SSHConnection_Exception_RemotePortNotAssigned" xml:space="preserve">
-    <value>Remote Port should be assigned.</value>
+    <value>リモートポートが指定されていません。</value>
   </data>
   <data name="SSHConnection_Exception_UsernameNotAssigned" xml:space="preserve">
-    <value>Username should be assigned.</value>
+    <value>ユーザー名が指定されていません。</value>
   </data>
   <data name="UnhandledException_Dialog_Confirmation_Message" xml:space="preserve">
-    <value>Unhandled exception occured.
-Please contact to the developer when you get the error repeatedly.
-Are you want to continute the program?</value>
+    <value>予期されないエラーが発生しました。
+繰り返し発生する場合は開発者に連絡してください。
+プログラムを続行しますか？</value>
     <comment>Exceptions which program can be continued.</comment>
   </data>
   <data name="UnhandledException_Dialog_Confirmation_Title" xml:space="preserve">
-    <value>Unhandled exception</value>
+    <value>未処理例外</value>
   </data>
   <data name="UnhandledException_Dialog_Notice_Message" xml:space="preserve">
-    <value>Unhandled exception occured.
-Please contact to the developer when you get the error repeatedly.</value>
+    <value>予期されないエラーが発生しました。
+繰り返し発生する場合は開発者に連絡してください。</value>
     <comment>Exceptions which program will be shutting down.</comment>
   </data>
   <data name="UnhandledException_Dialog_Notice_Title" xml:space="preserve">
-    <value>Unhandled exception</value>
+    <value>未処理例外</value>
   </data>
 </root>

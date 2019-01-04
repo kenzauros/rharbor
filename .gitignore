@@ -262,3 +262,6 @@ __pycache__/
 
 # db file
 *.db
+
+# Screenpresso
+*.presso

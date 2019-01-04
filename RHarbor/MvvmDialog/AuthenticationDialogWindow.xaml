@@ -7,6 +7,7 @@
         xmlns:behaviors="clr-namespace:kenzauros.RHarbor.Behaviors"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" MinWidth="300" MinHeight="180"
+        MaxWidth="480" MaxHeight="480"
         Title="{Binding Title}" WindowStyle="ToolWindow">
     <Window.Resources>
         <ResourceDictionary>
@@ -21,14 +22,15 @@
         <DockPanel Margin="8">
             <Grid DockPanel.Dock="Bottom">
                 <WrapPanel HorizontalAlignment="Right">
-                    <Button Command="{Binding AcceptCommand}" Style="{StaticResource AcceptButtonStyle}" Content="OK" IsDefault="True"
+                    <Button Command="{Binding AcceptCommand}" Style="{StaticResource AcceptButtonStyle}" Content="{Binding Common_Dialog_OKButton_Content, Source={StaticResource resources}}" IsDefault="True"
                         Height="24" MinWidth="100"/>
-                    <Button Command="{Binding RejectCommand}" Style="{StaticResource RejectButtonStyle}" Content="Cancel" IsCancel="True"
+                    <Button Command="{Binding RejectCommand}" Style="{StaticResource RejectButtonStyle}" Content="{Binding Common_Dialog_CancelButton_Content, Source={StaticResource resources}}" IsCancel="True"
                         Height="24" MinWidth="100" Margin="4,0,0,0"/>
                 </WrapPanel>
             </Grid>
             <Grid Margin="0,0,0,8" DockPanel.Dock="Top">
-                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"/>
+                <TextBox Text="{Binding Message, Mode=OneWay}" Style="{StaticResource MessageDialogMessageTextBox}"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             </Grid>
             <Grid Margin="0,0,0,8" Height="72">
                 <Grid>
@@ -41,15 +43,15 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Username" VerticalContentAlignment="Center"/>
-                    <Label Grid.Row="1" Content="Password/phrase" VerticalContentAlignment="Center"/>
+                    <Label Grid.Row="0" Content="{Binding AuthenticationDialog_Username_Label, Source={StaticResource resources}}" VerticalContentAlignment="Center"/>
+                    <Label Grid.Row="1" Content="{Binding AuthenticationDialog_Password_Label, Source={StaticResource resources}}" VerticalContentAlignment="Center"/>
                     <TextBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding Username, Mode=TwoWay}"/>
                     <PasswordBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
                         <i:Interaction.Behaviors>
                             <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding Password, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
                     </PasswordBox>
-                    <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Content="Save Password/phrase" IsChecked="{Binding SavePassword, Mode=TwoWay}"/>
+                    <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Content="{Binding AuthenticationDialog_SavePassword_CheckBox_Content, Source={StaticResource resources}}" IsChecked="{Binding SavePassword, Mode=TwoWay}"/>
                 </Grid>
             </Grid>
         </DockPanel>

@@ -1,6 +1,6 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
-using Reactive.Bindings;
+using kenzauros.RHarbor.Properties;
 using Renci.SshNet;
 using Renci.SshNet.Common;
 using System;
@@ -37,13 +37,13 @@ namespace kenzauros.RHarbor.ViewModels
         {
             if (string.IsNullOrWhiteSpace(info.Username))
             {
-                throw new InvalidOperationException("Username should be assigned.");
+                throw new InvalidOperationException(Resources.SSHConnection_Exception_UsernameNotAssigned);
             }
             if (!string.IsNullOrWhiteSpace(info.PrivateKeyFilePath) && !File.Exists(info.PrivateKeyFilePath))
             {
-                throw new FileNotFoundException("Private key file does not exist.", info.PrivateKeyFilePath);
+                throw new FileNotFoundException(Resources.SSHConnection_Exception_PrivateKeyFileNotExists, info.PrivateKeyFilePath);
             }
-            if (createRegisteredForwardedPorts)
+            if (createRegisteredForwardedPorts && info.PortForwardingCollection != null)
             {
                 CreateForwardedPorts(info.PortForwardingCollection);
             }
@@ -74,7 +74,7 @@ namespace kenzauros.RHarbor.ViewModels
         {
             foreach (var pf in portForwardings)
             {
-                Children.Add(new ForwardedPortConnectionViewModel(CreateForwardedPort(pf)));
+                Children.Add(new ForwardedPortConnectionViewModel(CreateForwardedPort(pf), pf.Name));
             }
         }
 
@@ -89,12 +89,12 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 if (pf.RemotePort == null)
                 {
-                    throw new InvalidOperationException("Remote Port should be assigned.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_RemotePortNotAssigned);
                 }
                 if (!pf.RemotePort.HasValue || !pf.RemotePort.Value.IsValidIPPort()
                     || !pf.LocalPort.HasValue || !pf.LocalPort.Value.IsValidIPPort())
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 // LocalHost and LocalPort are the information of the SSH server.
                 return (string.IsNullOrWhiteSpace(pf.LocalHost))
@@ -106,7 +106,7 @@ namespace kenzauros.RHarbor.ViewModels
                 // RemoteHost and RemotePort don't care.
                 if (!pf.LocalPort.HasValue || !pf.LocalPort.Value.IsValidIPPort())
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 var boundHost = string.IsNullOrWhiteSpace(pf.LocalHost) ? "127.0.0.1" : pf.LocalHost;
                 return (string.IsNullOrWhiteSpace(pf.LocalHost))
@@ -117,12 +117,12 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(pf.RemoteHost) || pf.RemotePort == null)
                 {
-                    throw new InvalidOperationException("Remote Host and Port should be assigned.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_RemoteHostPortNotAssigned);
                 }
                 if (!pf.RemotePort.Value.IsValidIPPort() ||
                     (pf.LocalPort.HasValue && !pf.LocalPort.Value.IsValidIPPort()))
                 {
-                    throw new InvalidOperationException("Port number should be between 1 and 65535.");
+                    throw new InvalidOperationException(Resources.SSHConnection_Exception_PortNumberOutOfRange);
                 }
                 var boundHost = string.IsNullOrWhiteSpace(pf.LocalHost) ? "127.0.0.1" : pf.LocalHost;
                 return (pf.LocalPort == null)
@@ -141,13 +141,13 @@ namespace kenzauros.RHarbor.ViewModels
             if (string.IsNullOrWhiteSpace(ConnectionInfo.PrivateKeyFilePath))
             {
                 // Password Auth
-                var auth = new PasswordAuthenticationMethod(username, password.GetPlainString());
+                var auth = new PasswordAuthenticationMethod(username, password?.GetPlainString() ?? "");
                 authMethods.Add(auth);
             }
             else
             {
                 // Private key auth
-                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password.GetPlainString());
+                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password?.GetPlainString() ?? "");
                 var auth = new PrivateKeyAuthenticationMethod(username, pkeyfile);
                 authMethods.Add(auth);
             }
@@ -161,18 +161,20 @@ namespace kenzauros.RHarbor.ViewModels
             return new ConnectionInfo(host, port, username, authMethods);
         }
 
-        private async Task<(string username, SecureString password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput)
+        private async Task<(string username, SecureString password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput, string message = null)
         {
             var username = ConnectionInfo.Username;
             var password = ConnectionInfo.SecurePassword;
             var savePassword = ConnectionInfo.SavePassword;
             bool passwordChanged = false;
-            if (forceInput || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password?.GetPlainString()))
+            if (forceInput || username == null || password?.GetPlainString() == null)
             {
                 bool result;
                 (result, username, password, savePassword) = await MainWindow.ShowAuthenticationDialog(
                     username: username,
-                    savePassword: savePassword
+                    savePassword: savePassword,
+                    title: Resources.SSHConnection_Dialog_Auth_Title,
+                    message: message
                     );
                 // User cancel
                 if (!result) throw new OperationCanceledException();
@@ -181,7 +183,7 @@ namespace kenzauros.RHarbor.ViewModels
             return (username, password, savePassword, passwordChanged);
         }
 
-        private async Task<bool> TryEstablishConnection(string username, SecureString password)
+        private async Task TryEstablishConnection(string username, SecureString password)
         {
             var client = new SshClient(CreateSshConnectionInfo(username, password))
             {
@@ -190,7 +192,7 @@ namespace kenzauros.RHarbor.ViewModels
             var ev = new ManualResetEventSlim(false);
             void hostKeyEventHandler(object o, HostKeyEventArgs e)
             {
-                if (e.FingerPrint == null) throw new Exception("Empty finger print received.");
+                if (e.FingerPrint == null) throw new Exception(Resources.SSHConnection_Exception_FingerPrintIsEmpty);
                 var fingerprint = e.FingerPrint?.ToFingerPrintString();
                 if (ConnectionInfo.ExpectedFingerPrint == fingerprint)
                 {
@@ -202,43 +204,31 @@ namespace kenzauros.RHarbor.ViewModels
                 }
                 App.Current.Dispatcher.Invoke(async () =>
                 {
-                    var truested = await MainWindow.ShowConfirmationDialog(
-                        $"Please check the finger print of the SSH Server.\n{fingerprint}", "SSH FingerPrint");
-                    if (truested)
+                    e.CanTrust = await MainWindow.ShowConfirmationDialog(
+                        $"{Resources.SSHConnection_Dialog_FingerPrintValidation_Messsage}\n{fingerprint}", Resources.SSHConnection_Dialog_FingerPrintValidation_Title);
+                    if (e.CanTrust)
                     {
-                        e.CanTrust = true;
                         // Save fingerprint
                         await MainWindow.DbContext.UpdateSSHFingerPrint(ConnectionInfo, fingerprint);
                         this.WriteLog("Finger Print Mathed and Successfully Saved.");
-                        ev.Set();
                     }
                     else
                     {
-                        e.CanTrust = false;
                         this.WriteLog("Finger Print Rejected.");
-                        ev.Set();
                     }
+                    ev.Set();
                 });
             }
-            try
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
-                {
-                    client.HostKeyReceived += hostKeyEventHandler;
-                    this.WriteLog("Connecting...");
-                    client.Connect();
-                    ev.Wait(); // Wait for checking out the finger print
-                    this.WriteLog("Connected...");
-                    client.HostKeyReceived -= hostKeyEventHandler;
-                });
-                SshClient = client;
-            }
-            catch (Exception ex)
-            {
-                MyLogger.Log("Connection Failed.", ex);
-                return false;
-            }
-            return true;
+                client.HostKeyReceived += hostKeyEventHandler;
+                this.WriteLog("Connecting...");
+                client.Connect();
+                ev.Wait(); // Wait for checking out the finger print
+                this.WriteLog("Connected...");
+                client.HostKeyReceived -= hostKeyEventHandler;
+            });
+            SshClient = client;
         }
 
         private async Task EstablishForwardedPorts()
@@ -247,7 +237,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 try
                 {
-                    SshClient.AddForwardedPort(fp.ForwardedPort);
+                    SshClient.AddForwardedPort(fp.ForwardedPort.Value);
                     await fp.Connect();
                     this.WriteLog($"Port Forwarding Established ({fp.ToString()}).");
                 }
@@ -268,33 +258,42 @@ namespace kenzauros.RHarbor.ViewModels
             IsConnecting.Value = true;
             IsConnected.Value = false;
             this.WriteLog($"Connecting...");
-            // Establish the required connections.
-            if (RequiredConnection != null)
-            {
-                this.WriteLog($"Connection \"{RequiredConnection.ToString()}\" Required.");
-                await RequiredConnection.Connect();
-            }
-            // Try to establish this connection until connected.
+            await EstablishRequiredConnection();
             string username;
             SecureString password;
             bool savePassword;
             bool passwordChanged;
             bool forceInput = false;
-            while (true)
+            string additionalMessage = "";
+            while (true) // Try to establish this connection until connected.
             {
-                (username, password, savePassword, passwordChanged) = await GetUsernameAndPassword(forceInput);
-                if (await TryEstablishConnection(username, password))
+                (username, password, savePassword, passwordChanged)
+                    = await GetUsernameAndPassword(
+                        forceInput,
+                        $"{string.Format(Resources.SSHConnection_Dialog_Auth_Message, ToString())}\n{additionalMessage}");
+                additionalMessage = "";
+                try
                 {
-                    if (passwordChanged)
-                    {
-                        await MainWindow.DbContext.SavePassword(ConnectionInfo, savePassword, password);
-                        this.WriteLog($"Password Saved.");
-                    }
-                    break; // Connection established.
+                    await TryEstablishConnection(username, password);
                 }
-                forceInput = true; // Force showing auth dialog.
+                catch (SshAuthenticationException ex) // Authentication Failed.
+                {
+                    // Reauth
+                    additionalMessage = $"{ex.Message}";
+                    forceInput = true; // Force showing auth dialog.
+                    continue;
+                }
+                catch (Exception) // Other exception.
+                {
+                    throw;
+                }
+                if (passwordChanged)
+                {
+                    await MainWindow.DbContext.SavePassword(ConnectionInfo, savePassword, password);
+                    this.WriteLog($"Password Saved.");
+                }
+                break; // Connection established.
             }
-
             if (SshClient.IsConnected)
             {
                 this.WriteLog("Connection Established.");
@@ -318,11 +317,6 @@ namespace kenzauros.RHarbor.ViewModels
         /// <returns></returns>
         public override async Task Disconnect()
         {
-            if (RequiredConnection != null)
-            {
-                await RequiredConnection.Disconnect();
-                Children.Remove(RequiredConnection);
-            }
             if (SshClient != null)
             {
                 this.WriteLog("Disconnecting...");
@@ -357,6 +351,7 @@ namespace kenzauros.RHarbor.ViewModels
                     this.WriteLog("Failed to disconnect or dispose.", ex);
                 }
             }
+            await DisconnectRequiredConnection();
             IsConnecting.Value = false;
             IsConnected.Value = false;
         }
