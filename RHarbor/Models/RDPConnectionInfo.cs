@@ -89,7 +89,7 @@ namespace kenzauros.RHarbor.Models
         {
             var workArea = System.Windows.SystemParameters.WorkArea;
             var (w, h) = (DesktopWidth.Value + 50, DesktopHeight.Value + 100);
-            var (l, t) = ((workArea.Width - w) / 2, (workArea.Height - h) / 2);
+            var (l, t) = (Math.Floor((workArea.Width - w) / 2), Math.Floor((workArea.Height - h) / 2));
             var (r, b) = (l + w, t + h);
             File.WriteAllText(filepath,
                 $@"
