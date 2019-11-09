@@ -21,8 +21,8 @@ namespace kenzauros.RHarbor.ViewModels
         public ObservableCollection<T> Items { get; set; } = new ObservableCollection<T>();
         public ReactiveProperty<string> FilterText { get; set; } = new ReactiveProperty<string>();
 
-        public AsyncReactiveCommand<T> RemoveItemCommand { get; set; } = new AsyncReactiveCommand<T>();
-        public AsyncReactiveCommand<T> ConnectCommand { get; set; } = new AsyncReactiveCommand<T>();
+        public ReactiveCommand<T> RemoveItemCommand { get; set; } = new ReactiveCommand<T>();
+        public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
 
         public ReactiveCommand StartEditCommand { get; set; }
         public ReactiveProperty<T> SelectedItem { get; set; } = new ReactiveProperty<T>();
@@ -51,7 +51,7 @@ namespace kenzauros.RHarbor.ViewModels
                 }
             }).AddTo(Disposable);
 
-            ConnectCommand.Subscribe(item => Connect(item)).AddTo(Disposable);
+            ConnectCommand.Subscribe(async item => await Connect(item)).AddTo(Disposable);
 
             IsItemSelected = SelectedItem.Select(x => x != null).ToReadOnlyReactiveProperty();
 
