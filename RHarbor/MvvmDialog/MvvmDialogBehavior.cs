@@ -95,6 +95,8 @@ namespace kenzauros.RHarbor.MvvmDialog
         {
             if (Content != null) // Window Close Button or Alt+F4 or etc.
             {
+                // Invoke to assure a WaitHandle has been set since OnClose won't be called when Window closed not by commands
+                (Content as IDialog)?.CloseWindow();
                 Content = null;
             }
         }
