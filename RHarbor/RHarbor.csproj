@@ -182,6 +182,7 @@
     <Compile Include="Utilities\ArgumentsHelper.cs" />
     <Compile Include="Utilities\DbBackup.cs" />
     <Compile Include="Utilities\DesktopResolution.cs" />
+    <Compile Include="Utilities\JumpListHelper.cs" />
     <Compile Include="Utilities\LocalizedPropertyGridAttributes.cs" />
     <Compile Include="Utilities\MD5.cs" />
     <Compile Include="Utilities\MyLogger.cs" />

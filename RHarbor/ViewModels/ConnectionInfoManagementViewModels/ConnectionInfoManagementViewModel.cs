@@ -1,6 +1,7 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Properties;
+using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -109,6 +110,8 @@ namespace kenzauros.RHarbor.ViewModels
                             }
                         }
                     }
+                    // Renew Windows JumpList
+                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
                 }
                 catch (OperationCanceledException) // User manually canceled
                 {
