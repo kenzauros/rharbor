@@ -18,7 +18,7 @@ namespace kenzauros.RHarbor.Utilities
         /// <summary>
         /// Whether available connection informations specified or not.
         /// </summary>
-        public static bool HasConnectionSpecified => SpecifiedConnections.Any();
+        public static bool HasConnectionSpecified => SpecifiedConnections?.Any() == true;
 
         /// <summary>
         /// Connection informations extracted from "open" argument.
