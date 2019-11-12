@@ -156,18 +156,23 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\SecurePasswordBindingBehavior.cs" />
     <Compile Include="Behaviors\WindowCloseControlBehavior.cs" />
+    <Compile Include="IPC\IPCService.cs" />
+    <Compile Include="IPC\ProcessCommander.cs" />
     <Compile Include="Migrations\201809050658328_Initial.cs" />
     <Compile Include="Migrations\201809050658328_Initial.Designer.cs">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
+    <Compile Include="Models\ConnectionType.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />
+    <Compile Include="Utilities\IConnectionRequest.cs" />
     <Compile Include="Models\IPassword.cs" />
     <Compile Include="MvvmDialog\AuthenticationDialogViewModel.cs" />
     <Compile Include="MvvmDialog\AuthenticationDialogWindow.xaml.cs">
       <DependentUpon>AuthenticationDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPC\IProcessCommander.cs" />
     <Compile Include="RDP\RDPClient.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
     <Compile Include="Utilities\DbBackup.cs" />
