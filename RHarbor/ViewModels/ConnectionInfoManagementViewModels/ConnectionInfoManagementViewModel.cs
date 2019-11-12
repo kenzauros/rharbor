@@ -51,7 +51,7 @@ namespace kenzauros.RHarbor.ViewModels
                 }
             }).AddTo(Disposable);
 
-            ConnectCommand.Subscribe(item => Connect(item)).AddTo(Disposable);
+            ConnectCommand.Subscribe(item => ConfirmConnect(item)).AddTo(Disposable);
 
             IsItemSelected = SelectedItem.Select(x => x != null).ToReadOnlyReactiveProperty();
 
@@ -191,12 +191,24 @@ namespace kenzauros.RHarbor.ViewModels
             }
         }
 
-        protected virtual async Task Connect(T item)
+        protected virtual async Task ConfirmConnect(T item)
         {
             var result = await MainWindow.ShowConfirmationDialog(
                 string.Format(Resources.ConnectionInfo_Dialog_Connect_Message, item.ToString()),
                 Resources.ConnectionInfo_Dialog_Connect_Title);
             if (!result) return;
+            await Connect(item);
+        }
+
+        public virtual async Task ConnectById(int id)
+        {
+            var item = Items.FirstOrDefault(x => x.Id == id);
+            if (item == null) throw new System.Collections.Generic.KeyNotFoundException();
+            await Connect(item);
+        }
+
+        protected virtual async Task Connect(T item)
+        {
             MyLogger.Log($"Connecting to {item.ToString()}...");
             var conn = ConnectionViewModel<T>.CreateFromConnectionInfo(item);
             MainWindow.Connections.Collection.Add(conn);
