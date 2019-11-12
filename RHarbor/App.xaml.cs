@@ -1,4 +1,6 @@
-﻿using kenzauros.RHarbor.Models;
+﻿using kenzauros.RHarbor.IPC;
+using kenzauros.RHarbor.Models;
+using kenzauros.RHarbor.Utilities;
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
@@ -18,6 +20,53 @@ namespace kenzauros.RHarbor
             InitializeUnhandledExceptionHandlers();
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppDbContext, kenzauros.RHarbor.Migrations.Configuration>());
             MyLogger.Log("Application starting...");
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ArgumentsHelper.SetArgs(e.Args);
+            base.OnStartup(e);
+
+            // Local method to enqueue connections specified with command-line argument
+            bool EnqueueOpenRequestedConnections(IProcessCommander processCommander)
+            {
+                if (!ArgumentsHelper.HasConnectionSpecified) return false;
+                foreach (var conn in ArgumentsHelper.SpecifiedConnections)
+                {
+                    MyLogger.Log($"Connection (Type: {conn.Type}, Id: {conn.ConnectionId}) has been enqueued.");
+                    processCommander.Invoke(conn.Type, conn.ConnectionId);
+                }
+                return true;
+            }
+
+            if (SingleAppInstanceHelper.TryStart())
+            {
+                // Boot as an IPC host
+                var service = new ProcessCommander
+                {
+                    ConnectionRequest = ConnectionRequest.Singleton,
+                };
+                var serviceHost = IPCService.OpenServiceHost(service);
+                EnqueueOpenRequestedConnections(service);
+            }
+            else
+            {
+                // Boot as an IPC client
+                var channel = IPCService.CreateServiceChannel();
+                if (!EnqueueOpenRequestedConnections(channel))
+                {
+                    MyLogger.Log("Shutting down because another application instance has already run...");
+                }
+                channel.Activate();
+                // Shutdown after activate the primary window
+                Shutdown();
+            }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            SingleAppInstanceHelper.Exit();
         }
 
         /// <summary>
@@ -45,6 +94,7 @@ namespace kenzauros.RHarbor
             }
             else
             {
+                SingleAppInstanceHelper.Exit();
                 Environment.Exit(1);
             }
         }
@@ -64,6 +114,7 @@ namespace kenzauros.RHarbor
             }
             else
             {
+                SingleAppInstanceHelper.Exit();
                 Environment.Exit(1);
             }
         }
