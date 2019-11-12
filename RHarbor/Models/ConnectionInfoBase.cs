@@ -92,6 +92,12 @@ namespace kenzauros.RHarbor.Models
         [Browsable(false)]
         public string DisplayPassword => SecurePassword?.Length > 0 ? new string('*', 8) : "(Not Set)";
 
+        [DefaultValue(false)]
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(10)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(ShowInJumpList))]
+        public bool? ShowInJumpList { get => _ShowInJumpList == true; set => SetProp(ref _ShowInJumpList, value); }
+        private bool? _ShowInJumpList = false;
+
         #endregion
 
         #region IRewriteable

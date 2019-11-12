@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201809050658328_Initial.Designer.cs">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911120832514_AddShowInJumpList.cs" />
+    <Compile Include="Migrations\201911120832514_AddShowInJumpList.Designer.cs">
+      <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
     <Compile Include="Models\ConnectionType.cs" />
@@ -298,6 +302,9 @@
     <Resource Include="rharbor.ico" />
     <EmbeddedResource Include="Migrations\201809050658328_Initial.resx">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120832514_AddShowInJumpList.resx">
+      <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
