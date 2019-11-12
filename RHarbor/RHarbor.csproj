@@ -175,6 +175,7 @@
     <Compile Include="IPC\IProcessCommander.cs" />
     <Compile Include="RDP\RDPClient.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
+    <Compile Include="Utilities\ArgumentsHelper.cs" />
     <Compile Include="Utilities\DbBackup.cs" />
     <Compile Include="Utilities\DesktopResolution.cs" />
     <Compile Include="Utilities\LocalizedPropertyGridAttributes.cs" />
