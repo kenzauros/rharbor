@@ -159,6 +159,9 @@
   <data name="ConnectionInfoBase_Port" xml:space="preserve">
     <value>ポート</value>
   </data>
+  <data name="ConnectionInfoBase_ShowInJumpList" xml:space="preserve">
+    <value>ジャンプリストに表示する</value>
+  </data>
   <data name="ConnectionInfoBase_Username" xml:space="preserve">
     <value>ユーザー名</value>
   </data>

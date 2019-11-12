@@ -153,6 +153,9 @@
   <data name="ConnectionInfoBase_Port" xml:space="preserve">
     <value>Port</value>
   </data>
+  <data name="ConnectionInfoBase_ShowInJumpList" xml:space="preserve">
+    <value>Show in Jump List</value>
+  </data>
   <data name="ConnectionInfoBase_Username" xml:space="preserve">
     <value>Username</value>
   </data>
