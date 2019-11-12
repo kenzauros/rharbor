@@ -28,6 +28,10 @@ namespace kenzauros.RHarbor.Models
 
         public static IEnumerable<SSHConnectionInfo> All { get; set; }
 
+        [NotMapped]
+        [Browsable(false)]
+        public override ConnectionType ConnectionType => ConnectionType.SSH;
+
         public static async Task RefreshAll(AppDbContext db)
         {
             All = await db.SSHConnectionInfos

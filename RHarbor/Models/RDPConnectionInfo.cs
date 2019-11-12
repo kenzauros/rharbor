@@ -28,6 +28,10 @@ namespace kenzauros.RHarbor.Models
 
         public override string ToString() => this == Empty ? $" " : base.ToString();
 
+        [NotMapped]
+        [Browsable(false)]
+        public override ConnectionType ConnectionType => ConnectionType.RDP;
+
         [Required]
         [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(FullScreen))]

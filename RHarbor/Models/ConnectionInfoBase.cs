@@ -1,10 +1,7 @@
-﻿using kenzauros.RHarbor.Properties;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Security;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -18,6 +15,14 @@ namespace kenzauros.RHarbor.Models
         #region ToString
 
         public override string ToString() => string.IsNullOrWhiteSpace(Name) ? $"{Host}:{Port}" : $"{Name} ({Host}:{Port})";
+
+        #endregion
+
+        #region ConnectionType
+
+        [NotMapped]
+        [Browsable(false)]
+        public virtual ConnectionType ConnectionType { get; }
 
         #endregion
 
