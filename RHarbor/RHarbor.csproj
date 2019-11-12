@@ -179,6 +179,7 @@
     <Compile Include="Utilities\PortNumberCache.cs" />
     <Compile Include="Utilities\LocalizedResources.cs" />
     <Compile Include="Utilities\SecureStringEx.cs" />
+    <Compile Include="Utilities\SingleAppInstanceHelper.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\ConnectionViewModel%28T%29.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />
     <Compile Include="ViewModels\ConnectionInfoManagementViewModels\RDPConnectionInfoManagementViewModel.cs" />
