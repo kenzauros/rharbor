@@ -29,6 +29,7 @@ To apply an updated version, overwrite all of files contained in the zip file.
 Please see the detail pages.
 
 - [Remote Desktop with multi-hop SSH](rdp-with-multi-hop-ssh.md)
+- [Starting coonetion from Jump List](jump-list.md)
 
 ## Clear all settings
 
