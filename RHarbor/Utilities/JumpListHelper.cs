@@ -5,10 +5,15 @@ using System.Windows.Shell;
 
 namespace kenzauros.RHarbor.Utilities
 {
+    /// <summary>
+    /// Helper to organize Windows Jump List.
+    /// </summary>
     internal class JumpListHelper
     {
-        public static JumpList JumpListInstance => JumpList.GetJumpList(App.Current);
-
+        /// <summary>
+        /// Renews all the app's Jump List.
+        /// </summary>
+        /// <param name="connections"></param>
         public static void RenewJumpList(IEnumerable<ConnectionInfoBase> connections)
         {
             var jumpList = new JumpList();
@@ -20,6 +25,12 @@ namespace kenzauros.RHarbor.Utilities
             jumpList.Apply();
         }
 
+        /// <summary>
+        /// Adds a connection item to Jump List.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jumpList"></param>
+        /// <param name="connectionInfo"></param>
         public static void AddConnectionJumpTask<T>(JumpList jumpList, T connectionInfo) where T : ConnectionInfoBase
         {
             var jumpTask = new JumpTask()
