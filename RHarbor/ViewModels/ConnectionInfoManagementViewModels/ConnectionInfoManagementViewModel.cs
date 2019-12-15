@@ -1,6 +1,7 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Properties;
+using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -48,10 +49,12 @@ namespace kenzauros.RHarbor.ViewModels
                 if (await Remove(item))
                 {
                     Items.Remove(item);
+                    // Renew Windows JumpList
+                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
                 }
             }).AddTo(Disposable);
 
-            ConnectCommand.Subscribe(async item => await Connect(item)).AddTo(Disposable);
+            ConnectCommand.Subscribe(async item => await ConfirmConnect(item)).AddTo(Disposable);
 
             IsItemSelected = SelectedItem.Select(x => x != null).ToReadOnlyReactiveProperty();
 
@@ -109,6 +112,8 @@ namespace kenzauros.RHarbor.ViewModels
                             }
                         }
                     }
+                    // Renew Windows JumpList
+                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
                 }
                 catch (OperationCanceledException) // User manually canceled
                 {
@@ -183,20 +188,47 @@ namespace kenzauros.RHarbor.ViewModels
             }
             catch (Exception ex)
             {
-                MyLogger.Log($"Failed to save {item.ToString()}.", ex);
+                var logMessage = $"Failed to save {item.ToString()}.";
+                var dialogMessage = ex.Message;
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException validationEx)
+                {
+                    var errorMessages = validationEx.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => $"{x.PropertyName}: {x.ErrorMessage}")
+                        .ToList();
+                    if (errorMessages.Any())
+                    {
+                        logMessage += Newtonsoft.Json.JsonConvert.SerializeObject(errorMessages.ToArray());
+                        dialogMessage = string.Join("\r\n", errorMessages.Take(10));
+                        if (errorMessages.Count > 10) { dialogMessage += "\r\n..."; }
+                    }
+                }
+                MyLogger.Log(logMessage, ex);
                 await MainWindow.ShowMessageDialog(
-                    string.Format(Resources.ConnectionInfo_Dialog_Save_Error, item.ToString(), ex.Message),
+                    string.Format(Resources.ConnectionInfo_Dialog_Save_Error, item.ToString(), dialogMessage),
                     Resources.ConnectionInfo_Dialog_Save_Title);
                 return (false, null);
             }
         }
 
-        protected virtual async Task Connect(T item)
+        protected virtual async Task ConfirmConnect(T item)
         {
             var result = await MainWindow.ShowConfirmationDialog(
                 string.Format(Resources.ConnectionInfo_Dialog_Connect_Message, item.ToString()),
                 Resources.ConnectionInfo_Dialog_Connect_Title);
             if (!result) return;
+            await Connect(item);
+        }
+
+        public virtual async Task ConnectById(int id)
+        {
+            var item = Items.FirstOrDefault(x => x.Id == id);
+            if (item == null) throw new System.Collections.Generic.KeyNotFoundException();
+            await Connect(item);
+        }
+
+        protected virtual async Task Connect(T item)
+        {
             MyLogger.Log($"Connecting to {item.ToString()}...");
             var conn = ConnectionViewModel<T>.CreateFromConnectionInfo(item);
             MainWindow.Connections.Collection.Add(conn);

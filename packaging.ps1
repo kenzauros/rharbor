@@ -4,16 +4,18 @@ $directory = Join-Path $currentDir "RHarbor\bin" -Resolve
 $releaseDir = Join-Path $directory "Release" -Resolve
 $filename = $appName + ".exe"
 $exePath = Join-Path $releaseDir $filename -Resolve
-$fileVersion = "v" + ((Get-ItemProperty $exePath).VersionInfo.FileVersion)
-$version = &"git" "describe" "--abbrev=0"
-$destDir = Join-Path $directory ($appName + "_" + $version)
+$fileVersionInfo = (Get-ItemProperty $exePath).VersionInfo
+$fileVersion = "v" + ($fileVersionInfo.FileMajorPart) + "." + ($fileVersionInfo.FileMinorPart) + "." + ($fileVersionInfo.FilePrivatePart)
+$destDir = Join-Path $directory ($appName + "_" + $fileVersion)
 $destPath = $destDir + ".zip"
+
+# $version = &"git" "describe" "--abbrev=0"
+# Write-Output "Version (from git tag): $version"
 
 Write-Output "Current dir.: $currentDir"
 Write-Output "Bin dir.: $directory"
 Write-Output "Release dir.: $releaseDir"
 Write-Output "Version (exe file): $fileVersion"
-Write-Output "Version (from git tag): $version"
 Write-Output "Destination dir.: $destDir"
 Write-Output "Output file: $destPath"
 
@@ -28,7 +30,7 @@ Write-Output "Copying files..."
 # Copy READMEs in the current dir.
 Get-ChildItem $currentDir -Filter "README.*" | Copy-Item -Destination $destDir -Recurse -Force
 # Copy directories under the Release dir.
-Get-ChildItem $releaseDir -Directory | Copy-Item -Destination $destDir -Recurse -Force
+Get-ChildItem $releaseDir -Directory | Where-Object Name "^(logs)$" -NotMatch | Copy-Item -Destination $destDir -Recurse -Force
 # Copy files in the Release dir.
 Get-ChildItem $releaseDir | Where-Object Name "\.(exe|dll|json|config)$" -Match | Copy-Item -Destination $destDir
 

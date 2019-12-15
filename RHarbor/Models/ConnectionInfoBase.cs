@@ -1,10 +1,7 @@
-﻿using kenzauros.RHarbor.Properties;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Security;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -18,6 +15,14 @@ namespace kenzauros.RHarbor.Models
         #region ToString
 
         public override string ToString() => string.IsNullOrWhiteSpace(Name) ? $"{Host}:{Port}" : $"{Name} ({Host}:{Port})";
+
+        #endregion
+
+        #region ConnectionType
+
+        [NotMapped]
+        [Browsable(false)]
+        public virtual ConnectionType ConnectionType { get; }
 
         #endregion
 
@@ -91,6 +96,12 @@ namespace kenzauros.RHarbor.Models
         [NotMapped]
         [Browsable(false)]
         public string DisplayPassword => SecurePassword?.Length > 0 ? new string('*', 8) : "(Not Set)";
+
+        [DefaultValue(false)]
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(10)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(ShowInJumpList))]
+        public bool? ShowInJumpList { get => _ShowInJumpList == true; set => SetProp(ref _ShowInJumpList, value); }
+        private bool? _ShowInJumpList = false;
 
         #endregion
 

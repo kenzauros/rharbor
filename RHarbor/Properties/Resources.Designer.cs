@@ -308,6 +308,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Show in Jump List に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_ShowInJumpList {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_ShowInJumpList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Username に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConnectionInfoBase_Username {

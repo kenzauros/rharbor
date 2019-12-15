@@ -1,7 +1,7 @@
 多段 SSH 経由のリモートデスクトップ接続
 =====
 
-- [RHarbor](index.ja.md)
+- [RHarbor](index.ja.md) トップページに戻る
 
 ## 概要
 

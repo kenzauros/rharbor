@@ -26,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -156,22 +157,33 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\SecurePasswordBindingBehavior.cs" />
     <Compile Include="Behaviors\WindowCloseControlBehavior.cs" />
+    <Compile Include="IPC\IPCService.cs" />
+    <Compile Include="IPC\ProcessCommander.cs" />
     <Compile Include="Migrations\201809050658328_Initial.cs" />
     <Compile Include="Migrations\201809050658328_Initial.Designer.cs">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911120832514_AddShowInJumpList.cs" />
+    <Compile Include="Migrations\201911120832514_AddShowInJumpList.Designer.cs">
+      <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
+    <Compile Include="Models\ConnectionType.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />
+    <Compile Include="Utilities\IConnectionRequest.cs" />
     <Compile Include="Models\IPassword.cs" />
     <Compile Include="MvvmDialog\AuthenticationDialogViewModel.cs" />
     <Compile Include="MvvmDialog\AuthenticationDialogWindow.xaml.cs">
       <DependentUpon>AuthenticationDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPC\IProcessCommander.cs" />
     <Compile Include="RDP\RDPClient.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
+    <Compile Include="Utilities\ArgumentsHelper.cs" />
     <Compile Include="Utilities\DbBackup.cs" />
     <Compile Include="Utilities\DesktopResolution.cs" />
+    <Compile Include="Utilities\JumpListHelper.cs" />
     <Compile Include="Utilities\LocalizedPropertyGridAttributes.cs" />
     <Compile Include="Utilities\MD5.cs" />
     <Compile Include="Utilities\MyLogger.cs" />
@@ -179,6 +191,7 @@
     <Compile Include="Utilities\PortNumberCache.cs" />
     <Compile Include="Utilities\LocalizedResources.cs" />
     <Compile Include="Utilities\SecureStringEx.cs" />
+    <Compile Include="Utilities\SingleAppInstanceHelper.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\ConnectionViewModel%28T%29.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />
     <Compile Include="ViewModels\ConnectionInfoManagementViewModels\RDPConnectionInfoManagementViewModel.cs" />
@@ -291,6 +304,9 @@
     <Resource Include="rharbor.ico" />
     <EmbeddedResource Include="Migrations\201809050658328_Initial.resx">
       <DependentUpon>201809050658328_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120832514_AddShowInJumpList.resx">
+      <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">

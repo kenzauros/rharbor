@@ -1,15 +1,13 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
+using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace kenzauros.RHarbor.ViewModels
 {
@@ -66,7 +64,49 @@ namespace kenzauros.RHarbor.ViewModels
             });
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
+            InitConnectionInvokeTimer();
         }
+
+        #region Connection Invoking
+
+        private DispatcherTimer ConnectionInvokeTimer { get; } = new DispatcherTimer();
+
+        private void InitConnectionInvokeTimer()
+        {
+            ConnectionInvokeTimer.Interval = TimeSpan.FromMilliseconds(500);
+            ConnectionInvokeTimer.Tick += async (s, e) =>
+            {
+                var list = new List<(ConnectionType Type, int Id)>();
+                while (ConnectionRequest.Singleton.Queue.Count > 0)
+                {
+                    list.Add(ConnectionRequest.Singleton.Queue.Dequeue());
+                }
+                foreach (var (type, id) in list)
+                {
+                    try
+                    {
+                        switch (type)
+                        {
+                            case ConnectionType.SSH:
+                                await SSHConnectionInfos.ConnectById(id);
+                                break;
+                            case ConnectionType.RDP:
+                                await RDPConnectionInfos.ConnectById(id);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        MyLogger.Log($"ID {id} is not found in {type} connections.", ex);
+                    }
+                }
+            };
+            ConnectionInvokeTimer.Start();
+        }
+
+        #endregion
 
         #region IDialogHost
 
@@ -80,7 +120,7 @@ namespace kenzauros.RHarbor.ViewModels
         {
             SSHConnectionInfos.Dispose();
             Connections.Dispose();
-            DbContext.Dispose();
+            DbContext?.Dispose();
             await PortNumberCache.Save();
             base.Dispose();
         }

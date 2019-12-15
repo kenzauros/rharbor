@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 
@@ -27,6 +29,15 @@ namespace kenzauros.RHarbor.Models
 
         public DbSet<RDPConnectionInfo> RDPConnectionInfos { get; set; }
         public DbSet<SSHConnectionInfo> SSHConnectionInfos { get; set; }
+
+        public async Task<IEnumerable<ConnectionInfoBase>> EnumerateAllConnectionInfos()
+        {
+            var connections1 = await RDPConnectionInfos.ToListAsync();
+            var connections2 = await SSHConnectionInfos.ToListAsync();
+            return connections1
+                .Cast<ConnectionInfoBase>()
+                .Union(connections2);
+        }
 
         public void InitSecurePasswords()
         {
