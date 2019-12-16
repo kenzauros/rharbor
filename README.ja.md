@@ -1,8 +1,6 @@
 RHarbor - Remote Desktop via SSH Servers
 =====
 
-- [English](README.md)
-
 RHarbor は **SSH を経由したリモートデスクトップ接続** のサポートツールです。
 
 また、複数の SSH を経由する **多段 SSH 越しのポートフォワード機能** も備えています。
@@ -24,6 +22,8 @@ SSH サーバーを経由しないリモートデスクトップ接続も管理�
 
 インストール作業は特にありません。ダウンロードした zip ファイルを適当なフォルダーに展開し、 RHarbor.exe を起動してください。
 
+アンインストールする場合は RHarbor.exe を展開したフォルダーを削除してください。
+
 ## アップデート
 
 バージョンアップの際は zip ファイルに含まれるファイルをすべて元のインストールフォルダに上書きしてください。
@@ -32,12 +32,16 @@ SSH サーバーを経由しないリモートデスクトップ接続も管理�
 
 使い方については詳細ページを参照してください。
 
-## 設定の初期化
+- [多段 SSH 経由のリモートデスクトップ接続](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.ja.html)
+- [Windows のジャンプリストを使った接続](https://kenzauros.github.io/rharbor/jump-list.ja.html)
+
+## 設定の初期化とバックアップ
 
 RHarbor.exe と同じフォルダーに RHarbor.db があります。このファイルに設定が保存されています。
-設定を初期化するには RHarbor を閉じた状態で、 RHarbor.db を削除してください。
 
-再度 RHarbor を起動すると RHarbor.db が再生成されます。
+設定を初期化するには RHarbor を閉じた状態で、 RHarbor.db を削除してください。再度 RHarbor を起動すると RHarbor.db が再生成されます。
+
+設定をバックアップする場合は RHarbor.db をコピーしてください。
 
 ## 注意
 
