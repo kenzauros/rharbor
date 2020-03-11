@@ -1,8 +1,6 @@
 RHarbor - Remote Desktop via SSH Servers
 =====
 
-- [日本語](README.ja.md)
-
 RHarbor helps you to connect to Windows by Remote Desktop (RDP) via multi-hop SSH tunnel.
 
 ## Description
@@ -20,6 +18,8 @@ Download the zip file (`RHarbor_vN.N.N.zip`) from [Release Page](https://github.
 
 RHarbor needs no special installation. Please unzip the downloaded file into a suitable folder and just start RHarbor.exe.
 
+To uninstall, just delete the folder you made.
+
 ## Update
 
 To apply an updated version, overwrite all of files contained in the zip file.
@@ -28,13 +28,16 @@ To apply an updated version, overwrite all of files contained in the zip file.
 
 Please see the detail pages.
 
+- [Remote Desktop with multi-hop SSH](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.html)
+- [Starting connection from Jump List](https://kenzauros.github.io/rharbor/jump-list.html)
+
 ## Clear all settings
 
 "RHarbor.db" exists in the same folder as "RHarbor.exe". This file contains RHarbor's settings you were set.
 
-To initialize the setting please shutdown RHarbor and then delete "RHarbor.db".
+To initialize the setting please shutdown RHarbor and then delete "RHarbor.db". New "RHarbor.db" will be generated when you start RHarbor again.
 
-New "RHarbor.db" will be generated when you start RHarbor again.
+To back up your connection settings, just copy "RHarbor.db" to your backup location.
 
 ## Notice
 
@@ -58,7 +61,7 @@ Please make sure that an appropriate antivirus software is installed on your com
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
 ## Special Thanks to
 

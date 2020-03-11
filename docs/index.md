@@ -20,6 +20,8 @@ Download the zip file (`RHarbor_vN.N.N.zip`) from [Release Page](https://github.
 
 RHarbor needs no special installation. Please unzip the downloaded file into a suitable folder and just start RHarbor.exe.
 
+To uninstall, just delete the folder you made.
+
 ## Update
 
 To apply an updated version, overwrite all of files contained in the zip file.
@@ -29,15 +31,15 @@ To apply an updated version, overwrite all of files contained in the zip file.
 Please see the detail pages.
 
 - [Remote Desktop with multi-hop SSH](rdp-with-multi-hop-ssh.md)
-- [Starting coonetion from Jump List](jump-list.md)
+- [Starting connection from Jump List](jump-list.md)
 
 ## Clear all settings
 
 "RHarbor.db" exists in the same folder as "RHarbor.exe". This file contains RHarbor's settings you were set.
 
-To initialize the setting please shutdown RHarbor and then delete "RHarbor.db".
+To initialize the setting please shutdown RHarbor and then delete "RHarbor.db". New "RHarbor.db" will be generated when you start RHarbor again.
 
-New "RHarbor.db" will be generated when you start RHarbor again.
+To back up your connection settings, just copy "RHarbor.db" to your backup location.
 
 ## Notice
 
