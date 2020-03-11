@@ -61,7 +61,7 @@ Please make sure that an appropriate antivirus software is installed on your com
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
 ## Special Thanks to
 

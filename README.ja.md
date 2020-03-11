@@ -61,7 +61,7 @@ RHarbor に保存されるパスワードは簡易的な暗号化を施してい
 
 ## ライセンス
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
 ## Special Thanks to
 
