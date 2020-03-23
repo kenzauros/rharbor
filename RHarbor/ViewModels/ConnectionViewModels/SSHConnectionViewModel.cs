@@ -41,7 +41,9 @@ namespace kenzauros.RHarbor.ViewModels
             }
             if (!string.IsNullOrWhiteSpace(info.PrivateKeyFilePath) && !File.Exists(info.PrivateKeyFilePath))
             {
-                throw new FileNotFoundException(Resources.SSHConnection_Exception_PrivateKeyFileNotExists, info.PrivateKeyFilePath);
+                throw new FileNotFoundException(
+                    string.Format(Resources.SSHConnection_Exception_PrivateKeyFileNotExists, info.PrivateKeyFilePath),
+                    info.PrivateKeyFilePath);
             }
             if (createRegisteredForwardedPorts && info.PortForwardingCollection != null)
             {

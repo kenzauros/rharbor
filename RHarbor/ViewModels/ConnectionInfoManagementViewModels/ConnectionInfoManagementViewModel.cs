@@ -230,15 +230,19 @@ namespace kenzauros.RHarbor.ViewModels
         protected virtual async Task Connect(T item)
         {
             MyLogger.Log($"Connecting to {item.ToString()}...");
-            var conn = ConnectionViewModel<T>.CreateFromConnectionInfo(item);
-            MainWindow.Connections.Collection.Add(conn);
+            ConnectionViewModel<T> conn = null;
             try
             {
+                conn = ConnectionViewModel<T>.CreateFromConnectionInfo(item);
+                MainWindow.Connections.Collection.Add(conn);
                 await conn.Connect();
             }
             catch (Exception ex)
             {
-                MainWindow.Connections.Collection.Remove(conn);
+                if (conn != null)
+                {
+                    MainWindow.Connections.Collection.Remove(conn);
+                }
                 switch (ex)
                 {
                     case OperationCanceledException oce: // User canceled manually
@@ -247,7 +251,7 @@ namespace kenzauros.RHarbor.ViewModels
                 }
                 MyLogger.Log($"Failed to connect to {item.ToString()}.", ex);
                 await MainWindow.ShowMessageDialog(
-                    string.Format(Resources.ConnectionInfo_Dialog_Save_Error, item.ToString(), ex.Message),
+                    string.Format(Resources.ConnectionInfo_Dialog_Connect_Error, item.ToString(), ex.Message),
                     Resources.ConnectionInfo_Dialog_Connect_Title);
             }
         }
