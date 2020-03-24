@@ -384,7 +384,7 @@
     <value>ポート番号は 1 から 65535 の範囲でなければなりません。</value>
   </data>
   <data name="SSHConnection_Exception_PrivateKeyFileNotExists" xml:space="preserve">
-    <value>鍵ファイルが見つかりません。</value>
+    <value>鍵ファイルが見つかりません。 "{0}"</value>
   </data>
   <data name="SSHConnection_Exception_RemoteHostPortNotAssigned" xml:space="preserve">
     <value>リモートホストとポートが指定されていません。</value>

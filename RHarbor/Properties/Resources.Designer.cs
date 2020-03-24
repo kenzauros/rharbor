@@ -569,7 +569,7 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Private key file does not exist. に類似しているローカライズされた文字列を検索します。
+        ///   Private key file does not exist. &quot;{0}&quot; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnection_Exception_PrivateKeyFileNotExists {
             get {

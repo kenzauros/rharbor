@@ -5,7 +5,7 @@ $releaseDir = Join-Path $directory "Release" -Resolve
 $filename = $appName + ".exe"
 $exePath = Join-Path $releaseDir $filename -Resolve
 $fileVersionInfo = (Get-ItemProperty $exePath).VersionInfo
-$fileVersion = "v" + ($fileVersionInfo.FileMajorPart) + "." + ($fileVersionInfo.FileMinorPart) + "." + ($fileVersionInfo.FilePrivatePart)
+$fileVersion = "v" + ($fileVersionInfo.FileMajorPart) + "." + ($fileVersionInfo.FileMinorPart) + "." + ($fileVersionInfo.FileBuildPart)
 $destDir = Join-Path $directory ($appName + "_" + $fileVersion)
 $destPath = $destDir + ".zip"
 

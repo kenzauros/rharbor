@@ -375,7 +375,7 @@ This operation cannot be canceled.</value>
     <value>Port number should be between 1 and 65535.</value>
   </data>
   <data name="SSHConnection_Exception_PrivateKeyFileNotExists" xml:space="preserve">
-    <value>Private key file does not exist.</value>
+    <value>Private key file does not exist. "{0}"</value>
   </data>
   <data name="SSHConnection_Exception_RemoteHostPortNotAssigned" xml:space="preserve">
     <value>Remote Host and Port should be assigned.</value>
