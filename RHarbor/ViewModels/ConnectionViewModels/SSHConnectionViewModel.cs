@@ -319,31 +319,33 @@ namespace kenzauros.RHarbor.ViewModels
         /// <returns></returns>
         public override async Task Disconnect()
         {
+            if (SshClient == null) return;
+            this.WriteLog("Disconnecting...");
+            var ports = ForwardedPorts?.ToList();
+            if (ports?.Count > 0)
+            {
+                foreach (var pf in ports)
+                {
+                    try
+                    {
+                        await pf.Disconnect();
+                    }
+                    catch (Exception ex)
+                    {
+                        MyLogger.Log("Failed to close a forwarded port.", ex);
+                    }
+                }
+                ports.ForEach(x => Children.Remove(x));
+                this.WriteLog("Closed All Forwarded Ports.");
+            }
             if (SshClient != null)
             {
-                this.WriteLog("Disconnecting...");
-                if (ForwardedPorts?.Any() == true)
-                {
-                    foreach (var pf in ForwardedPorts)
-                    {
-                        try
-                        {
-                            await pf.Disconnect();
-                        }
-                        catch (Exception ex)
-                        {
-                            MyLogger.Log("Failed to close a forwarded port.", ex);
-                        }
-                    }
-                    ForwardedPorts.ToList().ForEach(x => Children.Remove(x));
-                    this.WriteLog("Closed All Forwarded Ports.");
-                }
                 try
                 {
                     await Task.Run(() =>
                     {
-                        SshClient.Disconnect();
-                        SshClient.Dispose();
+                        SshClient?.Disconnect();
+                        SshClient?.Dispose();
                         SshClient = null;
                     });
                     this.WriteLog("Disconnected.");
