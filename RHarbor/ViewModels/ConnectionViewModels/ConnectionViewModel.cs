@@ -18,7 +18,7 @@ namespace kenzauros.RHarbor.ViewModels
         public IConnectionViewModel Parent { get; set; }
         public ObservableCollection<IConnectionViewModel> Children { get; set; } = new ObservableCollection<IConnectionViewModel>();
 
-        public ReactiveCommand DisconnectCommand { get; set; }
+        public AsyncReactiveCommand DisconnectCommand { get; set; }
 
         /// <summary>
         /// Whether this connection is root or not.
