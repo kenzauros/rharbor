@@ -26,6 +26,7 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
 
         public ReactiveCommand StartEditCommand { get; set; }
+        public ReactiveCommand ReplicateCommand { get; set; }
         public ReactiveProperty<T> SelectedItem { get; set; } = new ReactiveProperty<T>();
         public ReactiveProperty<bool> IsItemEditing { get; set; } = new ReactiveProperty<bool>(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe);
         public ReadOnlyReactiveProperty<bool> IsNotItemEditing { get; set; }
@@ -41,6 +42,7 @@ namespace kenzauros.RHarbor.ViewModels
             AddNewItemCommand.Subscribe(() =>
             {
                 SelectedItem.Value = null;
+                EditingItem.Value = new T();
                 IsItemEditing.Value = true;
             }).AddTo(Disposable);
 
@@ -58,16 +60,11 @@ namespace kenzauros.RHarbor.ViewModels
 
             IsItemSelected = SelectedItem.Select(x => x != null).ToReadOnlyReactiveProperty();
 
-            IsItemEditing.Subscribe(isItemEditing =>
-            {
-                EditingItem.Value = isItemEditing
-                    ? ((SelectedItem.Value == null) ? new T() : SelectedItem.Value.CloneDeep())
-                    : SelectedItem.Value;
-            }).AddTo(Disposable);
             IsNotItemEditing = IsItemEditing.Inverse().ToReadOnlyReactiveProperty();
 
             SelectedItem.Subscribe(x =>
             {
+                EditingItem.Value = SelectedItem.Value;
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 
@@ -76,12 +73,26 @@ namespace kenzauros.RHarbor.ViewModels
                 .ToReactiveCommand();
             StartEditCommand.Subscribe(() =>
             {
+                EditingItem.Value = SelectedItem.Value.CloneDeep();
+                IsItemEditing.Value = true;
+            }).AddTo(Disposable);
+
+            ReplicateCommand = IsItemSelected
+                .CombineLatest(IsItemEditing.Inverse(), (a, b) => a && b)
+                .ToReactiveCommand();
+            ReplicateCommand.Subscribe(() =>
+            {
+                var replicated = SelectedItem.Value.CloneDeep();
+                replicated.Id = -1;
+                SelectedItem.Value = null;
+                EditingItem.Value = replicated;
                 IsItemEditing.Value = true;
             }).AddTo(Disposable);
 
             DiscardChangesCommand = IsItemEditing.ToReactiveCommand();
             DiscardChangesCommand.Subscribe(() =>
             {
+                EditingItem.Value = SelectedItem.Value ?? new T();
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 

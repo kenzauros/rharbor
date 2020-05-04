@@ -19,7 +19,7 @@ namespace kenzauros.RHarbor.Properties {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -488,6 +488,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Duplicate this connection info and start to edit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_ReplicateButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_ReplicateButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Save the changes に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RDPConnectionInfoManagement_SaveButton_ToolTip {
@@ -799,6 +808,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip {
             get {
                 return ResourceManager.GetString("SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Duplicate this connection info and start to edit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_ReplicateButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_ReplicateButton_ToolTip", resourceCulture);
             }
         }
         

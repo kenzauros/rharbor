@@ -148,11 +148,16 @@
                     <Border Grid.Row="1" BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                     </Border>
                     <Grid Grid.Row="2" Margin="0,4,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button ToolTip="{Binding RDPConnectionInfoManagement_StartEditButton_ToolTip, Source={StaticResource resources}}"
-                                    Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
                                     Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_StartEditButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}">
                                 <fa:ImageAwesome Icon="Pencil" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_ReplicateButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
+                                    Margin="4,0,0,0">
+                                <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
@@ -164,7 +169,7 @@
                             </Button>
                             <Button ToolTip="{Binding RDPConnectionInfoManagement_DiscardButton_ToolTip, Source={StaticResource resources}}"
                                     Command="{Binding DiscardChangesCommand}"
-                                    Style="{StaticResource IconButtonStyle}" Background="{StaticResource RedBrush}" Margin="8,0,0,0">
+                                    Style="{StaticResource IconButtonStyle}" Background="{StaticResource RedBrush}" Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="MinusCircle" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>

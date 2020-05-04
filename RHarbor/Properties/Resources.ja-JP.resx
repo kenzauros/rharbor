@@ -256,6 +256,9 @@
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
     <value>削除する</value>
   </data>
+  <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>この接続情報を複製して編集する</value>
+  </data>
   <data name="RDPConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>接続情報を保存する</value>
   </data>
@@ -333,6 +336,9 @@
   </data>
   <data name="SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip" xml:space="preserve">
     <value>このポートフォワード設定を削除する</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>この接続情報を複製して編集する</value>
   </data>
   <data name="SSHConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>接続情報を保存する</value>

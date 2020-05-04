@@ -250,6 +250,9 @@ This operation cannot be canceled.</value>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
     <value>Remove this</value>
   </data>
+  <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>Duplicate this connection info and start to edit</value>
+  </data>
   <data name="RDPConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>Save the changes</value>
   </data>
@@ -324,6 +327,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip" xml:space="preserve">
     <value>Remove this port forwarding setting</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>Duplicate this connection info and start to edit</value>
   </data>
   <data name="SSHConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>Save the changes</value>
