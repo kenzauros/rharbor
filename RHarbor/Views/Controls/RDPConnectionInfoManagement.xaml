@@ -56,47 +56,60 @@
                         SelectedItem="{Binding SelectedGroup.Value, Mode=TwoWay}"
                         />
                     <GridSplitter Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Transparent"/>
-                    <xcdg:DataGridControl Grid.Column="1" Margin="4,0,0,0"
-                                          Name="dataGrid" AutoCreateColumns="False" ReadOnly="True"
-                                          ItemsSource="{Binding Items}" SelectionMode="Single"
-                                          SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
-                                          BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                        <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="0" VerticalGridLineThickness="0"
-                                                ShowRowSelectorPane="False" UseDefaultHeadersFooters="False"
-                                                HorizontalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                                VerticalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                                <xcdg:TableView.FixedHeaders>
+                    <DataGrid
+                        Grid.Column="1" Margin="4,0,0,0"
+                        Name="dataGrid"
+                        ItemsSource="{Binding Items}"
+                        SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
+                        >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn
+                                Width="Auto"
+                                MinWidth="28"
+                                IsReadOnly="True"
+                                CanUserResize="False"
+                                CellStyle="{DynamicResource NoFocusDataGridCell}"
+                                >
+                                <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <DockPanel>
-                                            <xcdg:ColumnManagerRow BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                                                   DockPanel.Dock="Right" AllowColumnReorder="False" AllowColumnResize="False" />
-                                            <xcdg:GroupByControl Visibility="Collapsed" />
-                                        </DockPanel>
-                                    </DataTemplate>
-                                </xcdg:TableView.FixedHeaders>
-                            </xcdg:TableflowView>
-                        </xcdg:DataGridControl.View>
-                        <xcdg:DataGridControl.Columns>
-                            <xcdg:Column FieldName="Command" Title="" Width="33" DisplayMemberBinding="{Binding Path=.}" >
-                                <xcdg:Column.CellContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}" 
                                                     ToolTip="{Binding RDPConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
                                                 <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
-                                </xcdg:Column.CellContentTemplate>
-                            </xcdg:Column>
-                            <xcdg:Column FieldName="Name" Title="{Binding RDPConnectionInfoManagement_NameColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="120" IsMainColumn="True"/>
-                            <xcdg:Column FieldName="Host" Title="{Binding RDPConnectionInfoManagement_HostColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="120"/>
-                            <xcdg:Column FieldName="Port" Title="{Binding RDPConnectionInfoManagement_PortColumn_Title, Source={StaticResource resources}}" Width="50"/>
-                            <xcdg:Column FieldName="Username" Title="{Binding RDPConnectionInfoManagement_UsernameColumn_Title, Source={StaticResource resources}}" Width="120"/>
-                        </xcdg:DataGridControl.Columns>
-                    </xcdg:DataGridControl>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Name}"
+                                Header="{Binding RDPConnectionInfoManagement_NameColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Host}"
+                                Header="{Binding RDPConnectionInfoManagement_HostColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                MinWidth="50"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Port}"
+                                Header="{Binding RDPConnectionInfoManagement_PortColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Username}"
+                                Header="{Binding RDPConnectionInfoManagement_UsernameColumn_Title, Source={StaticResource resources}}"
+                                />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
                 <GridSplitter Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Transparent"/>
                 <Grid Grid.Row="1" Margin="8,4,8,8" MinHeight="100">
@@ -109,7 +122,6 @@
                         <TextBlock Text="{Binding RDPConnectionInfoManagement_Properties_Title, Source={StaticResource resources}}"/>
                     </Border>
                     <xctk:PropertyGrid Name="propertyGrid" Grid.Row="1"
-                                       FontSize="12"
                                        IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
                                        SelectedObject="{Binding EditingItem.Value}"
                                        ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
