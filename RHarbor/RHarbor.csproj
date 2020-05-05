@@ -167,6 +167,10 @@
     <Compile Include="Migrations\201911120832514_AddShowInJumpList.Designer.cs">
       <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005051209383_AddGroupName.cs" />
+    <Compile Include="Migrations\202005051209383_AddGroupName.designer.cs">
+      <DependentUpon>202005051209383_AddGroupName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
@@ -308,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911120832514_AddShowInJumpList.resx">
       <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051209383_AddGroupName.resx">
+      <DependentUpon>202005051209383_AddGroupName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
