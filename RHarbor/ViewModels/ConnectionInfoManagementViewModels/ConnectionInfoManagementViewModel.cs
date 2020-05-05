@@ -5,8 +5,11 @@ using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,7 +23,10 @@ namespace kenzauros.RHarbor.ViewModels
         protected MainWindowViewModel MainWindow => MainWindowViewModel.Singleton;
 
         public ObservableCollection<T> Items { get; set; } = new ObservableCollection<T>();
-        public ReactiveProperty<string> FilterText { get; set; } = new ReactiveProperty<string>();
+
+        public ObservableCollection<ConnectionGroup> Groups { get; } = new ObservableCollection<ConnectionGroup>();
+        public ReactivePropertySlim<ConnectionGroup> SelectedGroup { get; } = new ReactivePropertySlim<ConnectionGroup>();
+        public ReactivePropertySlim<string> FilterText { get; } = new ReactivePropertySlim<string>();
 
         public ReactiveCommand<T> RemoveItemCommand { get; set; } = new ReactiveCommand<T>();
         public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
@@ -35,6 +41,8 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand SaveChangesCommand { get; set; }
         public ReactiveCommand DiscardChangesCommand { get; set; }
         public ReadOnlyReactiveProperty<bool> IsItemSelected { get; set; }
+
+        #region Constructors
 
         public ConnectionInfoManagementViewModel()
         {
@@ -134,20 +142,98 @@ namespace kenzauros.RHarbor.ViewModels
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 
-            FilterText.Subscribe(filter =>
-            {
-                var collectionView = CollectionViewSource.GetDefaultView(Items);
-                if (string.IsNullOrEmpty(filter))
+            // Connection info filterings
+            FilterText
+                .Throttle(TimeSpan.FromMilliseconds(500))
+                .ObserveOnDispatcher()
+                .Subscribe(_ => RefreshCollectionView())
+                .AddTo(Disposable);
+            SelectedGroup
+                .ObserveOnDispatcher()
+                .Subscribe(_ => RefreshCollectionView())
+                .AddTo(Disposable);
+
+            // Group list extraction on connection info events
+            Observable.CombineLatest(
+                // When Add, Remove or Update
+                Items.CollectionChangedAsObservable()
+                    .Select(_ => Unit.Default)
+                    .StartWith(Unit.Default),
+                // When GroupName property in each element changed
+                Items.ObserveElementPropertyChanged()
+                    .Where(x => x.EventArgs.PropertyName == nameof(ConnectionInfoBase.GroupName))
+                    .Select(_ => Unit.Default)
+                    .StartWith(Unit.Default)
+                )
+                .Throttle(TimeSpan.FromMilliseconds(500)) // Once 500 ms
+                .ObserveOnDispatcher()
+                .Subscribe(_ =>
                 {
-                    collectionView.Filter = null;
-                }
-                else
-                {
-                    var regex = new Regex(filter, RegexOptions.IgnoreCase);
-                    collectionView.Filter = x => regex.IsMatch(((T)x).Name) || regex.IsMatch(((T)x).Host);
-                }
-            }).AddTo(Disposable);
+                    var selectedGroup = SelectedGroup.Value;
+                    // Reload group list
+                    Groups.Clear();
+                    EnumerateGroups().ToList().ForEach(Groups.Add);
+                    // Reset selected group
+                    SelectedGroup.Value = (selectedGroup is null) ? Groups.FirstOrDefault() : selectedGroup;
+                })
+                .AddTo(Disposable);
         }
+
+        #endregion
+
+        #region DataGrid View Control (Filter)
+
+        /// <summary>
+        /// Special name indicates that the view has to display all of connection infos regardless of the group name.
+        /// </summary>
+        const string AllGroupName = "_____ALL_____";
+
+        /// <summary>
+        /// Enumerates <see cref="ConnectionGroup"/>s which have to be shown in the group selector box.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ConnectionGroup> EnumerateGroups()
+        {
+            yield return new ConnectionGroup(AllGroupName, Resources.ConnectionGroup_DisplayName_AllGroup);
+            foreach (var groupName in Items.Select(x => x.GroupName ?? string.Empty).Distinct().OrderBy(x => x))
+            {
+                // Treat empty string as null
+                var name = string.IsNullOrEmpty(groupName) ? null : groupName;
+                var displayName = string.IsNullOrEmpty(name)
+                    ? Resources.ConnectionGroup_DisplayName_Unnamed
+                    : name;
+                yield return new ConnectionGroup(name, displayName);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes <see cref="CollectionViewSource"/> setting for the <see cref="Items"/> with the selected group and input filter text.
+        /// </summary>
+        private void RefreshCollectionView()
+        {
+            var collectionView = CollectionViewSource.GetDefaultView(Items);
+            var filterText = FilterText.Value;
+            var selectedGroup = SelectedGroup.Value;
+            var regex = new Regex(filterText ?? "", RegexOptions.IgnoreCase);
+            collectionView.Filter = x =>
+            {
+                var item = (T)x;
+                var groupName = item.GroupName;
+                return (selectedGroup is null
+                        || selectedGroup.Name == AllGroupName
+                        || (selectedGroup.Name is null && string.IsNullOrEmpty(groupName))
+                        || groupName == selectedGroup.Name)
+                    && (string.IsNullOrEmpty(filterText)
+                        || regex.IsMatch(item.Name)
+                        || regex.IsMatch(item.Host));
+            };
+            if (collectionView.SortDescriptions.Count == 0)
+            {
+                collectionView.SortDescriptions.Add(new SortDescription(nameof(IConnectionInfo.Name), ListSortDirection.Ascending));
+            }
+        }
+
+        #endregion
 
         protected virtual async Task<bool> Remove(T item)
         {
