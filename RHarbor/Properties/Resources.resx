@@ -141,6 +141,15 @@
   <data name="Common_Dialog_YesButton_Content" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="ConnectionGroup_DisplayName_AllGroup" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ConnectionGroup_DisplayName_Unnamed" xml:space="preserve">
+    <value>No group</value>
+  </data>
+  <data name="ConnectionInfoBase_GroupName" xml:space="preserve">
+    <value>Group name</value>
+  </data>
   <data name="ConnectionInfoBase_Host" xml:space="preserve">
     <value>Host</value>
   </data>

@@ -168,6 +168,7 @@
       <DependentUpon>201911120832514_AddShowInJumpList.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
     <Compile Include="Models\ConnectionType.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />

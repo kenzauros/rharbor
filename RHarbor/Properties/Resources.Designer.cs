@@ -142,6 +142,24 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   All に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionGroup_DisplayName_AllGroup {
+            get {
+                return ResourceManager.GetString("ConnectionGroup_DisplayName_AllGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No group に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionGroup_DisplayName_Unnamed {
+            get {
+                return ResourceManager.GetString("ConnectionGroup_DisplayName_Unnamed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Auth に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConnectionInfo_Category_Authentication {
@@ -268,6 +286,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string ConnectionInfo_Dialog_Save_Title {
             get {
                 return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Group name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_GroupName {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_GroupName", resourceCulture);
             }
         }
         

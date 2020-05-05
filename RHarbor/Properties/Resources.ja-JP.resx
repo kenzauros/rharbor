@@ -141,11 +141,20 @@
   <data name="Common_Dialog_YesButton_Content" xml:space="preserve">
     <value>はい</value>
   </data>
+  <data name="ConnectionGroup_DisplayName_AllGroup" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="ConnectionGroup_DisplayName_Unnamed" xml:space="preserve">
+    <value>グループなし</value>
+  </data>
   <data name="ConnectionInfoBase_Category_Authentication" xml:space="preserve">
     <value>認証</value>
   </data>
   <data name="ConnectionInfoBase_Category_General" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="ConnectionInfoBase_GroupName" xml:space="preserve">
+    <value>グループ名</value>
   </data>
   <data name="ConnectionInfoBase_Host" xml:space="preserve">
     <value>ホスト</value>
