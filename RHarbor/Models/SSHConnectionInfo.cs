@@ -26,7 +26,7 @@ namespace kenzauros.RHarbor.Models
     {
         #region Static
 
-        public static IEnumerable<SSHConnectionInfo> All { get; set; }
+        public static List<SSHConnectionInfo> All { get; private set; }
 
         [NotMapped]
         [Browsable(false)]
