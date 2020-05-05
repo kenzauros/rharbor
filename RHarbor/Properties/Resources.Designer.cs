@@ -506,7 +506,7 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Remove this に類似しているローカライズされた文字列を検索します。
+        ///   Remove this connection info に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RDPConnectionInfoManagement_RemoveButton_ToolTip {
             get {

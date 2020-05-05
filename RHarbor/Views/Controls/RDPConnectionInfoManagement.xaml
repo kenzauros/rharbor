@@ -38,8 +38,8 @@
             </Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" MinHeight="150"/>
-                    <RowDefinition Height="*" MinHeight="150"/>
+                    <RowDefinition Height="2*" MinHeight="150"/>
+                    <RowDefinition Height="3*" MinHeight="150"/>
                 </Grid.RowDefinitions>
                 <Grid
                     Margin="8,4,8,4"
@@ -62,9 +62,8 @@
                                           SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
                                           BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                         <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="1" VerticalGridLineThickness="1"
+                            <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="0" VerticalGridLineThickness="0"
                                                 ShowRowSelectorPane="False" UseDefaultHeadersFooters="False"
-                                                GroupLevelIndicatorWidth="0"
                                                 HorizontalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
                                                 VerticalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                                 <xcdg:TableView.FixedHeaders>
@@ -79,7 +78,7 @@
                             </xcdg:TableflowView>
                         </xcdg:DataGridControl.View>
                         <xcdg:DataGridControl.Columns>
-                            <xcdg:Column FieldName="Command" Title="" Width="58" DisplayMemberBinding="{Binding Path=.}" >
+                            <xcdg:Column FieldName="Command" Title="" Width="33" DisplayMemberBinding="{Binding Path=.}" >
                                 <xcdg:Column.CellContentTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -87,11 +86,6 @@
                                                     CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}" 
                                                     ToolTip="{Binding RDPConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
                                                 <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
-                                            </Button>
-                                            <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                    CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}"
-                                                    ToolTip="{Binding RDPConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}">
-                                                <fa:ImageAwesome Icon="Trash" Style="{DynamicResource ButtonIconStyle}" />
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
@@ -115,13 +109,11 @@
                         <TextBlock Text="{Binding RDPConnectionInfoManagement_Properties_Title, Source={StaticResource resources}}"/>
                     </Border>
                     <xctk:PropertyGrid Name="propertyGrid" Grid.Row="1"
+                                       FontSize="12"
                                        IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
                                        SelectedObject="{Binding EditingItem.Value}"
                                        ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
                                        BorderThickness="0">
-                        <xctk:PropertyGrid.Resources>
-                            <FrameworkElement x:Key="proxyElement" DataContext="{Binding SelectedItem.Value}" />
-                        </xctk:PropertyGrid.Resources>
                         <xctk:PropertyGrid.EditorDefinitions>
                             <xctk:EditorTemplateDefinition TargetProperties="SecurePassword">
                                 <xctk:EditorTemplateDefinition.EditingTemplate>
@@ -175,6 +167,13 @@
                                     Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
                                     Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding RemoveCommand}" Style="{StaticResource IconButtonStyle}">
+                                <fa:ImageAwesome Icon="TrashOutline" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"

@@ -257,7 +257,7 @@ This operation cannot be canceled.</value>
     <value>Properties</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>Remove this</value>
+    <value>Remove this connection info</value>
   </data>
   <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
     <value>Duplicate this connection info and start to edit</value>

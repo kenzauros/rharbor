@@ -28,11 +28,11 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactivePropertySlim<ConnectionGroup> SelectedGroup { get; } = new ReactivePropertySlim<ConnectionGroup>();
         public ReactivePropertySlim<string> FilterText { get; } = new ReactivePropertySlim<string>();
 
-        public ReactiveCommand<T> RemoveItemCommand { get; set; } = new ReactiveCommand<T>();
         public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
 
         public ReactiveCommand StartEditCommand { get; set; }
         public ReactiveCommand ReplicateCommand { get; set; }
+        public AsyncReactiveCommand RemoveCommand { get; }
         public ReactiveProperty<T> SelectedItem { get; set; } = new ReactiveProperty<T>();
         public ReactiveProperty<bool> IsItemEditing { get; set; } = new ReactiveProperty<bool>(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe);
         public ReadOnlyReactiveProperty<bool> IsNotItemEditing { get; set; }
@@ -52,16 +52,6 @@ namespace kenzauros.RHarbor.ViewModels
                 SelectedItem.Value = null;
                 EditingItem.Value = new T();
                 IsItemEditing.Value = true;
-            }).AddTo(Disposable);
-
-            RemoveItemCommand.Subscribe(async item =>
-            {
-                if (await Remove(item))
-                {
-                    Items.Remove(item);
-                    // Renew Windows JumpList
-                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
-                }
             }).AddTo(Disposable);
 
             ConnectCommand.Subscribe(async item => await ConfirmConnect(item)).AddTo(Disposable);
@@ -95,6 +85,19 @@ namespace kenzauros.RHarbor.ViewModels
                 SelectedItem.Value = null;
                 EditingItem.Value = replicated;
                 IsItemEditing.Value = true;
+            }).AddTo(Disposable);
+
+            RemoveCommand = IsItemSelected
+                .CombineLatest(IsItemEditing.Inverse(), (a, b) => a && b)
+                .ToAsyncReactiveCommand();
+            RemoveCommand.Subscribe(async () =>
+            {
+                if (await Remove(SelectedItem.Value))
+                {
+                    Items.Remove(SelectedItem.Value);
+                    // Renew Windows JumpList
+                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
+                }
             }).AddTo(Disposable);
 
             DiscardChangesCommand = IsItemEditing.ToReactiveCommand();
@@ -243,7 +246,7 @@ namespace kenzauros.RHarbor.ViewModels
             if (!result) return false;
             try
             {
-                MyLogger.Log($"Removing {item.ToString()}...");
+                MyLogger.Log($"Removing {item}...");
                 var currentItem = MainWindow.DbContext.Set<T>().FirstOrDefault(x => x.Id == item.Id);
                 if (currentItem != null)
                 {
@@ -254,7 +257,7 @@ namespace kenzauros.RHarbor.ViewModels
             }
             catch (Exception ex)
             {
-                MyLogger.Log($"Failed to remove {item.ToString()}.", ex);
+                MyLogger.Log($"Failed to remove {item}.", ex);
                 await MainWindow.ShowMessageDialog(
                     string.Format(Resources.ConnectionInfo_Dialog_Remove_Error, item.ToString(), ex.Message),
                     Resources.ConnectionInfo_Dialog_Remove_Title);

@@ -61,7 +61,7 @@
                                           SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
                                           BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                         <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="1" VerticalGridLineThickness="1"
+                            <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="0" VerticalGridLineThickness="0"
                                                 ShowRowSelectorPane="False" UseDefaultHeadersFooters="False"
                                                 HorizontalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
                                                 VerticalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
@@ -77,7 +77,7 @@
                             </xcdg:TableflowView>
                         </xcdg:DataGridControl.View>
                         <xcdg:DataGridControl.Columns>
-                            <xcdg:Column FieldName="Command" Title="" Width="58" DisplayMemberBinding="{Binding Path=.}" >
+                            <xcdg:Column FieldName="Command" Title="" Width="33" DisplayMemberBinding="{Binding Path=.}" >
                                 <xcdg:Column.CellContentTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -85,11 +85,6 @@
                                                     CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}"
                                                     ToolTip="{Binding SSHConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
                                                 <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
-                                            </Button>
-                                            <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                    CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}"
-                                                    ToolTip="{Binding SSHConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}">
-                                                <fa:ImageAwesome Icon="Trash" Style="{DynamicResource ButtonIconStyle}" />
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>
@@ -118,9 +113,6 @@
                                        SelectedObject="{Binding EditingItem.Value}"
                                        ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
                                        BorderThickness="0">
-                        <xctk:PropertyGrid.Resources>
-                            <FrameworkElement x:Key="proxyElement" DataContext="{Binding SelectedItem.Value}" />
-                        </xctk:PropertyGrid.Resources>
                         <xctk:PropertyGrid.EditorDefinitions>
                             <xctk:EditorTemplateDefinition TargetProperties="SecurePassword">
                                 <xctk:EditorTemplateDefinition.EditingTemplate>
@@ -250,6 +242,13 @@
                                     Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
                                     Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button ToolTip="{Binding SSHConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding RemoveCommand}" Style="{StaticResource IconButtonStyle}">
+                                <fa:ImageAwesome Icon="TrashOutline" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"

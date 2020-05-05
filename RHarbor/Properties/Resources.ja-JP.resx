@@ -263,7 +263,7 @@
     <value>プロパティ</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>削除する</value>
+    <value>この接続情報を削除する</value>
   </data>
   <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
     <value>この接続情報を複製して編集する</value>
