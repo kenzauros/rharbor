@@ -1,6 +1,7 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace kenzauros.RHarbor.ViewModels
             }
             MyLogger.Log("Data loading...");
             DbContext = new AppDbContext();
+            DbContext.Database.Migrate();
             var cacheLoading = PortNumberCache.Load();
             var dbLoading = Task.Run(async () =>
             {
