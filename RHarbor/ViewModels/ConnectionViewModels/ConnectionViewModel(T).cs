@@ -46,7 +46,7 @@ namespace kenzauros.RHarbor.ViewModels
 
         public ConnectionViewModel()
         {
-            DisconnectCommand = IsConnected.CombineLatest(IsConnecting, (a, b) => a || b).ToReactiveCommand();
+            DisconnectCommand = IsConnected.CombineLatest(IsConnecting, (a, b) => a || b).ToAsyncReactiveCommand();
             DisconnectCommand.Subscribe(() => Disconnect()).AddTo(Disposable);
 
             DisplayText = ConnectionName.CombineLatest(Host, Port, IsConnecting,
