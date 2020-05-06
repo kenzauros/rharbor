@@ -121,67 +121,23 @@
                     <Border Grid.Row="0" Margin="0,4">
                         <TextBlock Text="{Binding SSHConnectionInfoManagement_Properties_Title, Source={StaticResource resources}}"/>
                     </Border>
-                    <xctk:PropertyGrid Name="propertyGrid" Grid.Row="1"
-                                       IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
-                                       SelectedObject="{Binding EditingItem.Value}"
-                                       ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
-                                       BorderThickness="0">
+                    <xctk:PropertyGrid
+                        Name="propertyGrid" Grid.Row="1"
+                        Style="{StaticResource ConeectionInfoPropertyGridStyle}"
+                        >
                         <xctk:PropertyGrid.EditorDefinitions>
-                            <xctk:EditorTemplateDefinition TargetProperties="GroupName">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox BorderThickness="0" IsEditable="True"
-                                                  IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  Text="{Binding Value}" SelectedValuePath="Name" DisplayMemberPath="Name" />
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="SecurePassword">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="4,0">
-                                            <PasswordBox PasswordChar="*" BorderThickness="0" IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding SelectedObject.SecurePassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
-                                                </i:Interaction.Behaviors>
-                                            </PasswordBox>
-                                            <TextBlock Background="White"
-                                                       Text="{Binding SelectedObject.DisplayPassword, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                       Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="RequiredConnectionId">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox BorderThickness="0"
-                                                  IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  ItemsSource="{Binding SelectedObject.AvailableRequiredConnections, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  SelectedValue="{Binding Value}" SelectedValuePath="Id"/>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="PrivateKeyFilePath">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="4,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding Value}" VerticalContentAlignment="Center" IsReadOnly="True"/>
-                                            <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
-                                                    ToolTip="{Binding SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip, Source={StaticResource resources}}"
-                                                    Command="{Binding DataContext.SelectPrivateKeyFileCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                                <fa:ImageAwesome Icon="FolderOpen" Style="{DynamicResource ButtonIconStyle}" />
-                                            </Button>
-                                        </Grid>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="GroupName"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupName}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="SecurePassword"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupSecurePassword}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="RequiredConnectionId"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_RequiredConnectionId}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="PrivateKeyFilePath"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_PrivateKeyFilePath}" />
                         </xctk:PropertyGrid.EditorDefinitions>
                     </xctk:PropertyGrid>
                     <Grid Grid.Row="2">
