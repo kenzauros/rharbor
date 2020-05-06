@@ -127,6 +127,16 @@
                                        ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
                                        BorderThickness="0">
                         <xctk:PropertyGrid.EditorDefinitions>
+                            <xctk:EditorTemplateDefinition TargetProperties="GroupName">
+                                <xctk:EditorTemplateDefinition.EditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox BorderThickness="0" IsEditable="True"
+                                                  IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
+                                                  ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
+                                                  Text="{Binding Value}" SelectedValuePath="Name" DisplayMemberPath="Name" />
+                                    </DataTemplate>
+                                </xctk:EditorTemplateDefinition.EditingTemplate>
+                            </xctk:EditorTemplateDefinition>
                             <xctk:EditorTemplateDefinition TargetProperties="SecurePassword">
                                 <xctk:EditorTemplateDefinition.EditingTemplate>
                                     <DataTemplate>

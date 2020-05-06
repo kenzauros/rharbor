@@ -26,6 +26,7 @@ namespace kenzauros.RHarbor.ViewModels
 
         public ObservableCollection<ConnectionGroup> Groups { get; } = new ObservableCollection<ConnectionGroup>();
         public ReactivePropertySlim<ConnectionGroup> SelectedGroup { get; } = new ReactivePropertySlim<ConnectionGroup>();
+        public ReadOnlyReactivePropertySlim<bool> IsGroupSelected { get; }
         public ReactivePropertySlim<string> FilterText { get; } = new ReactivePropertySlim<string>();
 
         public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
@@ -51,6 +52,10 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 SelectedItem.Value = null;
                 EditingItem.Value = new T();
+                if (IsGroupSelected?.Value == true)
+                {
+                    EditingItem.Value.GroupName = SelectedGroup.Value?.Name;
+                }
                 IsItemEditing.Value = true;
             }).AddTo(Disposable);
 
@@ -156,6 +161,12 @@ namespace kenzauros.RHarbor.ViewModels
                 .Subscribe(_ => RefreshCollectionView())
                 .AddTo(Disposable);
 
+            // If any group is selected or not (except for "All")
+            IsGroupSelected = SelectedGroup
+                .Select(x => x?.Name != AllGroupName)
+                .ToReadOnlyReactivePropertySlim()
+                .AddTo(Disposable);
+
             // Group list extraction on connection info events
             Observable.CombineLatest(
                 // When Add, Remove or Update
@@ -190,6 +201,12 @@ namespace kenzauros.RHarbor.ViewModels
         /// Special name indicates that the view has to display all of connection infos regardless of the group name.
         /// </summary>
         const string AllGroupName = "_____ALL_____";
+
+        /// <summary>
+        /// Lists already existing group names to bind to the combo box in the property editor.
+        /// </summary>
+        public List<ConnectionGroup> ExistingGroupList =>
+            Groups.Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != AllGroupName).ToList();
 
         /// <summary>
         /// Enumerates <see cref="ConnectionGroup"/>s which have to be shown in the group selector box.
