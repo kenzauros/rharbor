@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Data.SQLite;
-using System.IO;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
@@ -13,17 +10,21 @@ namespace kenzauros.RHarbor.Models
     internal class AppDbContext : DbContext
     {
         public static readonly string DbFilePath;
+        public static readonly DbContextOptions DbContextOptions;
 
         static AppDbContext()
         {
             DbFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\RHarbor.db";
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseSqlite(@$"Data Source={DbFilePath}");
+            DbContextOptions = optionsBuilder.Options;
         }
 
-        public AppDbContext() : base(new SQLiteConnection($"DATA Source={DbFilePath}"), false)
+        public AppDbContext() : base(DbContextOptions)
         {
         }
 
-        public AppDbContext(DbConnection connection) : base(connection, true)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
         }
 
