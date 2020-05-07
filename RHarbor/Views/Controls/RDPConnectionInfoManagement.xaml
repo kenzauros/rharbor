@@ -58,7 +58,7 @@
                     <GridSplitter Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Transparent"/>
                     <DataGrid
                         Grid.Column="1" Margin="4,0,0,0"
-                        Name="dataGrid"
+                        Name="dataGrid" IsReadOnly="True"
                         ItemsSource="{Binding Items}"
                         SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
                         >
