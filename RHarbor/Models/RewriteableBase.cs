@@ -15,6 +15,7 @@ namespace kenzauros.RHarbor.Models
         [Browsable(false)]
         public virtual IEnumerable<string> RewritingPropertyNames { get; }
 
+        [NonSerialized]
         List<PropertyInfo> _RewritingPropertyInfos;
         List<PropertyInfo> RewritingPropertyInfos
         {
