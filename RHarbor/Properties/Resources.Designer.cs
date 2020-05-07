@@ -380,6 +380,33 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Connections に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Tab_Connections {
+            get {
+                return ResourceManager.GetString("MainWindow_Tab_Connections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   RDP に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Tab_RDP {
+            get {
+                return ResourceManager.GetString("MainWindow_Tab_RDP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SSH に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Tab_SSH {
+            get {
+                return ResourceManager.GetString("MainWindow_Tab_SSH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   RHarbor に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_Title {
