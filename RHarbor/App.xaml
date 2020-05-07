@@ -7,14 +7,17 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
+                    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                    <properties:Resources x:Key="resources" />
+                </ResourceDictionary>
                 <ResourceDictionary Source="./Styles/DataGridStyles.xaml"/>
                 <ResourceDictionary Source="./Styles/Misc.xaml"/>
                 <ResourceDictionary Source="./Styles/SemanticUIBrushes.xaml"/>
                 <ResourceDictionary Source="./Styles/SemanticUIStyles.xaml"/>
+                <ResourceDictionary Source="./Styles/PropertyGridStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <xctk:InverseBoolConverter x:Key="InverseBoolConverter"/>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <properties:Resources x:Key="resources" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
