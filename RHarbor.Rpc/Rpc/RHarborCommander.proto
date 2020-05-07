@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "kenzauros.RHarbor.Rpc";
+
+import "google/protobuf/empty.proto";
+
+service Commander {
+    rpc Activate (google.protobuf.Empty) returns (ActivateReply);
+    rpc StartConnect (StartConnectRequest) returns (StartConnectReply);
+}
+
+message ActivateReply {
+    bool success = 1;
+    string message = 2;
+}
+
+message StartConnectRequest {
+    string connectionType = 1;
+    int32 connectionId = 2;
+}
+
+message StartConnectReply {
+    bool success = 1;
+    string message = 2;
+}

@@ -1,5 +1,6 @@
 ﻿using kenzauros.RHarbor.Models;
 using kenzauros.RHarbor.MvvmDialog;
+using kenzauros.RHarbor.Rpc;
 using kenzauros.RHarbor.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Reactive.Bindings;
@@ -78,10 +79,10 @@ namespace kenzauros.RHarbor.ViewModels
             ConnectionInvokeTimer.Interval = TimeSpan.FromMilliseconds(500);
             ConnectionInvokeTimer.Tick += async (s, e) =>
             {
-                var list = new List<(ConnectionType Type, int Id)>();
-                while (ConnectionRequest.Singleton.Queue.Count > 0)
+                var list = new List<(string Type, int Id)>();
+                while (ConnectionRequest.Queue.Count > 0)
                 {
-                    list.Add(ConnectionRequest.Singleton.Queue.Dequeue());
+                    list.Add(ConnectionRequest.Queue.Dequeue());
                 }
                 foreach (var (type, id) in list)
                 {
@@ -89,10 +90,10 @@ namespace kenzauros.RHarbor.ViewModels
                     {
                         switch (type)
                         {
-                            case ConnectionType.SSH:
+                            case nameof(ConnectionType.SSH):
                                 await SSHConnectionInfos.ConnectById(id);
                                 break;
-                            case ConnectionType.RDP:
+                            case nameof(ConnectionType.RDP):
                                 await RDPConnectionInfos.ConnectById(id);
                                 break;
                             default:

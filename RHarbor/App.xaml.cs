@@ -1,5 +1,9 @@
-﻿using kenzauros.RHarbor.Utilities;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
+using kenzauros.RHarbor.Rpc;
+using kenzauros.RHarbor.Utilities;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,42 +25,81 @@ namespace kenzauros.RHarbor
         protected override void OnStartup(StartupEventArgs e)
         {
             ArgumentsHelper.SetArgs(e.Args);
+
             base.OnStartup(e);
 
-            //// Local method to enqueue connections specified with command-line argument
-            //bool EnqueueOpenRequestedConnections(IProcessCommander processCommander)
-            //{
-            //    if (!ArgumentsHelper.HasConnectionSpecified) return false;
-            //    foreach (var conn in ArgumentsHelper.SpecifiedConnections)
-            //    {
-            //        MyLogger.Log($"Connection (Type: {conn.Type}, Id: {conn.ConnectionId}) has been enqueued.");
-            //        processCommander.Invoke(conn.Type, conn.ConnectionId);
-            //    }
-            //    return true;
-            //}
+            var isMainProcess = SingleAppInstanceHelper.TryStart();
+            if (isMainProcess)
+            {
+                try
+                {
+                    var service = new CommanderService
+                    {
+                        ActivateFunc = async () => await Dispatcher.InvokeAsync(() => App.Current?.MainWindow?.Activate()),
+                    };
+                    var server = new Server
+                    {
+                        Services = { Commander.BindService(service) },
+                        Ports = { new ServerPort("localhost", CommanderService.DefaultPort, ServerCredentials.Insecure) },
+                    };
+                    server.Start();
+                    MyLogger.Log($"gRPC Server: Started.");
+                }
+                catch (Exception ex)
+                {
+                    MyLogger.Log($"gRPC Server: Failed to start.", ex);
+                }
+            }
 
-            //if (SingleAppInstanceHelper.TryStart())
-            //{
-            //    // Boot as an IPC host
-            //    var service = new ProcessCommander
-            //    {
-            //        ConnectionRequest = ConnectionRequest.Singleton,
-            //    };
-            //    var serviceHost = IPCService.OpenServiceHost(service);
-            //    EnqueueOpenRequestedConnections(service);
-            //}
-            //else
-            //{
-            //    // Boot as an IPC client
-            //    var channel = IPCService.CreateServiceChannel();
-            //    if (!EnqueueOpenRequestedConnections(channel))
-            //    {
-            //        MyLogger.Log("Shutting down because another application instance has already run...");
-            //    }
-            //    channel.Activate();
-            //    // Shutdown after activate the primary window
-            //    Shutdown();
-            //}
+            static Commander.CommanderClient GetCommanderClient()
+            {
+                var channel = new Channel($"localhost:{CommanderService.DefaultPort}", ChannelCredentials.Insecure);
+                return new Commander.CommanderClient(channel);
+            }
+
+            var specifiedConnections = ArgumentsHelper.SpecifiedConnections?.ToList();
+            if (specifiedConnections?.Count > 0)
+            {
+                var args = specifiedConnections.Select(x => $"{x.Type}:{x.ConnectionId}");
+                MyLogger.Log($"Trying to start connections specified with arguments... {string.Join(", ", args)}");
+                try
+                {
+                    var client = GetCommanderClient();
+
+                    foreach (var conn in ArgumentsHelper.SpecifiedConnections)
+                    {
+                        var reply = client.StartConnect(new StartConnectRequest
+                        {
+                            ConnectionType = conn.Type.ToString(),
+                            ConnectionId = conn.ConnectionId,
+                        });
+                        MyLogger.Log($"Connection request (Type: {conn.Type}, Id: {conn.ConnectionId}): {(reply.Success ? "Enqueued" : "Failed")} {reply.Message}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MyLogger.Log($"Failed starting {(isMainProcess ? "as the main process" : "argument command")}.", ex);
+                }
+            }
+
+            if (!isMainProcess)
+            {
+                try
+                {
+                    var client = GetCommanderClient();
+                    // Shutdown after activate the primary window
+                    var reply = client.Activate(new Empty());
+                    MyLogger.Log($"Window Activation: {(reply.Success ? "Success" : "Failed")} {reply.Message}");
+                }
+                catch (Exception ex)
+                {
+                    MyLogger.Log($"Failed to activate the main window.", ex);
+                }
+                finally
+                {
+                    Shutdown();
+                }
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)
