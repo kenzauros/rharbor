@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors;
+using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Interactivity;
 
 namespace kenzauros.RHarbor.MvvmDialog
 {

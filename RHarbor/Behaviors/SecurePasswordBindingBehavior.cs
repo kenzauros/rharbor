@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using Microsoft.Xaml.Behaviors;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interactivity;
 
 namespace kenzauros.RHarbor.Behaviors
 {
