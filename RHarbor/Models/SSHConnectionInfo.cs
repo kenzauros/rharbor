@@ -71,7 +71,7 @@ namespace kenzauros.RHarbor.Models
                 }
                 func(sourceIdToExlude.Value);
             }
-            yield return Empty;  // to set null to RequiredConnection column. See the setter of RequiredConnection.
+            yield return Empty; // to set null to RequiredConnection column. See the setter of RequiredConnectionId.
             foreach (var item in All.Where(x => !relatedInfoIdList.Contains(x.Id)))
             {
                 yield return item;
@@ -149,7 +149,7 @@ namespace kenzauros.RHarbor.Models
 
         [RewriteableIgnore]
         [Browsable(false)]
-        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, (value == Empty) ? null : value); } }
+        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, Empty.Equals(value) ? null : value); } }
         [NonSerialized]
         private SSHConnectionInfo _RequiredConnection;
 

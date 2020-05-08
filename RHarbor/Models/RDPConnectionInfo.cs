@@ -72,7 +72,7 @@ namespace kenzauros.RHarbor.Models
 
         [RewriteableIgnore]
         [Browsable(false)]
-        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, (value == SSHConnectionInfo.Empty) ? null : value); } }
+        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, SSHConnectionInfo.Empty.Equals(value) ? null : value); } }
         [NonSerialized]
         private SSHConnectionInfo _RequiredConnection;
 
