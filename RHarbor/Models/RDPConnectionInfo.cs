@@ -61,7 +61,12 @@ namespace kenzauros.RHarbor.Models
         [ForeignKey("RequiredConnection")]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(2)]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(RequiredConnection))]
-        public long? RequiredConnectionId { get; set; }
+        public long? RequiredConnectionId
+        {
+            get => _RequiredConnectionId;
+            set => SetProp(ref _RequiredConnectionId, SSHConnectionInfo.Empty.Id.Equals(value) ? null : value);
+        }
+        private long? _RequiredConnectionId;
 
         #region Relation Ships
 
@@ -164,7 +169,8 @@ kdcproxyname:s:
         [RewriteableIgnore]
         [Browsable(false)]
         [NotMapped]
-        public virtual IEnumerable<SSHConnectionInfo> AvailableRequiredConnections => SSHConnectionInfo.All;
+        public virtual IEnumerable<SSHConnectionInfo> AvailableRequiredConnections
+            => SSHConnectionInfo.EnumerateAvailableRequiredConnections(null);
 
         #endregion
 
