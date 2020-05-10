@@ -141,6 +141,15 @@
   <data name="Common_Dialog_YesButton_Content" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="ConnectionGroup_DisplayName_AllGroup" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ConnectionGroup_DisplayName_Unnamed" xml:space="preserve">
+    <value>No group</value>
+  </data>
+  <data name="ConnectionInfoBase_GroupName" xml:space="preserve">
+    <value>Group name</value>
+  </data>
   <data name="ConnectionInfoBase_Host" xml:space="preserve">
     <value>Host</value>
   </data>
@@ -248,7 +257,10 @@ This operation cannot be canceled.</value>
     <value>Properties</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>Remove this</value>
+    <value>Remove this connection info</value>
+  </data>
+  <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>Duplicate this connection info and start to edit</value>
   </data>
   <data name="RDPConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>Save the changes</value>
@@ -324,6 +336,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip" xml:space="preserve">
     <value>Remove this port forwarding setting</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>Duplicate this connection info and start to edit</value>
   </data>
   <data name="SSHConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>Save the changes</value>

@@ -49,6 +49,11 @@ namespace kenzauros.RHarbor.Models
         public int Port { get => _Port; set => SetProp(ref _Port, value); }
         private int _Port = 3389;
 
+        [LocalizedCategory("ConnectionInfo_Category_General"), PropertyOrder(4)]
+        [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(GroupName))]
+        public string GroupName { get => _GroupName; set => SetProp(ref _GroupName, value); }
+        private string _GroupName;
+
         [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Username))]
         public string Username { get => _Username; set => SetProp(ref _Username, value); }

@@ -19,7 +19,7 @@ namespace kenzauros.RHarbor.Properties {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -138,6 +138,24 @@ namespace kenzauros.RHarbor.Properties {
         public static string Connection_ConnectingText {
             get {
                 return ResourceManager.GetString("Connection_ConnectingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionGroup_DisplayName_AllGroup {
+            get {
+                return ResourceManager.GetString("ConnectionGroup_DisplayName_AllGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No group に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionGroup_DisplayName_Unnamed {
+            get {
+                return ResourceManager.GetString("ConnectionGroup_DisplayName_Unnamed", resourceCulture);
             }
         }
         
@@ -268,6 +286,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string ConnectionInfo_Dialog_Save_Title {
             get {
                 return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Group name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfoBase_GroupName {
+            get {
+                return ResourceManager.GetString("ConnectionInfoBase_GroupName", resourceCulture);
             }
         }
         
@@ -479,11 +506,20 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Remove this に類似しているローカライズされた文字列を検索します。
+        ///   Remove this connection info に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RDPConnectionInfoManagement_RemoveButton_ToolTip {
             get {
                 return ResourceManager.GetString("RDPConnectionInfoManagement_RemoveButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Duplicate this connection info and start to edit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_ReplicateButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_ReplicateButton_ToolTip", resourceCulture);
             }
         }
         
@@ -799,6 +835,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip {
             get {
                 return ResourceManager.GetString("SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Duplicate this connection info and start to edit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_ReplicateButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_ReplicateButton_ToolTip", resourceCulture);
             }
         }
         

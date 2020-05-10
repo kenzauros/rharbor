@@ -37,55 +37,79 @@
             </Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" MinHeight="150"/>
+                    <RowDefinition Height="*" MinHeight="150"/>
                     <RowDefinition Height="2*" MinHeight="150"/>
                 </Grid.RowDefinitions>
-                <xcdg:DataGridControl IsEnabled="{Binding IsItemEditing.Value, Converter={StaticResource InverseBoolConverter}}"
-                                      Name="dataGrid" Margin="8,4,8,4" AutoCreateColumns="False" ReadOnly="True"
-                                      ItemsSource="{Binding Items}" SelectionMode="Single"
-                                      SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
-                                      BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                    <xcdg:DataGridControl.View>
-                        <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="1" VerticalGridLineThickness="1"
-                                            ShowRowSelectorPane="False" UseDefaultHeadersFooters="False"
-                                            HorizontalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                            VerticalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                            <xcdg:TableView.FixedHeaders>
-                                <DataTemplate>
-                                    <DockPanel>
-                                        <xcdg:ColumnManagerRow BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                                               DockPanel.Dock="Right" AllowColumnReorder="False" AllowColumnResize="False" />
-                                        <xcdg:GroupByControl Visibility="Collapsed" />
-                                    </DockPanel>
-                                </DataTemplate>
-                            </xcdg:TableView.FixedHeaders>
-                        </xcdg:TableflowView>
-                    </xcdg:DataGridControl.View>
-                    <xcdg:DataGridControl.Columns>
-                        <xcdg:Column FieldName="Command" Title="" Width="58" DisplayMemberBinding="{Binding Path=.}" >
-                            <xcdg:Column.CellContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}"
-                                                ToolTip="{Binding SSHConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
-                                            <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
-                                        </Button>
-                                        <Button Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
-                                                CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}"
-                                                ToolTip="{Binding SSHConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}">
-                                            <fa:ImageAwesome Icon="Trash" Style="{DynamicResource ButtonIconStyle}" />
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </xcdg:Column.CellContentTemplate>
-                        </xcdg:Column>
-                        <xcdg:Column FieldName="Name" Title="{Binding SSHConnectionInfoManagement_NameColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="150" IsMainColumn="True"/>
-                        <xcdg:Column FieldName="Host" Title="{Binding SSHConnectionInfoManagement_HostColumn_Title, Source={StaticResource resources}}" Width="*" MinWidth="150"/>
-                        <xcdg:Column FieldName="Port" Title="{Binding SSHConnectionInfoManagement_PortColumn_Title, Source={StaticResource resources}}" Width="60"/>
-                        <xcdg:Column FieldName="Username" Title="{Binding SSHConnectionInfoManagement_UsernameColumn_Title, Source={StaticResource resources}}" Width="100"/>
-                    </xcdg:DataGridControl.Columns>
-                </xcdg:DataGridControl>
+                <Grid
+                    Margin="8,4,8,4"
+                    IsEnabled="{Binding IsItemEditing.Value, Converter={StaticResource InverseBoolConverter}}"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox
+                        ItemsSource="{Binding Groups}"
+                        DisplayMemberPath="DisplayName"
+                        SelectedValuePath="Name"
+                        SelectedItem="{Binding SelectedGroup.Value, Mode=TwoWay}"
+                        />
+                    <GridSplitter Width="4" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Transparent"/>
+                    <DataGrid
+                        Grid.Column="1" Margin="4,0,0,0"
+                        Name="dataGrid" IsReadOnly="True"
+                        ItemsSource="{Binding Items}"
+                        SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}"
+                        >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn
+                                Width="Auto"
+                                MinWidth="28"
+                                IsReadOnly="True"
+                                CanUserResize="False"
+                                CellStyle="{DynamicResource NoFocusDataGridCell}"
+                                >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Button Command="{Binding DataContext.ConnectCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}" Style="{StaticResource IconButtonStyle}" Background="{StaticResource BlueBrush}" 
+                                                    ToolTip="{Binding SSHConnectionInfoManagement_ConnectButton_ToolTip, Source={StaticResource resources}}">
+                                                <fa:ImageAwesome Icon="Plug" Style="{DynamicResource ButtonIconStyle}" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Name}"
+                                Header="{Binding SSHConnectionInfoManagement_NameColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Host}"
+                                Header="{Binding SSHConnectionInfoManagement_HostColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                MinWidth="50"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Port}"
+                                Header="{Binding SSHConnectionInfoManagement_PortColumn_Title, Source={StaticResource resources}}"
+                                />
+                            <DataGridTextColumn
+                                MinWidth="100"
+                                ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                Binding="{Binding Username}"
+                                Header="{Binding SSHConnectionInfoManagement_UsernameColumn_Title, Source={StaticResource resources}}"
+                                />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
                 <GridSplitter Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Transparent"/>
                 <Grid Grid.Row="1" Margin="8,4,8,8" MinHeight="100">
                     <Grid.RowDefinitions>
@@ -97,121 +121,109 @@
                     <Border Grid.Row="0" Margin="0,4">
                         <TextBlock Text="{Binding SSHConnectionInfoManagement_Properties_Title, Source={StaticResource resources}}"/>
                     </Border>
-                    <xctk:PropertyGrid Name="propertyGrid" Grid.Row="1"
-                                       IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
-                                       SelectedObject="{Binding EditingItem.Value}"
-                                       ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False" ShowSummary="False"
-                                       BorderThickness="0">
-                        <xctk:PropertyGrid.Resources>
-                            <FrameworkElement x:Key="proxyElement" DataContext="{Binding SelectedItem.Value}" />
-                        </xctk:PropertyGrid.Resources>
+                    <xctk:PropertyGrid
+                        Name="propertyGrid" Grid.Row="1"
+                        Style="{StaticResource ConeectionInfoPropertyGridStyle}"
+                        >
                         <xctk:PropertyGrid.EditorDefinitions>
-                            <xctk:EditorTemplateDefinition TargetProperties="SecurePassword">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="4,0">
-                                            <PasswordBox PasswordChar="*" BorderThickness="0" IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding SelectedObject.SecurePassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
-                                                </i:Interaction.Behaviors>
-                                            </PasswordBox>
-                                            <TextBlock Background="White"
-                                                       Text="{Binding SelectedObject.DisplayPassword, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                       Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="RequiredConnectionId">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox BorderThickness="0"
-                                                  IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  ItemsSource="{Binding SelectedObject.AvailableRequiredConnections, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                                                  SelectedValue="{Binding Value}" SelectedValuePath="Id"/>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
-                            <xctk:EditorTemplateDefinition TargetProperties="PrivateKeyFilePath">
-                                <xctk:EditorTemplateDefinition.EditingTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="4,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBox BorderThickness="0" Text="{Binding Value}" VerticalContentAlignment="Center" IsReadOnly="True"/>
-                                            <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
-                                                    ToolTip="{Binding SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip, Source={StaticResource resources}}"
-                                                    Command="{Binding DataContext.SelectPrivateKeyFileCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-                                                <fa:ImageAwesome Icon="FolderOpen" Style="{DynamicResource ButtonIconStyle}" />
-                                            </Button>
-                                        </Grid>
-                                    </DataTemplate>
-                                </xctk:EditorTemplateDefinition.EditingTemplate>
-                            </xctk:EditorTemplateDefinition>
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="GroupName"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupName}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="SecurePassword"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupSecurePassword}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="RequiredConnectionId"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_RequiredConnectionId}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="PrivateKeyFilePath"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_PrivateKeyFilePath}" />
                         </xctk:PropertyGrid.EditorDefinitions>
                     </xctk:PropertyGrid>
                     <Grid Grid.Row="2">
-                        <xcdg:DataGridControl Margin="0,4,0,0" AutoCreateColumns="False"
-                                              ReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
-                                              UpdateSourceTrigger="CellContentChanged"
-                                              ItemsSource="{Binding EditingItem.Value.PortForwardingCollection}" SelectionMode="Single"
-                                              BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                            <xcdg:DataGridControl.View>
-                                <xcdg:TableflowView FixedColumnCount="2" HorizontalGridLineThickness="1" VerticalGridLineThickness="1"
-                                                    ShowRowSelectorPane="False" UseDefaultHeadersFooters="False"
-                                                    HorizontalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                                    VerticalGridLineBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
-                                    <xcdg:TableView.FixedHeaders>
+                        <DataGrid
+                            Margin="0,4,0,0"
+                            SelectionUnit="Cell"
+                            ItemsSource="{Binding EditingItem.Value.PortForwardingCollection}"
+                            IsReadOnly="{Binding IsNotItemEditing.Value, Mode=OneWay}"
+                            >
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn
+                                    Width="Auto"
+                                    MinWidth="28"
+                                    IsReadOnly="True"
+                                    CanUserResize="False"
+                                    CellStyle="{DynamicResource NoFocusDataGridCell}"
+                                    >
+                                    <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <DockPanel>
-                                                <xcdg:ColumnManagerRow BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
-                                                                       DockPanel.Dock="Right" AllowColumnReorder="False" AllowColumnResize="False" />
-                                                <xcdg:GroupByControl Visibility="Collapsed" />
-                                            </DockPanel>
-                                        </DataTemplate>
-                                    </xcdg:TableView.FixedHeaders>
-                                </xcdg:TableflowView>
-                            </xcdg:DataGridControl.View>
-                            <xcdg:DataGridControl.Columns>
-                                <xcdg:Column FieldName="Command" ReadOnly="True" Width="34" Title="" DisplayMemberBinding="{Binding Path=.}" >
-                                    <xcdg:Column.CellContentTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                                 <Button ToolTip="{Binding SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip, Source={StaticResource resources}}" Style="{StaticResource IconButtonStyle}"
-                                                        Visibility="{Binding DataContext.IsItemEditing.Value, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                        Command="{Binding DataContext.RemovePortForwardingCommand, RelativeSource={RelativeSource AncestorType=xcdg:DataGridControl}}"
+                                                        Visibility="{Binding DataContext.IsItemEditing.Value, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                        Command="{Binding DataContext.RemovePortForwardingCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}">
                                                     <fa:ImageAwesome Icon="Trash" Style="{DynamicResource ButtonIconStyle}" />
                                                 </Button>
                                             </StackPanel>
                                         </DataTemplate>
-                                    </xcdg:Column.CellContentTemplate>
-                                </xcdg:Column>
-                                <xcdg:Column FieldName="Name" Title="{Binding SSHConnectionInfoManagement_FP_NameColumn_Title, Source={StaticResource resources}}" Width="100"/>
-                                <xcdg:Column FieldName="Type" Title="{Binding SSHConnectionInfoManagement_FP_TypeColumn_Title, Source={StaticResource resources}}" Width="100">
-                                    <xcdg:Column.CellEditor>
-                                        <xcdg:CellEditor>
-                                            <xcdg:CellEditor.EditTemplate>
-                                                <DataTemplate>
-                                                    <ComboBox ItemsSource="{x:Static local:PortForwardingTypeExtensions.Names}"
-                                                              SelectedItem="{xcdg:CellEditorBinding}"/>
-                                                </DataTemplate>
-                                            </xcdg:CellEditor.EditTemplate>
-                                            <xcdg:CellEditor.ActivationGestures>
-                                                <xcdg:KeyActivationGesture Key="Space"/>
-                                            </xcdg:CellEditor.ActivationGestures>
-                                        </xcdg:CellEditor>
-                                    </xcdg:Column.CellEditor>
-                                </xcdg:Column>
-                                <xcdg:Column FieldName="LocalHost" Title="{Binding SSHConnectionInfoManagement_FP_LocalHostColumn_Title, Source={StaticResource resources}}" Width="100"/>
-                                <xcdg:Column FieldName="LocalPort" Title="{Binding SSHConnectionInfoManagement_FP_LocalPortColumn_Title, Source={StaticResource resources}}" Width="75"/>
-                                <xcdg:Column FieldName="RemoteHost" Title="{Binding SSHConnectionInfoManagement_FP_RemoteHostColumn_Title, Source={StaticResource resources}}" Width="100"/>
-                                <xcdg:Column FieldName="RemotePort" Title="{Binding SSHConnectionInfoManagement_FP_RemotePortColumn_Title, Source={StaticResource resources}}" Width="75"/>
-                            </xcdg:DataGridControl.Columns>
-                        </xcdg:DataGridControl>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn
+                                    Width="*"
+                                    MinWidth="100"
+                                    ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                    EditingElementStyle="{DynamicResource DataGridTextBoxCellEditingElementStyle}"
+                                    Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_NameColumn_Title, Source={StaticResource resources}}"
+                                    />
+                                <DataGridTemplateColumn
+                                    Width="100"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_TypeColumn_Title, Source={StaticResource resources}}"
+                                    >
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox
+                                                ItemsSource="{x:Static local:PortForwardingTypeExtensions.Names}"
+                                                SelectedItem="{Binding Type, Mode=TwoWay}"
+                                                />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type}" Style="{DynamicResource DataGridTextBoxCellElementStyle}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn
+                                    Width="100"
+                                    ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                    EditingElementStyle="{DynamicResource DataGridTextBoxCellEditingElementStyle}"
+                                    Binding="{Binding LocalHost, UpdateSourceTrigger=PropertyChanged}"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_LocalHostColumn_Title, Source={StaticResource resources}}"
+                                    />
+                                <DataGridTextColumn
+                                    Width="50"
+                                    ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                    EditingElementStyle="{DynamicResource DataGridTextBoxCellEditingElementStyle}"
+                                    Binding="{Binding LocalPort, UpdateSourceTrigger=PropertyChanged}"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_LocalPortColumn_Title, Source={StaticResource resources}}"
+                                    />
+                                <DataGridTextColumn
+                                    Width="100"
+                                    ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                    EditingElementStyle="{DynamicResource DataGridTextBoxCellEditingElementStyle}"
+                                    Binding="{Binding RemoteHost, UpdateSourceTrigger=PropertyChanged}"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_RemoteHostColumn_Title, Source={StaticResource resources}}"
+                                    />
+                                <DataGridTextColumn
+                                    Width="50"
+                                    ElementStyle="{DynamicResource DataGridTextBoxCellElementStyle}"
+                                    EditingElementStyle="{DynamicResource DataGridTextBoxCellEditingElementStyle}"
+                                    Binding="{Binding RemotePort, UpdateSourceTrigger=PropertyChanged}"
+                                    Header="{Binding SSHConnectionInfoManagement_FP_RemotePortColumn_Title, Source={StaticResource resources}}"
+                                    />
+                            </DataGrid.Columns>
+                        </DataGrid>
                         <Button Width="28" Height="24"
                                 ToolTip="{Binding SSHConnectionInfoManagement_AddNewPortForwardingButton_ToolTip, Source={StaticResource resources}}"
                                 Command="{Binding AddNewPortForwardingCommand}" Style="{StaticResource IconButtonStyle}"
@@ -224,11 +236,23 @@
                     <Border Grid.Row="1" Grid.RowSpan="2" BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
                     </Border>
                     <Grid Grid.Row="3" Margin="0,4,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button ToolTip="{Binding SSHConnectionInfoManagement_StartEditButton_ToolTip, Source={StaticResource resources}}"
-                                    Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
                                     Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button ToolTip="{Binding SSHConnectionInfoManagement_StartEditButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding StartEditCommand}" Style="{StaticResource IconButtonStyle}">
                                 <fa:ImageAwesome Icon="Pencil" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                            <Button ToolTip="{Binding SSHConnectionInfoManagement_ReplicateButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
+                                    Margin="4,0,0,0">
+                                <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Visibility="{Binding IsNotItemEditing.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button ToolTip="{Binding SSHConnectionInfoManagement_RemoveButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding RemoveCommand}" Style="{StaticResource IconButtonStyle}">
+                                <fa:ImageAwesome Icon="TrashOutline" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
@@ -240,7 +264,7 @@
                             </Button>
                             <Button ToolTip="{Binding SSHConnectionInfoManagement_DiscardButton_ToolTip, Source={StaticResource resources}}"
                                     Command="{Binding DiscardChangesCommand}"
-                                    Style="{StaticResource IconButtonStyle}" Background="{StaticResource RedBrush}" Margin="8,0,0,0">
+                                    Style="{StaticResource IconButtonStyle}" Background="{StaticResource RedBrush}" Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="MinusCircle" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>

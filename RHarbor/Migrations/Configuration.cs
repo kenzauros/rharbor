@@ -10,7 +10,7 @@ namespace kenzauros.RHarbor.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             SetSqlGenerator("System.Data.SQLite", new SQLiteMigrationSqlGenerator());
         }
 

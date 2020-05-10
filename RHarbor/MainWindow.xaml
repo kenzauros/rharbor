@@ -26,7 +26,7 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid UseLayoutRounding="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="300"/>
             <ColumnDefinition Width="350" MinWidth="240"/>

@@ -26,7 +26,7 @@ namespace kenzauros.RHarbor.Models
     {
         #region Static
 
-        public static IEnumerable<SSHConnectionInfo> All { get; set; }
+        public static List<SSHConnectionInfo> All { get; private set; }
 
         [NotMapped]
         [Browsable(false)]
@@ -39,7 +39,45 @@ namespace kenzauros.RHarbor.Models
                 .ToListAsync().ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Empty element
+        /// </summary>
         public static readonly SSHConnectionInfo Empty = new SSHConnectionInfo();
+
+        /// <summary>
+        /// Enumerates SSH connection infos which not related with this connection info.
+        /// </summary>
+        /// <param name="sourceIdToExlude"></param>
+        /// <returns></returns>
+        public static IEnumerable<SSHConnectionInfo> EnumerateAvailableRequiredConnections(long? sourceIdToExlude)
+        {
+            var relatedInfoIdList = new List<long>();
+            if (sourceIdToExlude.HasValue)
+            {
+                relatedInfoIdList.Add(sourceIdToExlude.Value); // self
+                void func(long sourceId)
+                {
+                    var relatedInfoIds = All
+                        .Where(x => x.RequiredConnectionId == sourceId)
+                        .Select(x => x.Id);
+                    if (relatedInfoIds.Any())
+                    {
+                        relatedInfoIdList.AddRange(relatedInfoIds);
+                        foreach (var id in relatedInfoIds)
+                        {
+                            func(id);
+                        }
+                    }
+                }
+                func(sourceIdToExlude.Value);
+            }
+            yield return Empty; // to set null to RequiredConnection column. See the setter of RequiredConnectionId.
+            foreach (var item in All.Where(x => !relatedInfoIdList.Contains(x.Id)))
+            {
+                yield return item;
+            }
+        }
+
 
         #endregion
 
@@ -74,7 +112,11 @@ namespace kenzauros.RHarbor.Models
         [ForeignKey("RequiredConnection")]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(RequiredConnection))]
-        public long? RequiredConnectionId { get => _RequiredConnectionId; set => SetProp(ref _RequiredConnectionId, value); }
+        public long? RequiredConnectionId
+        {
+            get => _RequiredConnectionId;
+            set => SetProp(ref _RequiredConnectionId, Empty.Id.Equals(value) ? null : value);
+        }
         private long? _RequiredConnectionId;
 
         [RewriteableIgnore]
@@ -107,7 +149,7 @@ namespace kenzauros.RHarbor.Models
 
         [RewriteableIgnore]
         [Browsable(false)]
-        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, (value == Empty) ? null : value); } }
+        public virtual SSHConnectionInfo RequiredConnection { get => _RequiredConnection; set { SetProp(ref _RequiredConnection, Empty.Equals(value) ? null : value); } }
         [NonSerialized]
         private SSHConnectionInfo _RequiredConnection;
 
@@ -140,36 +182,7 @@ namespace kenzauros.RHarbor.Models
         [Browsable(false)]
         [NotMapped]
         public virtual IEnumerable<SSHConnectionInfo> AvailableRequiredConnections
-        {
-            get
-            {
-                var related = new List<long>() {
-                    Id // self
-                };
-                void func(long sourceId)
-                {
-                    var relatedInfoIds = All
-                        .Where(x => x.RequiredConnectionId == sourceId)
-                        .Select(x => x.Id);
-                    if (relatedInfoIds.Any())
-                    {
-                        related.AddRange(relatedInfoIds);
-                        foreach (var id in relatedInfoIds)
-                        {
-                            func(id);
-                        }
-                    }
-                }
-                func(Id);
-                var list = new List<SSHConnectionInfo>()
-                {
-                    Empty // to set null to RequiredConnection column. See the setter of RequiredConnection.
-                };
-                var remains = All.Where(x => !related.Contains(x.Id));
-                list.AddRange(remains);
-                return list;
-            }
-        }
+             => EnumerateAvailableRequiredConnections(Id);
 
         #endregion
 

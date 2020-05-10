@@ -51,7 +51,7 @@ namespace kenzauros.RHarbor.ViewModels
             var dbLoading = Task.Run(async () =>
             {
                 await SSHConnectionInfo.RefreshAll(DbContext);
-                DbContext.SSHConnectionInfos.ToList()
+                SSHConnectionInfo.All
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => SSHConnectionInfos.Items.Add(x)));
                 DbContext.RDPConnectionInfos.ToList()
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));

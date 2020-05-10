@@ -141,11 +141,20 @@
   <data name="Common_Dialog_YesButton_Content" xml:space="preserve">
     <value>はい</value>
   </data>
+  <data name="ConnectionGroup_DisplayName_AllGroup" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="ConnectionGroup_DisplayName_Unnamed" xml:space="preserve">
+    <value>グループなし</value>
+  </data>
   <data name="ConnectionInfoBase_Category_Authentication" xml:space="preserve">
     <value>認証</value>
   </data>
   <data name="ConnectionInfoBase_Category_General" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="ConnectionInfoBase_GroupName" xml:space="preserve">
+    <value>グループ名</value>
   </data>
   <data name="ConnectionInfoBase_Host" xml:space="preserve">
     <value>ホスト</value>
@@ -254,7 +263,10 @@
     <value>プロパティ</value>
   </data>
   <data name="RDPConnectionInfoManagement_RemoveButton_ToolTip" xml:space="preserve">
-    <value>削除する</value>
+    <value>この接続情報を削除する</value>
+  </data>
+  <data name="RDPConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>この接続情報を複製して編集する</value>
   </data>
   <data name="RDPConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>接続情報を保存する</value>
@@ -333,6 +345,9 @@
   </data>
   <data name="SSHConnectionInfoManagement_RemovePortForwardingButton_ToolTip" xml:space="preserve">
     <value>このポートフォワード設定を削除する</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ReplicateButton_ToolTip" xml:space="preserve">
+    <value>この接続情報を複製して編集する</value>
   </data>
   <data name="SSHConnectionInfoManagement_SaveButton_ToolTip" xml:space="preserve">
     <value>接続情報を保存する</value>

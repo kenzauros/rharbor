@@ -5,8 +5,11 @@ using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,12 +23,17 @@ namespace kenzauros.RHarbor.ViewModels
         protected MainWindowViewModel MainWindow => MainWindowViewModel.Singleton;
 
         public ObservableCollection<T> Items { get; set; } = new ObservableCollection<T>();
-        public ReactiveProperty<string> FilterText { get; set; } = new ReactiveProperty<string>();
 
-        public ReactiveCommand<T> RemoveItemCommand { get; set; } = new ReactiveCommand<T>();
+        public ObservableCollection<ConnectionGroup> Groups { get; } = new ObservableCollection<ConnectionGroup>();
+        public ReactivePropertySlim<ConnectionGroup> SelectedGroup { get; } = new ReactivePropertySlim<ConnectionGroup>();
+        public ReadOnlyReactivePropertySlim<bool> IsGroupSelected { get; }
+        public ReactivePropertySlim<string> FilterText { get; } = new ReactivePropertySlim<string>();
+
         public ReactiveCommand<T> ConnectCommand { get; set; } = new ReactiveCommand<T>();
 
         public ReactiveCommand StartEditCommand { get; set; }
+        public ReactiveCommand ReplicateCommand { get; set; }
+        public AsyncReactiveCommand RemoveCommand { get; }
         public ReactiveProperty<T> SelectedItem { get; set; } = new ReactiveProperty<T>();
         public ReactiveProperty<bool> IsItemEditing { get; set; } = new ReactiveProperty<bool>(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe);
         public ReadOnlyReactiveProperty<bool> IsNotItemEditing { get; set; }
@@ -35,39 +43,31 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand DiscardChangesCommand { get; set; }
         public ReadOnlyReactiveProperty<bool> IsItemSelected { get; set; }
 
+        #region Constructors
+
         public ConnectionInfoManagementViewModel()
         {
             AddNewItemCommand = IsItemEditing.Inverse().ToReactiveCommand();
             AddNewItemCommand.Subscribe(() =>
             {
                 SelectedItem.Value = null;
-                IsItemEditing.Value = true;
-            }).AddTo(Disposable);
-
-            RemoveItemCommand.Subscribe(async item =>
-            {
-                if (await Remove(item))
+                EditingItem.Value = new T();
+                if (IsGroupSelected?.Value == true)
                 {
-                    Items.Remove(item);
-                    // Renew Windows JumpList
-                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
+                    EditingItem.Value.GroupName = SelectedGroup.Value?.Name;
                 }
+                IsItemEditing.Value = true;
             }).AddTo(Disposable);
 
             ConnectCommand.Subscribe(async item => await ConfirmConnect(item)).AddTo(Disposable);
 
             IsItemSelected = SelectedItem.Select(x => x != null).ToReadOnlyReactiveProperty();
 
-            IsItemEditing.Subscribe(isItemEditing =>
-            {
-                EditingItem.Value = isItemEditing
-                    ? ((SelectedItem.Value == null) ? new T() : SelectedItem.Value.CloneDeep())
-                    : SelectedItem.Value;
-            }).AddTo(Disposable);
             IsNotItemEditing = IsItemEditing.Inverse().ToReadOnlyReactiveProperty();
 
             SelectedItem.Subscribe(x =>
             {
+                EditingItem.Value = SelectedItem.Value;
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 
@@ -76,12 +76,39 @@ namespace kenzauros.RHarbor.ViewModels
                 .ToReactiveCommand();
             StartEditCommand.Subscribe(() =>
             {
+                EditingItem.Value = SelectedItem.Value.CloneDeep();
                 IsItemEditing.Value = true;
+            }).AddTo(Disposable);
+
+            ReplicateCommand = IsItemSelected
+                .CombineLatest(IsItemEditing.Inverse(), (a, b) => a && b)
+                .ToReactiveCommand();
+            ReplicateCommand.Subscribe(() =>
+            {
+                var replicated = SelectedItem.Value.CloneDeep();
+                replicated.Id = -1;
+                SelectedItem.Value = null;
+                EditingItem.Value = replicated;
+                IsItemEditing.Value = true;
+            }).AddTo(Disposable);
+
+            RemoveCommand = IsItemSelected
+                .CombineLatest(IsItemEditing.Inverse(), (a, b) => a && b)
+                .ToAsyncReactiveCommand();
+            RemoveCommand.Subscribe(async () =>
+            {
+                if (await Remove(SelectedItem.Value))
+                {
+                    Items.Remove(SelectedItem.Value);
+                    // Renew Windows JumpList
+                    JumpListHelper.RenewJumpList(await MainWindow.DbContext.EnumerateAllConnectionInfos());
+                }
             }).AddTo(Disposable);
 
             DiscardChangesCommand = IsItemEditing.ToReactiveCommand();
             DiscardChangesCommand.Subscribe(() =>
             {
+                EditingItem.Value = SelectedItem.Value ?? new T();
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 
@@ -123,20 +150,110 @@ namespace kenzauros.RHarbor.ViewModels
                 IsItemEditing.Value = false;
             }).AddTo(Disposable);
 
-            FilterText.Subscribe(filter =>
-            {
-                var collectionView = CollectionViewSource.GetDefaultView(Items);
-                if (string.IsNullOrEmpty(filter))
+            // Connection info filterings
+            FilterText
+                .Throttle(TimeSpan.FromMilliseconds(500))
+                .ObserveOnDispatcher()
+                .Subscribe(_ => RefreshCollectionView())
+                .AddTo(Disposable);
+            SelectedGroup
+                .ObserveOnDispatcher()
+                .Subscribe(_ => RefreshCollectionView())
+                .AddTo(Disposable);
+
+            // If any group is selected or not (except for "All")
+            IsGroupSelected = SelectedGroup
+                .Select(x => x?.Name != AllGroupName)
+                .ToReadOnlyReactivePropertySlim()
+                .AddTo(Disposable);
+
+            // Group list extraction on connection info events
+            Observable.CombineLatest(
+                // When Add, Remove or Update
+                Items.CollectionChangedAsObservable()
+                    .Select(_ => Unit.Default)
+                    .StartWith(Unit.Default),
+                // When GroupName property in each element changed
+                Items.ObserveElementPropertyChanged()
+                    .Where(x => x.EventArgs.PropertyName == nameof(ConnectionInfoBase.GroupName))
+                    .Select(_ => Unit.Default)
+                    .StartWith(Unit.Default)
+                )
+                .Throttle(TimeSpan.FromMilliseconds(500)) // Once 500 ms
+                .ObserveOnDispatcher()
+                .Subscribe(_ =>
                 {
-                    collectionView.Filter = null;
-                }
-                else
-                {
-                    var regex = new Regex(filter, RegexOptions.IgnoreCase);
-                    collectionView.Filter = x => regex.IsMatch(((T)x).Name) || regex.IsMatch(((T)x).Host);
-                }
-            }).AddTo(Disposable);
+                    var selectedGroup = SelectedGroup.Value;
+                    // Reload group list
+                    Groups.Clear();
+                    EnumerateGroups().ToList().ForEach(Groups.Add);
+                    // Reset selected group
+                    SelectedGroup.Value = (selectedGroup is null) ? Groups.FirstOrDefault() : selectedGroup;
+                })
+                .AddTo(Disposable);
         }
+
+        #endregion
+
+        #region DataGrid View Control (Filter)
+
+        /// <summary>
+        /// Special name indicates that the view has to display all of connection infos regardless of the group name.
+        /// </summary>
+        const string AllGroupName = "_____ALL_____";
+
+        /// <summary>
+        /// Lists already existing group names to bind to the combo box in the property editor.
+        /// </summary>
+        public List<ConnectionGroup> ExistingGroupList =>
+            Groups.Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != AllGroupName).ToList();
+
+        /// <summary>
+        /// Enumerates <see cref="ConnectionGroup"/>s which have to be shown in the group selector box.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ConnectionGroup> EnumerateGroups()
+        {
+            yield return new ConnectionGroup(AllGroupName, Resources.ConnectionGroup_DisplayName_AllGroup);
+            foreach (var groupName in Items.Select(x => x.GroupName ?? string.Empty).Distinct().OrderBy(x => x))
+            {
+                // Treat empty string as null
+                var name = string.IsNullOrEmpty(groupName) ? null : groupName;
+                var displayName = string.IsNullOrEmpty(name)
+                    ? Resources.ConnectionGroup_DisplayName_Unnamed
+                    : name;
+                yield return new ConnectionGroup(name, displayName);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes <see cref="CollectionViewSource"/> setting for the <see cref="Items"/> with the selected group and input filter text.
+        /// </summary>
+        private void RefreshCollectionView()
+        {
+            var collectionView = CollectionViewSource.GetDefaultView(Items);
+            var filterText = FilterText.Value;
+            var selectedGroup = SelectedGroup.Value;
+            var regex = new Regex(filterText ?? "", RegexOptions.IgnoreCase);
+            collectionView.Filter = x =>
+            {
+                var item = (T)x;
+                var groupName = item.GroupName;
+                return (selectedGroup is null
+                        || selectedGroup.Name == AllGroupName
+                        || (selectedGroup.Name is null && string.IsNullOrEmpty(groupName))
+                        || groupName == selectedGroup.Name)
+                    && (string.IsNullOrEmpty(filterText)
+                        || regex.IsMatch(item.Name)
+                        || regex.IsMatch(item.Host));
+            };
+            if (collectionView.SortDescriptions.Count == 0)
+            {
+                collectionView.SortDescriptions.Add(new SortDescription(nameof(IConnectionInfo.Name), ListSortDirection.Ascending));
+            }
+        }
+
+        #endregion
 
         protected virtual async Task<bool> Remove(T item)
         {
@@ -146,7 +263,7 @@ namespace kenzauros.RHarbor.ViewModels
             if (!result) return false;
             try
             {
-                MyLogger.Log($"Removing {item.ToString()}...");
+                MyLogger.Log($"Removing {item}...");
                 var currentItem = MainWindow.DbContext.Set<T>().FirstOrDefault(x => x.Id == item.Id);
                 if (currentItem != null)
                 {
@@ -157,7 +274,7 @@ namespace kenzauros.RHarbor.ViewModels
             }
             catch (Exception ex)
             {
-                MyLogger.Log($"Failed to remove {item.ToString()}.", ex);
+                MyLogger.Log($"Failed to remove {item}.", ex);
                 await MainWindow.ShowMessageDialog(
                     string.Format(Resources.ConnectionInfo_Dialog_Remove_Error, item.ToString(), ex.Message),
                     Resources.ConnectionInfo_Dialog_Remove_Title);
