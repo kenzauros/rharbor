@@ -1,26 +1,62 @@
-RHarbor - Remote Desktop via SSH Servers
+RHarbor - Remote Desktop Management Tool
 =====
 
-- [日本語](index.ja.md)
+- [日本語版](index.ja.md)
 
-RHarbor helps you to connect to Windows by Remote Desktop (RDP) via multi-hop SSH tunnel.
+RHarbor helps you to manage your Remote Desktop connections.
+
+## Features
+
+- Remote Desktop (RDP) connection information management
+    - Configurable properties: Host, Port, User name, Screen size, Full screen setting and Admin mode
+    - Prior SSH connection to connect the RDP
+    - Grouping
+    - Search by the connection name or the host name
+    - Replication of an existing information
+- SSH connection information management
+    - Configurable properties: Host, Port, User name, Password/Pass phrase, Private key for the server, Keep alive
+    - Fixed port forwarding
+    - Prior SSH connection to connect the SSH
+    - Grouping
+    - Search by the connection name or the host name
+    - Replication of an existing information
+- Jump List
+    - RDP/SSH connection starting by Jump List in Windows Task Bar
 
 ## Description
 
-RHarbor can also manage Remote Desktop connections without SSH tunnel.
+With RHarbor, you can manage your multiple connection informations for Remote Desktop.
+
+You need not to feel the change of usability since RHarbor uses Windows-standard remote desktop application (`mstsc.exe`).
+
+RHarbor is recommended for the following people.
+
+- You need to connect to many remote servers
+- You need to connect to a remote server via SSH servers (so-called "bastion")
+- You need to forward a port of a remote server easily
+
+Especially it comes in handy when you have to go through the multiple SSH server to connect the destination Windows machine.
 
 ## Environment
 
-- Windows 7 or later
-- .NET Framework 4.6.1
+- v1 series (.NET Framework based)
+    - Windwos 7 SP1+
+    - .NET Framework 4.6.1
+- v2 series (.NET Core based)
+    - Windwos 7 SP1+
+    - .NET Core 3.1
+
+Install a suitable of .NET Runtime from the following page.
+
+- [Download .NET (Linux, macOS, and Windows)](https://dotnet.microsoft.com/download)
 
 ## Download and Install
 
 Download the zip file (`RHarbor_vN.N.N.zip`) from [Release Page](https://github.com/kenzauros/rharbor/releases).
 
-RHarbor needs no special installation. Please unzip the downloaded file into a suitable folder and just start RHarbor.exe.
+RHarbor needs no special installation. Please unzip the downloaded file into a suitable folder and just start `RHarbor.exe`.
 
-To uninstall, just delete the folder you made.
+To uninstall, just delete the folder you installed.
 
 ## Update
 
@@ -30,16 +66,26 @@ To apply an updated version, overwrite all of files contained in the zip file.
 
 Please see the detail pages.
 
-- [Remote Desktop with multi-hop SSH](rdp-with-multi-hop-ssh.md)
-- [Starting connection from Jump List](jump-list.md)
+1. [Remote Desktop with multi-hop SSH](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.html)
+1. [Starting connection from Jump List](https://kenzauros.github.io/rharbor/jump-list.html)
 
-## Clear all settings
+Refer to the No.1 even if you connect to a remote server directly.
 
-"RHarbor.db" exists in the same folder as "RHarbor.exe". This file contains RHarbor's settings you were set.
+## About connection settings
 
-To initialize the setting please shutdown RHarbor and then delete "RHarbor.db". New "RHarbor.db" will be generated when you start RHarbor again.
+### Where to store
 
-To back up your connection settings, just copy "RHarbor.db" to your backup location.
+`RHarbor.db` exists in the same folder as `RHarbor.exe`. This file contains RHarbor's settings you were set.
+
+### Clear all settings
+
+To initialize the setting please shutdown RHarbor and then delete `RHarbor.db`. New `RHarbor.db` will be generated when you start RHarbor again.
+
+### Back up
+
+To back up your connection settings, just copy `RHarbor.db` to your backup location.
+
+RHarbor automatically backs it up to your profile folder (typically `C:\Users\<Username>\AppData\Roaming\RHarbor`).
 
 ## Notice
 
@@ -63,7 +109,7 @@ Please make sure that an appropriate antivirus software is installed on your com
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
 ## Special Thanks to
 
