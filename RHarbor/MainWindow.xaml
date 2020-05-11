@@ -1,19 +1,15 @@
 ﻿<Window x:Class="kenzauros.RHarbor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:kenzauros.RHarbor"
-        xmlns:vm="clr-namespace:kenzauros.RHarbor.ViewModels"
         xmlns:dialog="clr-namespace:kenzauros.RHarbor.MvvmDialog"
-        xmlns:sshnet="clr-namespace:Renci.SshNet;assembly=Renci.SshNet"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:kenzauros.RHarbor.ViewModels"
         mc:Ignorable="d"
         Title="{Binding MainWindow_Title, Source={StaticResource resources}}"
-        Height="800" Width="1000"
+        Height="800" Width="640"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
@@ -27,68 +23,65 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid UseLayoutRounding="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="300"/>
-            <ColumnDefinition Width="350" MinWidth="240"/>
-        </Grid.ColumnDefinitions>
         <TabControl Margin="8">
-            <TabItem Header="RDP">
+            <TabItem Header="{Binding MainWindow_Tab_RDP, Source={StaticResource resources}}">
                 <local:RDPConnectionInfoManagement DataContext="{Binding RDPConnectionInfos}"/>
             </TabItem>
-            <TabItem Header="SSH">
+            <TabItem Header="{Binding MainWindow_Tab_SSH, Source={StaticResource resources}}">
                 <local:SSHConnectionInfoManagement DataContext="{Binding SSHConnectionInfos}"/>
             </TabItem>
-        </TabControl>
-        <GridSplitter Width="4" Background="Transparent"/>
-        <Grid Grid.Column="1" Margin="8" DataContext="{Binding Connections}">
-            <TreeView ItemsSource="{Binding Collection}">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="True"/>
-                        <Setter Property="Padding" Value="2"/>
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <TreeView.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DFF0FF" />
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#DFF0FF" />
-                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
-                    <HierarchicalDataTemplate DataType="{x:Type vm:SSHConnectionViewModel}" ItemsSource="{Binding Children}">
-                        <StackPanel Orientation="Horizontal">
-                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="SSH" ToolTip="{Binding MainWindow_Connections_SSH_ToolTip, Source={StaticResource resources}}"/>
-                            <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
-                            <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
-                                    Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    Command="{Binding DisconnectCommand}" ToolTip="Disconnect"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type vm:RDPConnectionViewModel}" ItemsSource="{Binding Children}">
-                        <StackPanel Orientation="Horizontal">
-                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="RDP" ToolTip="{Binding MainWindow_Connections_RDP_ToolTip, Source={StaticResource resources}}"/>
-                            <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
-                            <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
-                                    Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    Command="{Binding DisconnectCommand}" ToolTip="Disconnect"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type vm:ForwardedPortConnectionViewModel}" ItemsSource="{Binding Children}">
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="24" Height="24" Margin="0,0,4,0" VerticalAlignment="Center">
-                                <Grid>
-                                    <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="FP" ToolTip="{Binding MainWindow_Connections_ForwardedPort_ToolTip, Source={StaticResource resources}}"/>
-                                    <Border Background="{StaticResource BlueBrush}" Height="10" Width="10" CornerRadius="5"
-                                            HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                        <TextBlock Text="{Binding TypeInitial.Value}"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="8"/>
+            <TabItem Header="{Binding MainWindow_Tab_Connections, Source={StaticResource resources}}">
+                <Grid Margin="8" DataContext="{Binding Connections}">
+                    <TreeView ItemsSource="{Binding Collection}">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#DFF0FF" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#DFF0FF" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+                            <HierarchicalDataTemplate DataType="{x:Type vm:SSHConnectionViewModel}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="SSH" ToolTip="{Binding MainWindow_Connections_SSH_ToolTip, Source={StaticResource resources}}"/>
+                                    <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
+                                    <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
+                                            Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Command="{Binding DisconnectCommand}" ToolTip="Disconnect"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type vm:RDPConnectionViewModel}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="RDP" ToolTip="{Binding MainWindow_Connections_RDP_ToolTip, Source={StaticResource resources}}"/>
+                                    <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
+                                    <Button Margin="6,0,0,0" Style="{StaticResource BanButton}"
+                                            Visibility="{Binding IsRoot.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Command="{Binding DisconnectCommand}" ToolTip="Disconnect"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type vm:ForwardedPortConnectionViewModel}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Width="24" Height="24" Margin="0,0,4,0" VerticalAlignment="Center">
+                                        <Grid>
+                                            <ContentControl Style="{StaticResource ConnectionTypeIconStyle}" Margin="0,0,4,0" Content="FP" ToolTip="{Binding MainWindow_Connections_ForwardedPort_ToolTip, Source={StaticResource resources}}"/>
+                                            <Border Background="{StaticResource BlueBrush}" Height="10" Width="10" CornerRadius="5"
+                                                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <TextBlock Text="{Binding TypeInitial.Value}"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="8"/>
+                                            </Border>
+                                        </Grid>
                                     </Border>
-                                </Grid>
-                            </Border>
-                            <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-        </Grid>
+                                    <TextBlock Text="{Binding DisplayText.Value}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
+            </TabItem>
+        </TabControl>
         <Grid d:IsHidden="true" Background="#33000000" Grid.ColumnSpan="2"
               Visibility="{Binding IsLoading.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ProgressBar IsIndeterminate="True" Height="4" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" />

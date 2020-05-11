@@ -232,6 +232,15 @@ This operation cannot be canceled.</value>
   <data name="MainWindow_Connections_SSH_ToolTip" xml:space="preserve">
     <value>SSH</value>
   </data>
+  <data name="MainWindow_Tab_Connections" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="MainWindow_Tab_RDP" xml:space="preserve">
+    <value>RDP</value>
+  </data>
+  <data name="MainWindow_Tab_SSH" xml:space="preserve">
+    <value>SSH</value>
+  </data>
   <data name="MainWindow_Title" xml:space="preserve">
     <value>RHarbor</value>
   </data>
