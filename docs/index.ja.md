@@ -1,30 +1,64 @@
-RHarbor - Remote Desktop via SSH Servers
+RHarbor - Remote Desktop Management Tool
 =====
 
-- [English](index.md)
+- [English version](index.md)
 
-RHarbor は **SSH を経由したリモートデスクトップ接続** のサポートツールです。
+RHarbor は **リモートデスクトップ接続の一括管理・サポートツール** です。
 
-また、複数の SSH を経由する **多段 SSH 越しのポートフォワード機能** も備えています。
+## 機能
+
+RHarbor は下記のような機能を有しています。
+
+- リモートデスクトップ接続情報 (RDP) の管理
+    - 接続情報設定: ホスト, ポート, ユーザー名, 画面サイズ, フルスクリーン,  Admin モード
+    - 接続に必要な SSH 接続の指定
+    - グループ別管理
+    - 名称/ホスト名での検索
+    - 接続情報の複製
+- SSH 接続情報の管理
+    - プロパティ設定: ホスト, ポート, ユーザー名, パスワード/パスフレーズ, 秘密鍵, KeepAlive
+    - 固定ポートフォワーディング設定
+    - 接続に必要な SSH 接続の指定
+    - グループ別管理
+    - 名称/ホスト名での検索
+    - 接続情報の複製
+- ジャンプリスト機能
+    - RDP/SSH への接続を Windows タスクバーのジャンプリストから開始
 
 ## 説明
 
-RHarbor を使うとワンクリックで、 **複数の SSH サーバーを経由した Windows 機へのリモートデスクトップ接続** が確立できます。
+RHarbor を使うと複数のリモートデスクトップの接続情報を一元管理できるだけでなく、ワンクリックでリモートデスクトップ接続が開始できます。
 
-SSH サーバーを経由しないリモートデスクトップ接続も管理できます。
+またリモートデスクトップの機能自体は Windows 標準の「リモートデスクトップ接続 (`mstsc.exe`)」 を利用しているため、操作感が変わることなく利用できます。
+
+RHarbor はこんな方に便利です。
+
+- 仕事で多くのリモートサーバーに RDP で接続する
+- リモートデスクトップ先のマシンに接続するために複数の SSH を介さないといけない
+- SSH のポートフォワーディングを手軽に行いたい
+
+特に複数の SSH サーバーを経由した先の Windows マシンにリモートデスクトップに接続するときにとても役立ちます。
 
 ## 動作環境
 
-- Windows 7 以降
-- .NET Framework 4.6.1
+- v1 系 (.NET Framework 向け)
+    - Windows 7 以降
+    - .NET Framework 4.6.1
+- v2 系 (.NET Core 向け)
+    - Windwos 7 SP1 以降
+    - .NET Core 3.1
+
+各バージョンに適した .NET ランタイムをインストールしてください。
+
+- [Download .NET (Linux, macOS, and Windows)](https://dotnet.microsoft.com/download)
 
 ## ダウンロードとインストール
 
 [リリースページ](https://github.com/kenzauros/rharbor/releases) から zip ファイル (`RHarbor_vN.N.N.zip`) をダウンロードしてください。
 
-インストール作業は特にありません。ダウンロードした zip ファイルを適当なフォルダーに展開し、 RHarbor.exe を起動してください。
+インストール作業は特にありません。ダウンロードした zip ファイルを適当なフォルダーに展開し、 `RHarbor.exe` を起動してください。
 
-アンインストールする場合は RHarbor.exe を展開したフォルダーを削除してください。
+アンインストールする場合は `RHarbor.exe` を展開したフォルダーを削除してください。
 
 ## アップデート
 
@@ -34,16 +68,26 @@ SSH サーバーを経由しないリモートデスクトップ接続も管理�
 
 使い方については詳細ページを参照してください。
 
-- [多段 SSH 経由のリモートデスクトップ接続](rdp-with-multi-hop-ssh.ja.md)
-- [Windows のジャンプリストを使った接続](jump-list.ja.md)
+1. [多段 SSH 経由のリモートデスクトップ接続](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.ja.html)
+1. [Windows のジャンプリストを使った接続](https://kenzauros.github.io/rharbor/jump-list.ja.html)
 
-## 設定の初期化とバックアップ
+多段SSHでない場合のリモートデスクトップも 1 をご覧ください。
 
-RHarbor.exe と同じフォルダーに RHarbor.db があります。このファイルに設定が保存されています。
+## 接続情報のデータについて
 
-設定を初期化するには RHarbor を閉じた状態で、 RHarbor.db を削除してください。再度 RHarbor を起動すると RHarbor.db が再生成されます。
+### 保存場所
 
-設定をバックアップする場合は RHarbor.db をコピーしてください。
+`RHarbor.exe` と同じフォルダーに `RHarbor.db` があります。このファイルに接続情報が保存されています。
+
+### 初期化
+
+設定を初期化するには RHarbor を閉じた状態で、 `RHarbor.db` を削除してください。再度 RHarbor を起動すると `RHarbor.db` が再生成されます。
+
+### バックアップ
+
+設定を手動でバックアップする場合は `RHarbor.db` をコピーしてください。
+
+なお、アプリ起動時にも自動でバックアップが行われています。このバックアップされたファイルはユーザーのプロファイルフォルダ (典型的には `C:\Users\<ユーザー名>\AppData\Roaming\RHarbor`) に保存されます。
 
 ## 注意
 
@@ -63,7 +107,7 @@ RHarbor に保存されるパスワードは簡易的な暗号化を施してい
 
 ## ライセンス
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+MIT
 
 ## Special Thanks to
 
