@@ -172,6 +172,10 @@
     <Compile Include="Migrations\202005051209383_AddGroupName.designer.cs">
       <DependentUpon>202005051209383_AddGroupName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005280619235_AddConnectionInfo.cs" />
+    <Compile Include="Migrations\202005280619235_AddConnectionInfo.designer.cs">
+      <DependentUpon>202005280619235_AddConnectionInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005051209383_AddGroupName.resx">
       <DependentUpon>202005051209383_AddGroupName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005280619235_AddConnectionInfo.resx">
+      <DependentUpon>202005280619235_AddConnectionInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">

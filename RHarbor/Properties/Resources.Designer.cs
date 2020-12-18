@@ -668,6 +668,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Connection timeout (in milliseconds) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_ConnectionTimeout {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_ConnectionTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Clear the path for the key file? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message {
@@ -695,7 +704,7 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Interval に類似しているローカライズされた文字列を検索します。
+        ///   Interval (in milliseconds) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfo_KeepAliveInterval {
             get {
