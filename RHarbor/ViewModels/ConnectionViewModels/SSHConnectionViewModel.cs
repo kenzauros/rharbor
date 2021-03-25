@@ -191,7 +191,8 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 KeepAliveInterval = TimeSpan.FromMilliseconds(ConnectionInfo.KeepAliveInterval)
             };
-            client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(2);
+            const int DefaultConnectionTimeout = 5000;
+            client.ConnectionInfo.Timeout = TimeSpan.FromMilliseconds(ConnectionInfo.ConnectionTimeout ?? DefaultConnectionTimeout);
             var ev = new ManualResetEventSlim(false);
             void hostKeyEventHandler(object o, HostKeyEventArgs e)
             {

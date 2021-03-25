@@ -1,5 +1,4 @@
-﻿using kenzauros.RHarbor.Properties;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,10 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Security;
 using System.Threading.Tasks;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace kenzauros.RHarbor.Models
 {
@@ -118,6 +115,11 @@ namespace kenzauros.RHarbor.Models
             set => SetProp(ref _RequiredConnectionId, Empty.Id.Equals(value) ? null : value);
         }
         private long? _RequiredConnectionId;
+
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(ConnectionTimeout))]
+        public int? ConnectionTimeout { get => _ConnectionTimeout; set => SetProp(ref _ConnectionTimeout, value); }
+        private int? _ConnectionTimeout = null;
 
         [RewriteableIgnore]
         [Browsable(false)]

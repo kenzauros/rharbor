@@ -361,6 +361,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfoManagement_UsernameColumn_Title" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="SSHConnectionInfo_ConnectionTimeout" xml:space="preserve">
+    <value>Connection timeout (in milliseconds)</value>
+  </data>
   <data name="SSHConnectionInfo_Dialog_ClearPrivateKeyFilePath_Message" xml:space="preserve">
     <value>Clear the path for the key file?</value>
   </data>
@@ -371,7 +374,7 @@ This operation cannot be canceled.</value>
     <value>Enabled</value>
   </data>
   <data name="SSHConnectionInfo_KeepAliveInterval" xml:space="preserve">
-    <value>Interval</value>
+    <value>Interval (in milliseconds)</value>
   </data>
   <data name="SSHConnectionInfo_PrivateKeyFilePath" xml:space="preserve">
     <value>Private Key File</value>
