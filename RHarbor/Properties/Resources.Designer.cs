@@ -668,6 +668,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Always establish fowarding ports に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_AlwaysForwardPorts {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_AlwaysForwardPorts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Connection timeout (in milliseconds) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfo_ConnectionTimeout {

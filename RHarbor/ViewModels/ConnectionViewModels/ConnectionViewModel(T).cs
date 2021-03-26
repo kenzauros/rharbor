@@ -91,7 +91,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 additionalPF.LocalPort = recentlyUsedPort;
             }
-            var conn = new SSHConnectionViewModel(requiredConnectionInfo, false, additionalPF)
+            var conn = new SSHConnectionViewModel(requiredConnectionInfo, true, additionalPF)
             {
                 Parent = this
             };

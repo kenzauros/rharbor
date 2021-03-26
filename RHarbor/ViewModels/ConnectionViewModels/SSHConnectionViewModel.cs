@@ -32,8 +32,9 @@ namespace kenzauros.RHarbor.ViewModels
         /// Instantiates <see cref="SSHConnectionViewModel"/> from <see cref="SSHConnectionInfo"/> and returns the root connection.
         /// </summary>
         /// <param name="info"></param>
-        /// <param name="createRegisteredForwardedPorts"></param>
-        public SSHConnectionViewModel(SSHConnectionInfo info, bool createRegisteredForwardedPorts = true, PortForwarding additionalPortForwarding = null) : base(info)
+        /// <param name="asSubordinate">Whether invoked from another connection or not.</param>
+        /// <param name="additionalPortForwarding"><see cref="PortForwarding"/> which will be additionally established.</param>
+        public SSHConnectionViewModel(SSHConnectionInfo info, bool asSubordinate = false, PortForwarding additionalPortForwarding = null) : base(info)
         {
             if (string.IsNullOrWhiteSpace(info.Username))
             {
@@ -45,7 +46,8 @@ namespace kenzauros.RHarbor.ViewModels
                     string.Format(Resources.SSHConnection_Exception_PrivateKeyFileNotExists, info.PrivateKeyFilePath),
                     info.PrivateKeyFilePath);
             }
-            if (createRegisteredForwardedPorts && info.PortForwardingCollection != null)
+            if (info.PortForwardingCollection != null
+                && ((info.AlwaysForwardPorts ?? false) || !asSubordinate))
             {
                 CreateForwardedPorts(info.PortForwardingCollection);
             }

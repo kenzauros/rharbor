@@ -121,6 +121,11 @@ namespace kenzauros.RHarbor.Models
         public int? ConnectionTimeout { get => _ConnectionTimeout; set => SetProp(ref _ConnectionTimeout, value); }
         private int? _ConnectionTimeout = null;
 
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(4)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(AlwaysForwardPorts))]
+        public bool? AlwaysForwardPorts { get => _AlwaysForwardPorts ?? false; set => SetProp(ref _AlwaysForwardPorts, value); }
+        private bool? _AlwaysForwardPorts = null;
+
         [RewriteableIgnore]
         [Browsable(false)]
         public string PortForwardings
@@ -167,6 +172,7 @@ namespace kenzauros.RHarbor.Models
         public override void RewriteWith(IRewriteable item)
         {
             base.RewriteWith(item);
+            AlwaysForwardPorts ??= false; // Set default value
             var portForwardings = (item as SSHConnectionInfo).PortForwardingCollection?.ToArray();
             PortForwardings = portForwardings != null ? JsonConvert.SerializeObject(portForwardings) : null;
         }

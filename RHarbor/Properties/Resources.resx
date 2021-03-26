@@ -361,6 +361,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfoManagement_UsernameColumn_Title" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="SSHConnectionInfo_AlwaysForwardPorts" xml:space="preserve">
+    <value>Always establish fowarding ports</value>
+  </data>
   <data name="SSHConnectionInfo_ConnectionTimeout" xml:space="preserve">
     <value>Connection timeout (in milliseconds)</value>
   </data>
