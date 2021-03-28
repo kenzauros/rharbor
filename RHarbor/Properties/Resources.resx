@@ -223,6 +223,46 @@ This operation cannot be canceled.</value>
   <data name="Connection_ConnectingText" xml:space="preserve">
     <value>Connecting...</value>
   </data>
+  <data name="ExternalProgramDefinition_Arguments" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="ExternalProgramDefinition_Arguments_Description" xml:space="preserve">
+    <value>Command line arguments with the following parameters.
+{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file</value>
+  </data>
+  <data name="ExternalProgramDefinition_CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="ExternalProgramDefinition_CopyToClipboard_Description" xml:space="preserve">
+    <value>Copy the command text to clipboard instead of starting a process.</value>
+  </data>
+  <data name="ExternalProgramDefinition_Dialog_Invoke_Failed_Message" xml:space="preserve">
+    <value>Failed to invoke an external program.</value>
+  </data>
+  <data name="ExternalProgramDefinition_Dialog_Invoke_Title" xml:space="preserve">
+    <value>External program invocation</value>
+  </data>
+  <data name="ExternalProgramDefinition_Exception_ExeNotFound" xml:space="preserve">
+    <value>Executable file not found</value>
+  </data>
+  <data name="ExternalProgramDefinition_Exception_ValidationException" xml:space="preserve">
+    <value>Validation error occured. Check the properties.</value>
+  </data>
+  <data name="ExternalProgramDefinition_ExePath" xml:space="preserve">
+    <value>Exe Path</value>
+  </data>
+  <data name="ExternalProgramDefinition_ExePath_Description" xml:space="preserve">
+    <value>Path to the program executable.</value>
+  </data>
+  <data name="ExternalProgramDefinition_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ExternalProgramDefinition_Name_Description" xml:space="preserve">
+    <value>Name of the program</value>
+  </data>
+  <data name="ExternalProgramDefinition_SelectExePathButton_ToolTip" xml:space="preserve">
+    <value>Select the executable file path</value>
+  </data>
   <data name="MainWindow_Connections_ForwardedPort_ToolTip" xml:space="preserve">
     <value>Forwarded Port</value>
   </data>
@@ -237,6 +277,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="MainWindow_Tab_RDP" xml:space="preserve">
     <value>RDP</value>
+  </data>
+  <data name="MainWindow_Tab_Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="MainWindow_Tab_SSH" xml:space="preserve">
     <value>SSH</value>
@@ -298,6 +341,30 @@ This operation cannot be canceled.</value>
   <data name="RDPConnectionInfo_RequiredConnection" xml:space="preserve">
     <value>Required Connection</value>
   </data>
+  <data name="Settings_AddExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>Add new external program</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_FromScratch" xml:space="preserve">
+    <value>From Scratch</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_RLogin" xml:space="preserve">
+    <value>RLogin</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_TeraTerm" xml:space="preserve">
+    <value>Tera Term (publickey)</value>
+  </data>
+  <data name="Settings_Dialog_Save_Title" xml:space="preserve">
+    <value>Save settings</value>
+  </data>
+  <data name="Settings_Group_ExternalProgramDefinition" xml:space="preserve">
+    <value>External Programs</value>
+  </data>
+  <data name="Settings_RemoveExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>Remove the selected item</value>
+  </data>
+  <data name="Settings_SaveButton_ToolTip" xml:space="preserve">
+    <value>Save settings</value>
+  </data>
   <data name="SSHConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
     <value>Add new connection info</value>
   </data>
@@ -330,6 +397,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="SSHConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>Host</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip" xml:space="preserve">
+    <value>Invoke external programs</value>
   </data>
   <data name="SSHConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
     <value>Name</value>

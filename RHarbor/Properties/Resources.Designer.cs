@@ -353,6 +353,124 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Arguments に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Arguments {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Arguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Command line arguments with the following parameters.
+        ///{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Arguments_Description {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Arguments_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy to clipboard に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_CopyToClipboard {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy the command text to clipboard instead of starting a process. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_CopyToClipboard_Description {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_CopyToClipboard_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to invoke an external program. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Dialog_Invoke_Failed_Message {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Dialog_Invoke_Failed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   External program invocation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Dialog_Invoke_Title {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Dialog_Invoke_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Executable file not found に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Exception_ExeNotFound {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Exception_ExeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Validation error occured. Check the properties. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Exception_ValidationException {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Exception_ValidationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Exe Path に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_ExePath {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_ExePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Path to the program executable. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_ExePath_Description {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_ExePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Name {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name of the program に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_Name_Description {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select the executable file path に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExternalProgramDefinition_SelectExePathButton_ToolTip {
+            get {
+                return ResourceManager.GetString("ExternalProgramDefinition_SelectExePathButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Forwarded Port に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MainWindow_Connections_ForwardedPort_ToolTip {
@@ -394,6 +512,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string MainWindow_Tab_RDP {
             get {
                 return ResourceManager.GetString("MainWindow_Tab_RDP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Settings に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainWindow_Tab_Settings {
+            get {
+                return ResourceManager.GetString("MainWindow_Tab_Settings", resourceCulture);
             }
         }
         
@@ -574,6 +701,78 @@ namespace kenzauros.RHarbor.Properties {
         public static string RDPConnectionInfoManagement_UsernameColumn_Title {
             get {
                 return ResourceManager.GetString("RDPConnectionInfoManagement_UsernameColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   From Scratch に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinition_FromScratch {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinition_FromScratch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   RLogin に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinition_RLogin {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinition_RLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tera Term (publickey) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinition_TeraTerm {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinition_TeraTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add new external program に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinitionButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save settings に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Dialog_Save_Title {
+            get {
+                return ResourceManager.GetString("Settings_Dialog_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   External Programs に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_Group_ExternalProgramDefinition {
+            get {
+                return ResourceManager.GetString("Settings_Group_ExternalProgramDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove the selected item に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_RemoveExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_RemoveExternalProgramDefinitionButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save settings に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_SaveButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_SaveButton_ToolTip", resourceCulture);
             }
         }
         
@@ -835,6 +1034,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnectionInfoManagement_HostColumn_Title {
             get {
                 return ResourceManager.GetString("SSHConnectionInfoManagement_HostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Invoke external programs に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip", resourceCulture);
             }
         }
         

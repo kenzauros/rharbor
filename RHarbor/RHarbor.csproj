@@ -16,6 +16,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -215,8 +216,15 @@
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />
     <Compile Include="ViewModels\ConnectionInfoManagementViewModels\RDPConnectionInfoManagementViewModel.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\RDPConnectionViewModel.cs" />
+    <Compile Include="ViewModels\ExternalProgramDefinitionViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ExternalProgramDefinitionSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="Views\Controls\DropDownMenuButton.cs" />
     <Compile Include="Views\Controls\RDPConnectionInfoManagement.xaml.cs">
       <DependentUpon>RDPConnectionInfoManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\SettingsPanel.xaml.cs">
+      <DependentUpon>SettingsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\SSHConnectionInfoManagement.xaml.cs">
       <DependentUpon>SSHConnectionInfoManagement.xaml</DependentUpon>
@@ -272,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\ContextMenuStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\PropertyGridStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +291,10 @@
     <Page Include="Views\Controls\RDPConnectionInfoManagement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\SettingsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\SSHConnectionInfoManagement.xaml">
       <SubType>Designer</SubType>

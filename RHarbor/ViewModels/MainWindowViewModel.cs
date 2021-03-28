@@ -4,6 +4,7 @@ using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace kenzauros.RHarbor.ViewModels
         public SSHConnectionInfoManagementViewModel SSHConnectionInfos { get; set; } = new SSHConnectionInfoManagementViewModel();
         public RDPConnectionInfoManagementViewModel RDPConnectionInfos { get; set; } = new RDPConnectionInfoManagementViewModel();
         public ConnectionManagementViewModel Connections { get; set; } = new ConnectionManagementViewModel();
+        public SettingsViewModel Settings { get; } = new();
         public AppDbContext DbContext { get; private set; }
 
         public MainWindowViewModel()
@@ -56,12 +58,20 @@ namespace kenzauros.RHarbor.ViewModels
                 DbContext.RDPConnectionInfos.ToList()
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
                 DbContext.InitSecurePasswords();
+                // ExternalProgramDefinitions
+                var epdList = DbContext.ExternalProgramDefinitions.ToList();
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    Settings.ExternalProgramDefinitionSettings.ResetItems(epdList);
+                    SSHConnectionInfos.SetExternalProgramDefinitions(epdList);
+                });
             });
             await Task.WhenAll(new[]
             {
                 cacheLoading,
                 dbLoading,
             });
+            // Loading finished
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
             InitConnectionInvokeTimer();

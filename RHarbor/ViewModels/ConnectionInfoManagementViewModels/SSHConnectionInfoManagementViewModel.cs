@@ -5,7 +5,12 @@ using Microsoft.Win32;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace kenzauros.RHarbor.ViewModels
 {
@@ -14,6 +19,8 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand SelectPrivateKeyFileCommand { get; set; }
         public ReactiveCommand AddNewPortForwardingCommand { get; set; }
         public ReactiveCommand<PortForwarding> RemovePortForwardingCommand { get; set; }
+        public ObservableCollection<ExternalProgramDefinitionViewModel> ExternalProgramDefinitions { get; } = new();
+        public ReadOnlyReactiveProperty<bool> IsExternalProgramAvailable { get; }
 
         public SSHConnectionInfoManagementViewModel() : base()
         {
@@ -49,6 +56,12 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 EditingItem.Value.PortForwardingCollection.Remove(item);
             }).AddTo(Disposable);
+
+            IsExternalProgramAvailable = ExternalProgramDefinitions
+                .CollectionChangedAsObservable()
+                .Throttle(TimeSpan.FromSeconds(1))
+                .Select(_ => ExternalProgramDefinitions.Any())
+                .ToReadOnlyReactiveProperty();
         }
 
         protected override async Task<(bool result, SSHConnectionInfo record)> Save(SSHConnectionInfo item)
@@ -56,6 +69,16 @@ namespace kenzauros.RHarbor.ViewModels
             var result = await base.Save(item);
             await SSHConnectionInfo.RefreshAll(MainWindow.DbContext);
             return result;
+        }
+
+        public void SetExternalProgramDefinitions(IEnumerable<ExternalProgramDefinition> definitions)
+        {
+            ExternalProgramDefinitions.Clear();
+            definitions
+                .AsEnumerable()
+                .Select(x => new ExternalProgramDefinitionViewModel(x))
+                .ToList()
+                .ForEach(ExternalProgramDefinitions.Add);
         }
     }
 }

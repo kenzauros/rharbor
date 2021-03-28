@@ -81,6 +81,9 @@
                     </TreeView>
                 </Grid>
             </TabItem>
+            <TabItem Header="{Binding MainWindow_Tab_Settings, Source={StaticResource resources}}">
+                <local:SettingsPanel DataContext="{Binding Settings}" />
+            </TabItem>
         </TabControl>
         <Grid d:IsHidden="true" Background="#33000000" Grid.ColumnSpan="2"
               Visibility="{Binding IsLoading.Value, Converter={StaticResource BooleanToVisibilityConverter}}">

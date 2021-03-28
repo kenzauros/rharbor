@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="kenzauros.RHarbor.SettingsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:viewModels="clr-namespace:kenzauros.RHarbor.ViewModels"
+             xmlns:controls="clr-namespace:kenzauros.RHarbor.Views.Controls"
+             d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="400">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background"
+                    Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
+    <Grid>
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <StackPanel Margin="4">
+                    <GroupBox Header="{Binding Settings_Group_ExternalProgramDefinition, Source={StaticResource resources}}"
+                              DataContext="{Binding ExternalProgramDefinitionSettings}">
+                        <Grid Height="250">
+                            <Grid Margin="4,8,4,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"
+                                                      MinWidth="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ListBox ItemsSource="{Binding Items}"
+                                             DisplayMemberPath="Name"
+                                             SelectedItem="{Binding SelectedItem.Value, Mode=TwoWay}" />
+                                    <StackPanel Grid.Row="1"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Right">
+                                        <controls:DropDownMenuButton
+                                                             Background="{StaticResource GreenBrush}"
+                                            ToolTip="{Binding Settings_AddExternalProgramDefinitionButton_ToolTip, Source={StaticResource resources}}"
+                                                             Style="{DynamicResource IconButtonStyle}">
+                                            <fa:ImageAwesome Icon="Plus"
+                                                             Style="{DynamicResource ButtonIconStyle}" />
+                                            <controls:DropDownMenuButton.DropDownMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_TeraTerm, Source={StaticResource resources}}"
+                                                              Command="{Binding AddNewItemCommand}"
+                                                              CommandParameter="TeraTerm"/>
+                                                    <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_RLogin, Source={StaticResource resources}}"
+                                                              Command="{Binding AddNewItemCommand}"
+                                                              CommandParameter="RLogin"/>
+                                                    <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_FromScratch, Source={StaticResource resources}}"
+                                                              Command="{Binding AddNewItemCommand}" />
+                                                </ContextMenu>
+                                            </controls:DropDownMenuButton.DropDownMenu>
+                                        </controls:DropDownMenuButton>
+                                        <Button ToolTip="{Binding Settings_RemoveExternalProgramDefinitionButton_ToolTip, Source={StaticResource resources}}"
+                                                Command="{Binding RemoveCommand}"
+                                                Style="{StaticResource IconButtonStyle}">
+                                            <fa:ImageAwesome Icon="TrashOutline"
+                                                             Style="{StaticResource ButtonIconStyle}" />
+                                        </Button>
+                                    </StackPanel>
+
+                                </Grid>
+                                <Grid Grid.Column="1"
+                                      Margin="4 0 0 0">
+                                    <xctk:PropertyGrid x:Name="propertyGrid"
+                                                       IsCategorized="False"
+                                                       SelectedObject="{Binding SelectedItem.Value}"
+                                                       Style="{StaticResource ExternalProgramDefinitionPropertyGridStyle}">
+                                        <xctk:PropertyGrid.EditorDefinitions>
+                                            <xctk:EditorTemplateDefinition
+                                                TargetProperties="ExePath"
+                                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_ExePath}" />
+                                        </xctk:PropertyGrid.EditorDefinitions>
+                                    </xctk:PropertyGrid>
+                                    <Border BorderThickness="1"
+                                            BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Grid.Row="1" Margin="0 8 0 0">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button ToolTip="{Binding Settings_SaveButton_ToolTip, Source={StaticResource resources}}"
+                            Command="{Binding SaveChangesCommand}"
+                            Style="{StaticResource IconButtonStyle}"
+                            Background="{StaticResource BlueBrush}">
+                        <fa:ImageAwesome Icon="Save"
+                                         Style="{StaticResource ButtonIconStyle}" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -229,6 +229,43 @@
   <data name="Connection_ConnectingText" xml:space="preserve">
     <value>接続しています...</value>
   </data>
+  <data name="ExternalProgramDefinition_Arguments" xml:space="preserve">
+    <value>コマンドライン引数</value>
+  </data>
+  <data name="ExternalProgramDefinition_Arguments_Description" xml:space="preserve">
+    <value>呼び出し時に付加するコマンドライン引数を指定します。下記のパラメーターが利用できます。
+{host} : ホスト, {port} : ポート, {username} : ユーザー名, {password} : パスワード/パスフレーズ, {keyfile} : 鍵ファイルのパス</value>
+  </data>
+  <data name="ExternalProgramDefinition_CopyToClipboard" xml:space="preserve">
+    <value>クリップボードにコピー</value>
+  </data>
+  <data name="ExternalProgramDefinition_CopyToClipboard_Description" xml:space="preserve">
+    <value>プログラムを起動するかわりにコマンド文字列をクリップボードにコピーします。</value>
+  </data>
+  <data name="ExternalProgramDefinition_Dialog_Invoke_Failed_Message" xml:space="preserve">
+    <value>外部プログラムの起動に失敗しました。</value>
+  </data>
+  <data name="ExternalProgramDefinition_Dialog_Invoke_Title" xml:space="preserve">
+    <value>外部プログラムの起動</value>
+  </data>
+  <data name="ExternalProgramDefinition_Exception_ExeNotFound" xml:space="preserve">
+    <value>プログラムの実行ファイルが見つかりません。</value>
+  </data>
+  <data name="ExternalProgramDefinition_ExePath" xml:space="preserve">
+    <value>実行ファイルパス</value>
+  </data>
+  <data name="ExternalProgramDefinition_ExePath_Description" xml:space="preserve">
+    <value>プログラムの実行ファイルパスを指定します。</value>
+  </data>
+  <data name="ExternalProgramDefinition_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="ExternalProgramDefinition_Name_Description" xml:space="preserve">
+    <value>この外部プログラム呼び出しの名称 (ラベル) を指定します。</value>
+  </data>
+  <data name="ExternalProgramDefinition_SelectExePathButton_ToolTip" xml:space="preserve">
+    <value>実行ファイルのパスを選択する...</value>
+  </data>
   <data name="MainWindow_Connections_ForwardedPort_ToolTip" xml:space="preserve">
     <value>ポートフォワード</value>
   </data>
@@ -243,6 +280,9 @@
   </data>
   <data name="MainWindow_Tab_RDP" xml:space="preserve">
     <value>RDP</value>
+  </data>
+  <data name="MainWindow_Tab_Settings" xml:space="preserve">
+    <value>設定</value>
   </data>
   <data name="MainWindow_Tab_SSH" xml:space="preserve">
     <value>SSH</value>
@@ -307,6 +347,30 @@
   <data name="RDPConnectionInfo_RequiredConnection" xml:space="preserve">
     <value>必要な接続</value>
   </data>
+  <data name="Settings_AddExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>新しい外部プログラム定義を追加</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_FromScratch" xml:space="preserve">
+    <value>自分で入力</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_RLogin" xml:space="preserve">
+    <value>RLogin</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_TeraTerm" xml:space="preserve">
+    <value>Tera Term (publickey)</value>
+  </data>
+  <data name="Settings_Dialog_Save_Title" xml:space="preserve">
+    <value>設定の保存</value>
+  </data>
+  <data name="Settings_Group_ExternalProgramDefinition" xml:space="preserve">
+    <value>外部プログラム</value>
+  </data>
+  <data name="Settings_RemoveExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>選択した外部プログラムを削除</value>
+  </data>
+  <data name="Settings_SaveButton_ToolTip" xml:space="preserve">
+    <value>設定を保存する</value>
+  </data>
   <data name="SSHConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
     <value>接続情報を追加する</value>
   </data>
@@ -339,6 +403,9 @@
   </data>
   <data name="SSHConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>ホスト</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip" xml:space="preserve">
+    <value>外部プログラムの起動</value>
   </data>
   <data name="SSHConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
     <value>名前</value>
