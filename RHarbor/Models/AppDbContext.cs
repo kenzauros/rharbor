@@ -29,6 +29,7 @@ namespace kenzauros.RHarbor.Models
 
         public DbSet<RDPConnectionInfo> RDPConnectionInfos { get; set; }
         public DbSet<SSHConnectionInfo> SSHConnectionInfos { get; set; }
+        public DbSet<ExternalProgramDefinition> ExternalProgramDefinitions { get; set; }
 
         public async Task<IEnumerable<ConnectionInfoBase>> EnumerateAllConnectionInfos()
         {

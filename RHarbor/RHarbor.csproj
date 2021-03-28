@@ -180,10 +180,15 @@
     <Compile Include="Migrations\202103251328565_AddAlwaysForwardPortsColumnToSSHConnectionInfo.designer.cs">
       <DependentUpon>202103251328565_AddAlwaysForwardPortsColumnToSSHConnectionInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103270933161_AddExternalProgramDefinitions.cs" />
+    <Compile Include="Migrations\202103270933161_AddExternalProgramDefinitions.designer.cs">
+      <DependentUpon>202103270933161_AddExternalProgramDefinitions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
     <Compile Include="Models\ConnectionType.cs" />
+    <Compile Include="Models\ExternalProgramDefinition.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />
     <Compile Include="Utilities\IConnectionRequest.cs" />
     <Compile Include="Models\IPassword.cs" />
@@ -334,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103251328565_AddAlwaysForwardPortsColumnToSSHConnectionInfo.resx">
       <DependentUpon>202103251328565_AddAlwaysForwardPortsColumnToSSHConnectionInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103270933161_AddExternalProgramDefinitions.resx">
+      <DependentUpon>202103270933161_AddExternalProgramDefinitions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
