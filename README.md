@@ -1,7 +1,7 @@
-RHarbor - Remote Desktop Management Tool
+RHarbor - RDP/SSH Management Tool
 =====
 
-RHarbor helps you to manage your Remote Desktop connections.
+RHarbor helps you to manage your Remote Desktop and SSH connections.
 
 ## Features
 
@@ -18,12 +18,13 @@ RHarbor helps you to manage your Remote Desktop connections.
     - Grouping
     - Search by the connection name or the host name
     - Replication of an existing information
+    - Connecting with external programs such as Tera Term
 - Jump List
     - RDP/SSH connection starting by Jump List in Windows Task Bar
 
 ## Description
 
-With RHarbor, you can manage your multiple connection informations for Remote Desktop.
+With RHarbor, you can manage your multiple connection informations for Remote Desktop and SSH.
 
 You need not to feel the change of usability since RHarbor uses Windows-standard remote desktop application (`mstsc.exe`).
 
@@ -32,17 +33,16 @@ RHarbor is recommended for the following people.
 - You need to connect to many remote servers
 - You need to connect to a remote server via SSH servers (so-called "bastion")
 - You need to forward a port of a remote server easily
+- You need to manage connection informations in one place.
 
 Especially it comes in handy when you have to go through the multiple SSH server to connect the destination Windows machine.
 
+RHarbor is not able to use as a SSH client/terminal but can call your favorite SSH clients with the stored SSH connection informations.
+
 ## Environment
 
-- v1 series (.NET Framework based)
-    - Windwos 7 SP1+
-    - .NET Framework 4.6.1
-- v2 series (.NET Core based)
-    - Windwos 7 SP1+
-    - .NET Core 3.1
+- Windwos 7 SP1+
+- .NET Framework 4.6.1
 
 Install a suitable of .NET Runtime from the following page.
 
