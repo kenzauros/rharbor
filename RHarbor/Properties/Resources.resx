@@ -347,6 +347,12 @@ This operation cannot be canceled.</value>
   <data name="Settings_AddExternalProgramDefinition_FromScratch" xml:space="preserve">
     <value>From Scratch</value>
   </data>
+  <data name="Settings_AddExternalProgramDefinition_OpenSSH" xml:space="preserve">
+    <value>OpenSSH</value>
+  </data>
+  <data name="Settings_AddExternalProgramDefinition_PuTTY" xml:space="preserve">
+    <value>PuTTY</value>
+  </data>
   <data name="Settings_AddExternalProgramDefinition_RLogin" xml:space="preserve">
     <value>RLogin</value>
   </data>

@@ -714,6 +714,24 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   OpenSSH に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinition_OpenSSH {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinition_OpenSSH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PuTTY に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_AddExternalProgramDefinition_PuTTY {
+            get {
+                return ResourceManager.GetString("Settings_AddExternalProgramDefinition_PuTTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   RLogin に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_AddExternalProgramDefinition_RLogin {

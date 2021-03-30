@@ -59,7 +59,7 @@ namespace kenzauros.RHarbor.Models
         {
             if (info == null)
                 throw new ArgumentNullException(nameof(info));
-            if (!File.Exists(ExePath))
+            if (!CopyToClipboard && !File.Exists(ExePath))
                 throw new FileNotFoundException(Resources.ExternalProgramDefinition_Exception_ExeNotFound);
 
             var placeholders = new Dictionary<string, Func<SSHConnectionInfo, string>>
@@ -112,6 +112,19 @@ namespace kenzauros.RHarbor.Models
 
         #region Factory for Usual Programs
 
+        public static ExternalProgramDefinition CreateOpenSSHDefinition()
+        {
+            // https://docs.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_overview
+            var definition = new ExternalProgramDefinition
+            {
+                Name = "OpenSSH (Clipboard)",
+                ExePath = "ssh",
+                Arguments = "-i \"{keyfile}\" {username}@{host}:{port}",
+                CopyToClipboard = true,
+            };
+            return definition;
+        }
+
         public static ExternalProgramDefinition CreateTeraTermDefinition()
         {
             // https://ttssh2.osdn.jp/manual/4/ja/commandline/ttssh.html
@@ -121,6 +134,20 @@ namespace kenzauros.RHarbor.Models
                 Name = "Tera Term",
                 ExePath = exePath,
                 Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth=publickey",
+                CopyToClipboard = false,
+            };
+            return definition;
+        }
+
+        public static ExternalProgramDefinition CreatePuttyDefinition()
+        {
+            // https://documentation.help/PuTTY/using-cmdline-session.html
+            var exePath = FindExe("PuTTY", "putty.exe");
+            var definition = new ExternalProgramDefinition
+            {
+                Name = "PuTTY",
+                ExePath = exePath,
+                Arguments = "-ssh -P {port} -l {username} -pw {password} -i \"{keyfile}.ppk\" {host}",
                 CopyToClipboard = false,
             };
             return definition;
@@ -151,7 +178,7 @@ namespace kenzauros.RHarbor.Models
             return dirCandidates
                 .Select(x => Path.Combine(x, expectedFolderName, exeFileName))
                 .FirstOrDefault(p => File.Exists(p))
-                ?? Path.Combine(dirCandidates[0], expectedFolderName, exeFileName); // fallback to Program Files (x86)
+                ?? null;
         }
 
         #endregion

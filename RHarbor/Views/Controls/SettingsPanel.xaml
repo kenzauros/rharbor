@@ -53,9 +53,15 @@
                                                              Style="{DynamicResource ButtonIconStyle}" />
                                             <controls:DropDownMenuButton.DropDownMenu>
                                                 <ContextMenu>
+                                                    <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_OpenSSH, Source={StaticResource resources}}"
+                                                              Command="{Binding AddNewItemCommand}"
+                                                              CommandParameter="OpenSSH"/>
                                                     <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_TeraTerm, Source={StaticResource resources}}"
                                                               Command="{Binding AddNewItemCommand}"
                                                               CommandParameter="TeraTerm"/>
+                                                    <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_PuTTY, Source={StaticResource resources}}"
+                                                              Command="{Binding AddNewItemCommand}"
+                                                              CommandParameter="PuTTY"/>
                                                     <MenuItem Header="{Binding Settings_AddExternalProgramDefinition_RLogin, Source={StaticResource resources}}"
                                                               Command="{Binding AddNewItemCommand}"
                                                               CommandParameter="RLogin"/>

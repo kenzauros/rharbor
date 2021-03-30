@@ -42,6 +42,8 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 SelectedItem.Value = param switch
                 {
+                    "OpenSSH" => ExternalProgramDefinition.CreateOpenSSHDefinition(),
+                    "PuTTY" => ExternalProgramDefinition.CreatePuttyDefinition(),
                     "TeraTerm" => ExternalProgramDefinition.CreateTeraTermDefinition(),
                     "RLogin" => ExternalProgramDefinition.CreateRLoginDefinition(),
                     _ => new()
