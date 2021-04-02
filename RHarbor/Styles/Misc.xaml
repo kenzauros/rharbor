@@ -5,6 +5,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="./SemanticUIBrushes.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    <StreamGeometry x:Key="UpArrow">M 0 10 L 20 10 L 10 0 Z</StreamGeometry>
+    <StreamGeometry x:Key="DownArrow">M 0 0 L 10 10 L 20 0 Z</StreamGeometry>
     <Style TargetType="TabItem">
         <Setter Property="Padding" Value="16,4"/>
     </Style>

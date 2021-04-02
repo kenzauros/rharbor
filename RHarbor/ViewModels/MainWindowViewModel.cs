@@ -2,12 +2,14 @@
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace kenzauros.RHarbor.ViewModels
@@ -75,7 +77,68 @@ namespace kenzauros.RHarbor.ViewModels
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
             InitConnectionInvokeTimer();
+            InitConnectionListSizeControl();
         }
+
+        #region Connection List Size control
+
+        private GridLength PrevConnectionListSize = GridLength.Auto;
+        public ReactiveProperty<GridLength> ConnectionListSize { get; } = new(new GridLength(0));
+        public ReadOnlyReactiveProperty<bool> IsConnectionListVisible { get; private set; }
+        public ReactiveCommand SwitchConnectionListCommand { get; } = new();
+
+        private void InitConnectionListSizeControl()
+        {
+            IsConnectionListVisible = ConnectionListSize.Select(x => x.Value != 0).ToReadOnlyReactiveProperty();
+            SwitchConnectionListCommand.Subscribe(() =>
+            {
+                if (ConnectionListSize.Value.Value > 0)
+                {
+                    ShrinkConnectionListSize();
+                }
+                else
+                {
+                    ExpandConnectionListSize();
+                }
+            }).AddTo(Disposable);
+            Connections.Collection.CollectionChanged += Connections_CollectionChanged;
+        }
+
+        private void ShrinkConnectionListSize()
+        {
+            PrevConnectionListSize = ConnectionListSize.Value;
+            ConnectionListSize.Value = new GridLength(0);
+        }
+
+        private void ExpandConnectionListSize()
+        {
+            if (IsConnectionListVisible.Value) return;
+            if (!Connections.Collection.Any() && PrevConnectionListSize.IsAuto)
+            {
+                ConnectionListSize.Value = new GridLength(250);
+            }
+            else
+            {
+                ConnectionListSize.Value = PrevConnectionListSize;
+            }
+        }
+
+        private void Connections_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (sender is ICollection<IConnectionViewModel> col)
+            {
+                if (col.Count == 0)
+                {
+                    ShrinkConnectionListSize();
+                }
+                else
+                {
+                    ExpandConnectionListSize();
+                }
+            }
+        }
+
+        #endregion
 
         #region Connection Invoking
 

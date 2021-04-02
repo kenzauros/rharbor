@@ -30,9 +30,35 @@
             <TabItem Header="{Binding MainWindow_Tab_SSH, Source={StaticResource resources}}">
                 <local:SSHConnectionInfoManagement DataContext="{Binding SSHConnectionInfos}"/>
             </TabItem>
-            <TabItem Header="{Binding MainWindow_Tab_Connections, Source={StaticResource resources}}">
+            <TabItem Header="{Binding MainWindow_Tab_Settings, Source={StaticResource resources}}">
+                <local:SettingsPanel DataContext="{Binding Settings}" />
+            </TabItem>
+        </TabControl>
+        <Grid>
+            <Grid.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    BlurRadius="15"
+                    ShadowDepth="5"
+                    Opacity=".3"
+                    Direction="90" />
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{Binding ConnectionListSize.Value, Mode=TwoWay}" MinHeight="8" />
+            </Grid.RowDefinitions>
+            <GridSplitter Grid.Row="1"
+                          Height="8"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          Background="Transparent"
+                          ShowsPreview="true"
+                          ResizeDirection="Rows"
+                          />
+            <Grid Grid.Row="2" Margin="0 8 0 0" Background="#EEFFFFFF">
                 <Grid Margin="8" DataContext="{Binding Connections}">
-                    <TreeView ItemsSource="{Binding Collection}">
+                    <TreeView ItemsSource="{Binding Collection}" Background="Transparent">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="True"/>
@@ -80,11 +106,32 @@
                         </TreeView.Resources>
                     </TreeView>
                 </Grid>
-            </TabItem>
-            <TabItem Header="{Binding MainWindow_Tab_Settings, Source={StaticResource resources}}">
-                <local:SettingsPanel DataContext="{Binding Settings}" />
-            </TabItem>
-        </TabControl>
+            </Grid>
+            <Button Grid.Row="2"
+                    VerticalAlignment="Top"
+                    Height="8"
+                    Command="{Binding SwitchConnectionListCommand}"
+                    Background="#EEFFFFFF"
+                    BorderThickness="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnectionListVisible.Value}" Value="True">
+                                <Setter Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="180"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Path Name="SwitchConnectionListGlyph" Data="{StaticResource DownArrow}"
+                      Width="10" Height="6" Stretch="Fill"
+                      Fill="{StaticResource LightBlackBrush}">
+                </Path>
+            </Button>
+        </Grid>
         <Grid d:IsHidden="true" Background="#33000000" Grid.ColumnSpan="2"
               Visibility="{Binding IsLoading.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ProgressBar IsIndeterminate="True" Height="4" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" />
