@@ -66,6 +66,7 @@ Please see the detail pages.
 
 1. [Remote Desktop with multi-hop SSH](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.html)
 1. [Starting connection from Jump List](https://kenzauros.github.io/rharbor/jump-list.html)
+1. [Invocation of external SSH clients](https://kenzauros.github.io/rharbor/invoke-ssh-client.html)
 
 Refer to the No.1 even if you connect to a remote server directly.
 

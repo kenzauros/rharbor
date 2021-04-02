@@ -66,6 +66,7 @@ RHarbor はこんな方に便利です。
 
 1. [多段 SSH 経由のリモートデスクトップ接続](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.ja.html)
 1. [Windows のジャンプリストを使った接続](https://kenzauros.github.io/rharbor/jump-list.ja.html)
+1. [外部 SSH クライアントの呼び出し](https://kenzauros.github.io/rharbor/invoke-ssh-client.ja.html)
 
 多段 SSH でない場合のリモートデスクトップも 1 をご覧ください。
 
