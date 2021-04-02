@@ -59,7 +59,7 @@ namespace kenzauros.RHarbor.ViewModels
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => SSHConnectionInfos.Items.Add(x)));
                 DbContext.RDPConnectionInfos.ToList()
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
-                DbContext.InitSecurePasswords();
+                DbContext.DecryptPasswords();
                 // ExternalProgramDefinitions
                 var epdList = DbContext.ExternalProgramDefinitions.ToList();
                 App.Current.Dispatcher.Invoke(() =>

@@ -67,7 +67,7 @@ namespace kenzauros.RHarbor.Models
                 { "{host}", info => info.Host },
                 { "{port}", info => info.Port.ToString() },
                 { "{username}", info => info.Username },
-                { "{password}", info => info.SecurePassword?.GetPlainString() },
+                { "{password}", info => info.RawPassword },
                 { "{keyfile}", info => info.PrivateKeyFilePath },
             };
             var arguments = placeholders.Aggregate(Arguments,

@@ -147,8 +147,8 @@
                                 TargetProperties="GroupName"
                                 EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupName}" />
                             <xctk:EditorTemplateDefinition
-                                TargetProperties="SecurePassword"
-                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_GroupSecurePassword}" />
+                                TargetProperties="RawPassword"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_Password}" />
                             <xctk:EditorTemplateDefinition
                                 TargetProperties="RequiredConnectionId"
                                 EditingTemplate="{StaticResource PropertyGridEditingTemplate_RequiredConnectionId}" />

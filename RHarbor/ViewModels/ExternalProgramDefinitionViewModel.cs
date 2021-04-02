@@ -28,7 +28,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 Model.Invoke(info);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await MainWindow.ShowMessageDialog(
                     Resources.ExternalProgramDefinition_Dialog_Invoke_Failed_Message,

@@ -157,7 +157,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\SecurePasswordBindingBehavior.cs" />
+    <Compile Include="Behaviors\PasswordBindingBehavior.cs" />
     <Compile Include="Behaviors\WindowCloseControlBehavior.cs" />
     <Compile Include="IPC\IPCService.cs" />
     <Compile Include="IPC\ProcessCommander.cs" />
@@ -210,7 +210,6 @@
     <Compile Include="Utilities\PathUtil.cs" />
     <Compile Include="Utilities\PortNumberCache.cs" />
     <Compile Include="Utilities\LocalizedResources.cs" />
-    <Compile Include="Utilities\SecureStringEx.cs" />
     <Compile Include="Utilities\SingleAppInstanceHelper.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\ConnectionViewModel%28T%29.cs" />
     <Compile Include="ViewModels\ConnectionViewModels\IConnectionViewModel.cs" />

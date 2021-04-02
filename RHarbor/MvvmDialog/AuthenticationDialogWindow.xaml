@@ -48,7 +48,7 @@
                     <TextBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding Username, Mode=TwoWay}"/>
                     <PasswordBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
                         <i:Interaction.Behaviors>
-                            <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding Password, Mode=TwoWay}"/>
+                            <behaviors:PasswordBindingBehavior Password="{Binding Password, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
                     </PasswordBox>
                     <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Content="{Binding AuthenticationDialog_SavePassword_CheckBox_Content, Source={StaticResource resources}}" IsChecked="{Binding SavePassword, Mode=TwoWay}"/>

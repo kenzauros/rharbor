@@ -84,7 +84,7 @@ namespace kenzauros.RHarbor.Models
         [IgnoreDataMember]
         [NotMapped]
         [Browsable(false)]
-        public override SecureString SecurePassword { get => base.SecurePassword; set => base.SecurePassword = value; }
+        public override string RawPassword { get => base.RawPassword; set => base.RawPassword = value; }
 
         #region Save as file
 

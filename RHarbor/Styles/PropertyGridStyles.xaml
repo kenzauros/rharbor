@@ -35,17 +35,13 @@
             DisplayMemberPath="Name"
             />
     </DataTemplate>
-    <DataTemplate x:Key="PropertyGridEditingTemplate_GroupSecurePassword">
+    <DataTemplate x:Key="PropertyGridEditingTemplate_Password">
         <Grid Margin="4,0">
             <PasswordBox PasswordChar="*" BorderThickness="0" IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
                 <i:Interaction.Behaviors>
-                    <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding SelectedObject.SecurePassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
+                    <behaviors:PasswordBindingBehavior Password="{Binding SelectedObject.RawPassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
                 </i:Interaction.Behaviors>
             </PasswordBox>
-            <TextBlock Background="White"
-                       Text="{Binding SelectedObject.DisplayPassword, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                       Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-            </TextBlock>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="PropertyGridEditingTemplate_RequiredConnectionId">

@@ -73,7 +73,7 @@ namespace kenzauros.RHarbor.Models
         public bool SavePassword
         {
             get => _SavePassword;
-            set { if (SetProp(ref _SavePassword, value)) { RaisePropertyChanged(nameof(DisplayPassword)); } }
+            set => SetProp(ref _SavePassword, value);
         }
         private bool _SavePassword = false;
 
@@ -83,32 +83,26 @@ namespace kenzauros.RHarbor.Models
         [NotMapped]
         [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(2)]
         [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(Password))]
-        public virtual SecureString SecurePassword
+        public virtual string RawPassword
         {
-            get => _SecurePassword;
+            get => _RawPassword;
             set
             {
-                if (SetProp(ref _SecurePassword, value))
+                if (SetProp(ref _RawPassword, value))
                 {
                     this.WritebackPassword();
                 }
             }
         }
-        [NonSerialized]
-        private SecureString _SecurePassword;
+        private string _RawPassword;
 
-        [IgnoreDataMember]
-        [NotMapped]
-        [Browsable(false)]
-        public string DisplayPassword => SecurePassword?.Length > 0 ? new string('*', 8) : "(Not Set)";
+        #endregion
 
         [DefaultValue(false)]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(10)]
         [LocalizedDisplayName(nameof(ConnectionInfoBase) + "_" + nameof(ShowInJumpList))]
         public bool? ShowInJumpList { get => _ShowInJumpList == true; set => SetProp(ref _ShowInJumpList, value); }
         private bool? _ShowInJumpList = false;
-
-        #endregion
 
         #region IRewriteable
 
