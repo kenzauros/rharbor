@@ -181,6 +181,19 @@ namespace kenzauros.RHarbor.ViewModels
 
         #endregion
 
+        #region Existing Group List
+
+        /// <summary>
+        /// Lists already existing group names to bind to the combo box in the property editor.
+        /// </summary>
+        public List<ConnectionGroup> ExistingGroupList =>
+            RDPConnectionInfos.Groups.Concat(SSHConnectionInfos.Groups)
+            .OrderBy(x => x.DisplayName)
+            .Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != ConnectionInfoManagementViewModel<SSHConnectionInfo>.AllGroupName)
+            .ToList();
+
+        #endregion
+
         #region IDialogHost
 
         public ReactiveProperty<IDialog> Dialog { get; } = new ReactiveProperty<IDialog>();

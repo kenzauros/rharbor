@@ -200,13 +200,7 @@ namespace kenzauros.RHarbor.ViewModels
         /// <summary>
         /// Special name indicates that the view has to display all of connection infos regardless of the group name.
         /// </summary>
-        const string AllGroupName = "_____ALL_____";
-
-        /// <summary>
-        /// Lists already existing group names to bind to the combo box in the property editor.
-        /// </summary>
-        public List<ConnectionGroup> ExistingGroupList =>
-            Groups.Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != AllGroupName).ToList();
+        internal const string AllGroupName = "_____ALL_____";
 
         /// <summary>
         /// Enumerates <see cref="ConnectionGroup"/>s which have to be shown in the group selector box.

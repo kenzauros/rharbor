@@ -30,7 +30,7 @@
             BorderThickness="0" IsEditable="True"
             Text="{Binding Value}"
             IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-            ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
+            ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=Window}}"
             SelectedValuePath="Name"
             DisplayMemberPath="Name"
             />
