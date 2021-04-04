@@ -939,6 +939,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Password/phrase に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_Password {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Private Key File に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfo_PrivateKeyFilePath {

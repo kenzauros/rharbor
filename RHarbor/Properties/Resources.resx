@@ -455,6 +455,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfo_KeepAliveInterval" xml:space="preserve">
     <value>Interval (in milliseconds)</value>
   </data>
+  <data name="SSHConnectionInfo_Password" xml:space="preserve">
+    <value>Password/phrase</value>
+  </data>
   <data name="SSHConnectionInfo_PrivateKeyFilePath" xml:space="preserve">
     <value>Private Key File</value>
   </data>

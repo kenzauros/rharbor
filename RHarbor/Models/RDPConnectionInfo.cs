@@ -5,8 +5,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Security;
+using System.Security.Cryptography;
+using System.Text;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
@@ -78,14 +81,6 @@ namespace kenzauros.RHarbor.Models
 
         #endregion
 
-        /// <summary>
-        /// The override is to hide the password input since the authentication should be delegated to RDP itself.
-        /// </summary>
-        [IgnoreDataMember]
-        [NotMapped]
-        [Browsable(false)]
-        public override string RawPassword { get => base.RawPassword; set => base.RawPassword = value; }
-
         #region Save as file
 
         /// <summary>
@@ -105,12 +100,22 @@ namespace kenzauros.RHarbor.Models
                 var (r, b) = (l + w, t + h);
                 winposstr = $"winposstr:s:0,1,{l},{t},{r},{b}";
             }
+            var password = string.Empty;
+            if (!string.IsNullOrEmpty(RawPassword))
+            {
+                var bytes = ProtectedData
+                    .Protect(Encoding.Unicode.GetBytes(RawPassword), null, DataProtectionScope.CurrentUser)
+                    .Select(x => $"{x:X2}");
+                password = $"password 51:b:{string.Join("", bytes)}";
+                System.Diagnostics.Debug.WriteLine(password);
+            }
             File.WriteAllText(filepath,
                 $@"
 screen mode id:i:{(FullScreen ? 2 : 1)}
 {(DesktopWidth.HasValue ? $"desktopwidth:i:{DesktopWidth.Value}" : "")}
 {(DesktopHeight.HasValue ? $"desktopheight:i:{DesktopHeight.Value}" : "")}
 username:s:{Username}
+{password}
 use multimon:i:0
 session bpp:i:32
 {winposstr}
