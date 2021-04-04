@@ -188,8 +188,9 @@ namespace kenzauros.RHarbor.ViewModels
         /// </summary>
         public List<ConnectionGroup> ExistingGroupList =>
             RDPConnectionInfos.Groups.Concat(SSHConnectionInfos.Groups)
-            .OrderBy(x => x.DisplayName)
             .Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != ConnectionInfoManagementViewModel<SSHConnectionInfo>.AllGroupName)
+            .Distinct()
+            .OrderBy(x => x.DisplayName)
             .ToList();
 
         #endregion

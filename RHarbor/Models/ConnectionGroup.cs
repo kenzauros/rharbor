@@ -25,5 +25,22 @@
             Name = name;
             DisplayName = displayName ?? name;
         }
+
+        /// <summary>
+        /// Returns true if the object is <see cref="ConnectionGroup"/> and the <see cref="Name"/> equals to this instance's.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is not ConnectionGroup b) return false;
+            return Name == b.Name;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the <see cref="Name"/>.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() => Name?.GetHashCode() ?? 0;
     }
 }
