@@ -386,6 +386,9 @@
   <data name="SSHConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
     <value>このホストに接続する</value>
   </data>
+  <data name="SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip" xml:space="preserve">
+    <value>クリップボードにコピー</value>
+  </data>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>変更を破棄する</value>
   </data>

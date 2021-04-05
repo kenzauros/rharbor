@@ -13,12 +13,13 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace kenzauros.RHarbor.ViewModels
 {
     internal class ConnectionInfoManagementViewModel<T> : CompositeDisposableViewModelBase
-        where T : class, IConnectionInfo, IRewriteable, new()
+        where T : class, IConnectionInfo, IPassword, IRewriteable, new()
     {
         protected MainWindowViewModel MainWindow => MainWindowViewModel.Singleton;
 
@@ -42,6 +43,8 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand SaveChangesCommand { get; set; }
         public ReactiveCommand DiscardChangesCommand { get; set; }
         public ReadOnlyReactiveProperty<bool> IsItemSelected { get; set; }
+
+        public ReactiveCommand CopyPasswordToClipboardCommand { get; }
 
         #region Constructors
 
@@ -191,6 +194,15 @@ namespace kenzauros.RHarbor.ViewModels
                     SelectedGroup.Value = (selectedGroup is null) ? Groups.FirstOrDefault() : selectedGroup;
                 })
                 .AddTo(Disposable);
+
+            // Copy password to clipboard
+            CopyPasswordToClipboardCommand = SelectedItem
+                .Select(x => !string.IsNullOrWhiteSpace(x?.RawPassword))
+                .ToReactiveCommand();
+            CopyPasswordToClipboardCommand
+                .Subscribe(() => Clipboard.SetText(SelectedItem.Value?.RawPassword))
+                .AddTo(Disposable);
+
         }
 
         #endregion

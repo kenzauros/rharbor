@@ -36,12 +36,21 @@
             />
     </DataTemplate>
     <DataTemplate x:Key="PropertyGridEditingTemplate_Password">
-        <Grid Margin="4,0">
+        <Grid Margin="4,0" IsEnabled="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <PasswordBox PasswordChar="*" BorderThickness="0" IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
                 <i:Interaction.Behaviors>
                     <behaviors:PasswordBindingBehavior Password="{Binding SelectedObject.RawPassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
                 </i:Interaction.Behaviors>
             </PasswordBox>
+            <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
+                    ToolTip="{Binding SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip, Source={StaticResource resources}}"
+                    Command="{Binding DataContext.CopyPasswordToClipboardCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
+                <fa:ImageAwesome Icon="Copy" Style="{DynamicResource ButtonIconStyle}" />
+            </Button>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="PropertyGridEditingTemplate_RequiredConnectionId">

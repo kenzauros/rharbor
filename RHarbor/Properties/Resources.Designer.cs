@@ -993,6 +993,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Copy to clipboard に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Discard the changes に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfoManagement_DiscardButton_ToolTip {

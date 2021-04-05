@@ -380,6 +380,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
     <value>Connect to this host</value>
   </data>
+  <data name="SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>Discard the changes</value>
   </data>
