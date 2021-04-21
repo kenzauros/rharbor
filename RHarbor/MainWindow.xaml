@@ -114,9 +114,14 @@
                     Background="#EEFFFFFF"
                     BorderThickness="0">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <RotateTransform Angle="0"/>
+                            </Setter.Value>
+                        </Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsConnectionListVisible.Value}" Value="True">
+                            <DataTrigger Binding="{Binding IsConnectionListVisible.Value}" Value="False">
                                 <Setter Property="LayoutTransform">
                                     <Setter.Value>
                                         <RotateTransform Angle="180"/>

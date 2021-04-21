@@ -163,7 +163,7 @@
     <value>名前</value>
   </data>
   <data name="ConnectionInfoBase_Password" xml:space="preserve">
-    <value>パスワード/フレーズ</value>
+    <value>パスワード</value>
   </data>
   <data name="ConnectionInfoBase_Port" xml:space="preserve">
     <value>ポート</value>
@@ -386,6 +386,9 @@
   <data name="SSHConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
     <value>このホストに接続する</value>
   </data>
+  <data name="SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip" xml:space="preserve">
+    <value>クリップボードにコピー</value>
+  </data>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>変更を破棄する</value>
   </data>
@@ -460,6 +463,9 @@
   </data>
   <data name="SSHConnectionInfo_KeepAliveInterval" xml:space="preserve">
     <value>間隔 (ミリ秒)</value>
+  </data>
+  <data name="SSHConnectionInfo_Password" xml:space="preserve">
+    <value>パスワード/フレーズ</value>
   </data>
   <data name="SSHConnectionInfo_PrivateKeyFilePath" xml:space="preserve">
     <value>鍵ファイルのパス</value>

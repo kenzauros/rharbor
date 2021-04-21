@@ -179,6 +179,21 @@ namespace kenzauros.RHarbor.Models
 
         #endregion
 
+        #region IPassword
+
+        // NOTE: the override below is just to overwrite DisplayName attribute
+
+        [IgnoreDataMember]
+        [NotMapped]
+        [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(2)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(Password))]
+        public override string RawPassword {
+            get => base.RawPassword;
+            set => base.RawPassword = value;
+        }
+
+        #endregion
+
         #region AvailableRequiredConnections
 
         /// <summary>

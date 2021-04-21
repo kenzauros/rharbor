@@ -380,6 +380,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfoManagement_ConnectButton_ToolTip" xml:space="preserve">
     <value>Connect to this host</value>
   </data>
+  <data name="SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>Discard the changes</value>
   </data>
@@ -454,6 +457,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="SSHConnectionInfo_KeepAliveInterval" xml:space="preserve">
     <value>Interval (in milliseconds)</value>
+  </data>
+  <data name="SSHConnectionInfo_Password" xml:space="preserve">
+    <value>Password/phrase</value>
   </data>
   <data name="SSHConnectionInfo_PrivateKeyFilePath" xml:space="preserve">
     <value>Private Key File</value>
