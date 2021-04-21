@@ -139,39 +139,39 @@ namespace kenzauros.RHarbor.ViewModels
 
         #region Connect
 
-        private AuthenticationMethod[] GetAuthMethods(string username, SecureString password)
+        private AuthenticationMethod[] GetAuthMethods(string username, string password)
         {
             var authMethods = new List<AuthenticationMethod>();
             if (string.IsNullOrWhiteSpace(ConnectionInfo.PrivateKeyFilePath))
             {
                 // Password Auth
-                var auth = new PasswordAuthenticationMethod(username, password?.GetPlainString() ?? "");
+                var auth = new PasswordAuthenticationMethod(username, password ?? "");
                 authMethods.Add(auth);
             }
             else
             {
                 // Private key auth
-                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password?.GetPlainString() ?? "");
+                var pkeyfile = new PrivateKeyFile(ConnectionInfo.PrivateKeyFilePath, password ?? "");
                 var auth = new PrivateKeyAuthenticationMethod(username, pkeyfile);
                 authMethods.Add(auth);
             }
             return authMethods.ToArray();
         }
 
-        private ConnectionInfo CreateSshConnectionInfo(string username, SecureString password)
+        private ConnectionInfo CreateSshConnectionInfo(string username, string password)
         {
             var (host, port) = GetActualEndPoint();
             var authMethods = GetAuthMethods(username, password);
             return new ConnectionInfo(host, port, username, authMethods);
         }
 
-        private async Task<(string username, SecureString password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput, string message = null)
+        private async Task<(string username, string password, bool needSavePassword, bool passwordChanged)> GetUsernameAndPassword(bool forceInput, string message = null)
         {
             var username = ConnectionInfo.Username;
-            var password = ConnectionInfo.SecurePassword;
+            var password = ConnectionInfo.RawPassword;
             var savePassword = ConnectionInfo.SavePassword;
             bool passwordChanged = false;
-            if (forceInput || username == null || password?.GetPlainString() == null)
+            if (forceInput || username == null || password == null)
             {
                 bool result;
                 (result, username, password, savePassword) = await MainWindow.ShowAuthenticationDialog(
@@ -187,7 +187,7 @@ namespace kenzauros.RHarbor.ViewModels
             return (username, password, savePassword, passwordChanged);
         }
 
-        private async Task TryEstablishConnection(string username, SecureString password)
+        private async Task TryEstablishConnection(string username, string password)
         {
             var client = new SshClient(CreateSshConnectionInfo(username, password))
             {
@@ -266,7 +266,7 @@ namespace kenzauros.RHarbor.ViewModels
             this.WriteLog($"Connecting...");
             await EstablishRequiredConnection();
             string username;
-            SecureString password;
+            string password;
             bool savePassword;
             bool passwordChanged;
             bool forceInput = false;

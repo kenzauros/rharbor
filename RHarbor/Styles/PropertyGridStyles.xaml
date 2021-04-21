@@ -15,27 +15,42 @@
         <Setter Property="ShowSummary" Value="False" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
+    <Style x:Key="ExternalProgramDefinitionPropertyGridStyle" TargetType="xctk:PropertyGrid">
+        <Setter Property="IsReadOnly" Value="{Binding IsNotItemEditing.Value, Mode=OneWay}" />
+        <Setter Property="IsCategorized" Value="False" />
+        <Setter Property="SelectedObject" Value="{Binding EditingItem.Value}" />
+        <Setter Property="ShowTitle" Value="False" />
+        <Setter Property="ShowSortOptions" Value="False" />
+        <Setter Property="ShowSearchBox" Value="False" />
+        <Setter Property="ShowSummary" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
     <DataTemplate x:Key="PropertyGridEditingTemplate_GroupName">
         <ComboBox
             BorderThickness="0" IsEditable="True"
             Text="{Binding Value}"
             IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-            ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
+            ItemsSource="{Binding DataContext.ExistingGroupList, RelativeSource={RelativeSource AncestorType=Window}}"
             SelectedValuePath="Name"
             DisplayMemberPath="Name"
             />
     </DataTemplate>
-    <DataTemplate x:Key="PropertyGridEditingTemplate_GroupSecurePassword">
-        <Grid Margin="4,0">
+    <DataTemplate x:Key="PropertyGridEditingTemplate_Password">
+        <Grid Margin="4,0" IsEnabled="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             <PasswordBox PasswordChar="*" BorderThickness="0" IsEnabled="{Binding IsReadOnly, Converter={StaticResource InverseBoolConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
                 <i:Interaction.Behaviors>
-                    <behaviors:SecurePasswordBindingBehavior SecurePassword="{Binding SelectedObject.SecurePassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
+                    <behaviors:PasswordBindingBehavior Password="{Binding SelectedObject.RawPassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"/>
                 </i:Interaction.Behaviors>
             </PasswordBox>
-            <TextBlock Background="White"
-                       Text="{Binding SelectedObject.DisplayPassword, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}"
-                       Visibility="{Binding IsReadOnly, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
-            </TextBlock>
+            <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
+                    ToolTip="{Binding SSHConnectionInfoManagement_CopyPasswordToClipboard_ToolTip, Source={StaticResource resources}}"
+                    Command="{Binding DataContext.CopyPasswordToClipboardCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
+                <fa:ImageAwesome Icon="Copy" Style="{DynamicResource ButtonIconStyle}" />
+            </Button>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="PropertyGridEditingTemplate_RequiredConnectionId">
@@ -65,6 +80,20 @@
             <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
                     ToolTip="{Binding SSHConnectionInfoManagement_SelectPrivateKeyFileButton_ToolTip, Source={StaticResource resources}}"
                     Command="{Binding DataContext.SelectPrivateKeyFileCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
+                <fa:ImageAwesome Icon="FolderOpen" Style="{DynamicResource ButtonIconStyle}" />
+            </Button>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="PropertyGridEditingTemplate_ExePath">
+        <Grid Margin="4,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox BorderThickness="0" Text="{Binding Value}" VerticalContentAlignment="Center" />
+            <Button Grid.Column="1" Width="28" Height="22" Style="{StaticResource IconButtonStyle}"
+                    ToolTip="{Binding ExternalProgramDefinition_SelectExePathButton_ToolTip, Source={StaticResource resources}}"
+                    Command="{Binding DataContext.SelectExePathCommand, RelativeSource={RelativeSource AncestorType=xctk:PropertyGrid}}">
                 <fa:ImageAwesome Icon="FolderOpen" Style="{DynamicResource ButtonIconStyle}" />
             </Button>
         </Grid>

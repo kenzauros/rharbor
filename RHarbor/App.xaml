@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="./Styles/SemanticUIBrushes.xaml"/>
                 <ResourceDictionary Source="./Styles/SemanticUIStyles.xaml"/>
                 <ResourceDictionary Source="./Styles/PropertyGridStyles.xaml"/>
+                <ResourceDictionary Source="./Styles/ContextMenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,11 +1,9 @@
-RHarbor - Remote Desktop Management Tool
+RHarbor - RDP/SSH Management Tool
 =====
 
-RHarbor は **リモートデスクトップ接続の一括管理・サポートツール** です。
+RHarbor は **リモートデスクトップと SSH 接続の一括管理・サポートツール** です。
 
 ## 機能
-
-RHarbor は下記のような機能を有しています。
 
 - リモートデスクトップ接続情報 (RDP) の管理
     - 接続情報設定: ホスト, ポート, ユーザー名, 画面サイズ, フルスクリーン,  Admin モード
@@ -20,6 +18,7 @@ RHarbor は下記のような機能を有しています。
     - グループ別管理
     - 名称/ホスト名での検索
     - 接続情報の複製
+    - 外部 SSH クライアントの起動 (Tera Term など)
 - ジャンプリスト機能
     - RDP/SSH への接続を Windows タスクバーのジャンプリストから開始
 
@@ -34,17 +33,16 @@ RHarbor はこんな方に便利です。
 - 仕事で多くのリモートサーバーに RDP で接続する
 - リモートデスクトップ先のマシンに接続するために複数の SSH を介さないといけない
 - SSH のポートフォワーディングを手軽に行いたい
+- 接続情報を一カ所で管理したい
 
 特に複数の SSH サーバーを経由した先の Windows マシンにリモートデスクトップに接続するときにとても役立ちます。
 
+ターミナル機能は有していないため、 SSH クライアントとしては使用できませんが、保存している SSH 接続情報を使って、お使いの SSH クライアントを呼び出すことができます。
+
 ## 動作環境
 
-- v1 系 (.NET Framework 向け)
-    - Windows 7 以降
-    - .NET Framework 4.6.1
-- v2 系 (.NET Core 向け)
-    - Windwos 7 SP1 以降
-    - .NET Core 3.1
+- Windows 7 以降
+- .NET Framework 4.6.1
 
 各バージョンに適した .NET ランタイムをインストールしてください。
 
@@ -68,8 +66,9 @@ RHarbor はこんな方に便利です。
 
 1. [多段 SSH 経由のリモートデスクトップ接続](https://kenzauros.github.io/rharbor/rdp-with-multi-hop-ssh.ja.html)
 1. [Windows のジャンプリストを使った接続](https://kenzauros.github.io/rharbor/jump-list.ja.html)
+1. [外部 SSH クライアントの呼び出し](https://kenzauros.github.io/rharbor/invoke-ssh-client.ja.html)
 
-多段SSHでない場合のリモートデスクトップも 1 をご覧ください。
+多段 SSH でない場合のリモートデスクトップも 1 をご覧ください。
 
 ## 接続情報のデータについて
 

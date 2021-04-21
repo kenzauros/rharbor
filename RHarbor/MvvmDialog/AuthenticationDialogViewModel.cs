@@ -1,12 +1,11 @@
-﻿using System.Security;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.MvvmDialog
 {
     internal class AuthenticationDialogViewModel : MessageDialogViewModel
     {
         public string Username { get; set; }
-        public SecureString Password { get; set; }
+        public string Password { get; set; }
         public bool SavePassword { get; set; }
 
         static AuthenticationDialogViewModel()
@@ -17,7 +16,7 @@ namespace kenzauros.RHarbor.MvvmDialog
 
     internal static class AuthenticationDialogViewModelExtensions
     {
-        public static async Task<(bool result, string username, SecureString password, bool savePassword)>
+        public static async Task<(bool result, string username, string password, bool savePassword)>
             ShowAuthenticationDialog(
             this IDialogHost host,
             string message = null,
@@ -34,7 +33,7 @@ namespace kenzauros.RHarbor.MvvmDialog
                 SavePassword = savePassword,
             };
             var result = await host.ShowDialog(vm);
-            return (result, vm.Username, vm.Password ?? new SecureString(), vm.SavePassword);
+            return (result, vm.Username, vm.Password, vm.SavePassword);
         }
     }
 }

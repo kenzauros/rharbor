@@ -2,11 +2,14 @@
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Utilities;
 using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace kenzauros.RHarbor.ViewModels
@@ -23,6 +26,7 @@ namespace kenzauros.RHarbor.ViewModels
         public SSHConnectionInfoManagementViewModel SSHConnectionInfos { get; set; } = new SSHConnectionInfoManagementViewModel();
         public RDPConnectionInfoManagementViewModel RDPConnectionInfos { get; set; } = new RDPConnectionInfoManagementViewModel();
         public ConnectionManagementViewModel Connections { get; set; } = new ConnectionManagementViewModel();
+        public SettingsViewModel Settings { get; } = new();
         public AppDbContext DbContext { get; private set; }
 
         public MainWindowViewModel()
@@ -32,6 +36,7 @@ namespace kenzauros.RHarbor.ViewModels
                 throw new InvalidOperationException($"{nameof(MainWindowViewModel)} cannot be instantiated more than once.");
             }
             Singleton = this;
+            InitConnectionListSizeControl();
         }
 
         public async Task Load()
@@ -55,17 +60,88 @@ namespace kenzauros.RHarbor.ViewModels
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => SSHConnectionInfos.Items.Add(x)));
                 DbContext.RDPConnectionInfos.ToList()
                     .ForEach(x => App.Current.Dispatcher.Invoke(() => RDPConnectionInfos.Items.Add(x)));
-                DbContext.InitSecurePasswords();
+                DbContext.DecryptPasswords();
+                // ExternalProgramDefinitions
+                var epdList = DbContext.ExternalProgramDefinitions.ToList();
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    Settings.ExternalProgramDefinitionSettings.ResetItems(epdList);
+                    SSHConnectionInfos.SetExternalProgramDefinitions(epdList);
+                });
             });
             await Task.WhenAll(new[]
             {
                 cacheLoading,
                 dbLoading,
             });
+            // Loading finished
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
             InitConnectionInvokeTimer();
         }
+
+        #region Connection List Size control
+
+        private GridLength PrevConnectionListSize = GridLength.Auto;
+        public ReactiveProperty<GridLength> ConnectionListSize { get; } = new(new GridLength(0));
+        public ReadOnlyReactiveProperty<bool> IsConnectionListVisible { get; private set; }
+        public ReactiveCommand SwitchConnectionListCommand { get; } = new();
+
+        private void InitConnectionListSizeControl()
+        {
+            const int MinListHeight = 8;
+            IsConnectionListVisible = ConnectionListSize
+                .Select(x => x.Value > MinListHeight)
+                .ToReadOnlyReactiveProperty();
+            SwitchConnectionListCommand.Subscribe(() =>
+            {
+                if (IsConnectionListVisible.Value)
+                {
+                    ShrinkConnectionListSize();
+                }
+                else
+                {
+                    ExpandConnectionListSize();
+                }
+            }).AddTo(Disposable);
+            Connections.Collection.CollectionChanged += Connections_CollectionChanged;
+        }
+
+        private void ShrinkConnectionListSize()
+        {
+            PrevConnectionListSize = ConnectionListSize.Value;
+            ConnectionListSize.Value = new GridLength(0);
+        }
+
+        private void ExpandConnectionListSize()
+        {
+            if (IsConnectionListVisible.Value) return;
+            if (!Connections.Collection.Any() && PrevConnectionListSize.IsAuto)
+            {
+                ConnectionListSize.Value = new GridLength(250);
+            }
+            else
+            {
+                ConnectionListSize.Value = PrevConnectionListSize;
+            }
+        }
+
+        private void Connections_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (sender is ICollection<IConnectionViewModel> col)
+            {
+                if (col.Count == 0)
+                {
+                    ShrinkConnectionListSize();
+                }
+                else
+                {
+                    ExpandConnectionListSize();
+                }
+            }
+        }
+
+        #endregion
 
         #region Connection Invoking
 
@@ -105,6 +181,20 @@ namespace kenzauros.RHarbor.ViewModels
             };
             ConnectionInvokeTimer.Start();
         }
+
+        #endregion
+
+        #region Existing Group List
+
+        /// <summary>
+        /// Lists already existing group names to bind to the combo box in the property editor.
+        /// </summary>
+        public List<ConnectionGroup> ExistingGroupList =>
+            RDPConnectionInfos.Groups.Concat(SSHConnectionInfos.Groups)
+            .Where(x => !string.IsNullOrEmpty(x.Name) && x.Name != ConnectionInfoManagementViewModel<SSHConnectionInfo>.AllGroupName)
+            .Distinct()
+            .OrderBy(x => x.DisplayName)
+            .ToList();
 
         #endregion
 

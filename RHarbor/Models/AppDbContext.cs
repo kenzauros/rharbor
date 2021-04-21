@@ -29,6 +29,7 @@ namespace kenzauros.RHarbor.Models
 
         public DbSet<RDPConnectionInfo> RDPConnectionInfos { get; set; }
         public DbSet<SSHConnectionInfo> SSHConnectionInfos { get; set; }
+        public DbSet<ExternalProgramDefinition> ExternalProgramDefinitions { get; set; }
 
         public async Task<IEnumerable<ConnectionInfoBase>> EnumerateAllConnectionInfos()
         {
@@ -39,12 +40,12 @@ namespace kenzauros.RHarbor.Models
                 .Union(connections2);
         }
 
-        public void InitSecurePasswords()
+        public void DecryptPasswords()
         {
             foreach (var item in SSHConnectionInfos)
-                item.InitSecurePassword();
+                item.DecryptPassword();
             foreach (var item in RDPConnectionInfos)
-                item.InitSecurePassword();
+                item.DecryptPassword();
         }
 
         public async Task UpdateSSHFingerPrint(SSHConnectionInfo info, string fingerprint)
@@ -57,13 +58,13 @@ namespace kenzauros.RHarbor.Models
             }
         }
 
-        public async Task SavePassword(SSHConnectionInfo info, bool savePassword, SecureString password)
+        public async Task SavePassword(SSHConnectionInfo info, bool savePassword, string password)
         {
             var record = await SSHConnectionInfos.FirstOrDefaultAsync(x => x.Id == info.Id);
             if (record != null)
             {
                 record.SavePassword = savePassword;
-                record.SecurePassword = savePassword ? password : null;
+                record.RawPassword = savePassword ? password : null;
                 await SaveChangesAsync();
             }
         }
