@@ -36,6 +36,7 @@ namespace kenzauros.RHarbor.ViewModels
                 throw new InvalidOperationException($"{nameof(MainWindowViewModel)} cannot be instantiated more than once.");
             }
             Singleton = this;
+            InitConnectionListSizeControl();
         }
 
         public async Task Load()
@@ -77,7 +78,6 @@ namespace kenzauros.RHarbor.ViewModels
             MyLogger.Log("Data loaded.");
             IsLoading.Value = false;
             InitConnectionInvokeTimer();
-            InitConnectionListSizeControl();
         }
 
         #region Connection List Size control
@@ -89,10 +89,13 @@ namespace kenzauros.RHarbor.ViewModels
 
         private void InitConnectionListSizeControl()
         {
-            IsConnectionListVisible = ConnectionListSize.Select(x => x.Value != 0).ToReadOnlyReactiveProperty();
+            const int MinListHeight = 8;
+            IsConnectionListVisible = ConnectionListSize
+                .Select(x => x.Value > MinListHeight)
+                .ToReadOnlyReactiveProperty();
             SwitchConnectionListCommand.Subscribe(() =>
             {
-                if (ConnectionListSize.Value.Value > 0)
+                if (IsConnectionListVisible.Value)
                 {
                     ShrinkConnectionListSize();
                 }
