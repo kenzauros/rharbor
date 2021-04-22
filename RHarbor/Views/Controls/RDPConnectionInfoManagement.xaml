@@ -4,12 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:local="clr-namespace:kenzauros.RHarbor"
-             xmlns:behaviors="clr-namespace:kenzauros.RHarbor.Behaviors"
-             xmlns:models="clr-namespace:kenzauros.RHarbor.Models"
              xmlns:vm="clr-namespace:kenzauros.RHarbor.ViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:RDPConnectionInfoManagementViewModel, IsDesignTimeCreatable=True}"
@@ -19,6 +14,7 @@
             <Grid DockPanel.Dock="Top" Margin="8,8,8,4" IsEnabled="{Binding IsItemEditing.Value, Converter={StaticResource InverseBoolConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Margin="0,0,4,0">
@@ -34,6 +30,11 @@
                         Background="{StaticResource GreenBrush}"
                         ToolTip="{Binding RDPConnectionInfoManagement_AddNewItemButton_ToolTip, Source={StaticResource resources}}">
                     <fa:ImageAwesome Icon="Plus" Style="{DynamicResource ButtonIconStyle}" />
+                </Button>
+                <Button Grid.Column="2" Command="{Binding ImportItemCommand}" Style="{StaticResource IconButtonStyle}"
+                        Background="{StaticResource TealBrush}"
+                        ToolTip="{Binding RDPConnectionInfoManagement_ImportItemButton_ToolTip, Source={StaticResource resources}}">
+                    <fa:ImageAwesome Icon="SignIn" Style="{DynamicResource ButtonIconStyle}" />
                 </Button>
             </Grid>
             <Grid>
@@ -153,6 +154,11 @@
                                     Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
                                     Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                            <Button ToolTip="{Binding RDPConnectionInfoManagement_ExportItemButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding ExportItemCommand}" Style="{StaticResource IconButtonStyle}"
+                                    Margin="4,0,0,0">
+                                <fa:ImageAwesome Icon="SignOut" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"

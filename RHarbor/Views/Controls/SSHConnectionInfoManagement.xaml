@@ -18,6 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Margin="0,0,4,0">
                     <TextBox BorderThickness="0" Text="{Binding FilterText.Value, UpdateSourceTrigger=PropertyChanged}"
@@ -32,6 +33,11 @@
                         Background="{StaticResource GreenBrush}"
                         ToolTip="{Binding SSHConnectionInfoManagement_AddNewItemButton_ToolTip, Source={StaticResource resources}}">
                     <fa:ImageAwesome Icon="Plus" Style="{DynamicResource ButtonIconStyle}" />
+                </Button>
+                <Button Grid.Column="2" Command="{Binding ImportItemCommand}" Style="{StaticResource IconButtonStyle}"
+                        Background="{StaticResource TealBrush}"
+                        ToolTip="{Binding SSHConnectionInfoManagement_ImportItemButton_ToolTip, Source={StaticResource resources}}">
+                    <fa:ImageAwesome Icon="SignIn" Style="{DynamicResource ButtonIconStyle}" />
                 </Button>
             </Grid>
             <Grid>
@@ -263,6 +269,11 @@
                                     Command="{Binding ReplicateCommand}" Style="{StaticResource IconButtonStyle}"
                                     Margin="4,0,0,0">
                                 <fa:ImageAwesome Icon="Copy" Style="{StaticResource ButtonIconStyle}" />
+                            </Button>
+                            <Button ToolTip="{Binding SSHConnectionInfoManagement_ExportItemButton_ToolTip, Source={StaticResource resources}}"
+                                    Command="{Binding ExportItemCommand}" Style="{StaticResource IconButtonStyle}"
+                                    Margin="4,0,0,0">
+                                <fa:ImageAwesome Icon="SignOut" Style="{StaticResource ButtonIconStyle}" />
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"

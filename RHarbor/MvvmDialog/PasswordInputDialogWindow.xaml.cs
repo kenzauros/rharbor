@@ -2,12 +2,9 @@
 
 namespace kenzauros.RHarbor.MvvmDialog
 {
-    /// <summary>
-    /// AuthenticationDialogWindow.xaml の相互作用ロジック
-    /// </summary>
-    public partial class AuthenticationDialogWindow : Window
+    public partial class PasswordInputDialogWindow : Window
     {
-        public AuthenticationDialogWindow()
+        public PasswordInputDialogWindow()
         {
             InitializeComponent();
             Loaded += Window_Loaded;

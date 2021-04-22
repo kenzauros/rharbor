@@ -233,6 +233,104 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Failed to export.
+        ///{0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Export_Error {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Export_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Exported to &quot;{0}&quot;.
+        ///Password which you input has been copied to the clipboard.
+        ///Open the export folder after this dialog closed. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Export_Exported {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Export_Exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Input password to protect this connection info.
+        ///This password will be set to the clipboard after export. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Export_PasswordInput_Message {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Export_PasswordInput_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Export_Title {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Export_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to import.
+        ///{0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_Error {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to decrypt data. Check your password. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_Error_CryptographicException {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_Error_CryptographicException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to read the file. Check the file or its directory.
+        ///{0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_Error_IOException {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_Error_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Successfully imported &quot;{0}&quot;.
+        ///Note that the imported info has not been stored yet in the database.
+        ///Please save to store. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_Imported {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_Imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Input password to import this connection info. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_PasswordInput_Message {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_PasswordInput_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Dialog_Import_Title {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Dialog_Import_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Failed to remove to &quot;{0}&quot;.
         ///{1} に類似しているローカライズされた文字列を検索します。
         /// </summary>
@@ -286,6 +384,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string ConnectionInfo_Dialog_Save_Title {
             get {
                 return ResourceManager.GetString("ConnectionInfo_Dialog_Save_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Replication_NameSuffix {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Replication_NameSuffix", resourceCulture);
             }
         }
         
@@ -543,6 +650,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Password に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PasswordInputDialogWindow_Password_Label {
+            get {
+                return ResourceManager.GetString("PasswordInputDialogWindow_Password_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Admin mode に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RDPConnectionInfo_Admin {
@@ -624,11 +740,29 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Export this connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_ExportItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_ExportItemButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Host に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RDPConnectionInfoManagement_HostColumn_Title {
             get {
                 return ResourceManager.GetString("RDPConnectionInfoManagement_HostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import connection info from file に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RDPConnectionInfoManagement_ImportItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("RDPConnectionInfoManagement_ImportItemButton_ToolTip", resourceCulture);
             }
         }
         
@@ -1011,6 +1145,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Export this connection info に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_ExportItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_ExportItemButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Local Host に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfoManagement_FP_LocalHostColumn_Title {
@@ -1070,6 +1213,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnectionInfoManagement_HostColumn_Title {
             get {
                 return ResourceManager.GetString("SSHConnectionInfoManagement_HostColumn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import connection info from file に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfoManagement_ImportItemButton_ToolTip {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfoManagement_ImportItemButton_ToolTip", resourceCulture);
             }
         }
         

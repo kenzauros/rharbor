@@ -1,5 +1,4 @@
-﻿using kenzauros.RHarbor.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -16,6 +14,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 namespace kenzauros.RHarbor.Models
 {
     [Serializable]
+    [DataContract]
     [LocalizedCategoryOrder("ConnectionInfo_Category_General", 1)]
     [LocalizedCategoryOrder("ConnectionInfo_Category_Authentication", 2)]
     [LocalizedCategoryOrder("ConnectionInfo_Category_Screen", 3)]
@@ -35,22 +34,26 @@ namespace kenzauros.RHarbor.Models
         [Browsable(false)]
         public override ConnectionType ConnectionType => ConnectionType.RDP;
 
+        [DataMember]
         [Required]
         [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(FullScreen))]
         public bool FullScreen { get => _FullScreen; set => SetProp(ref _FullScreen, value); }
         private bool _FullScreen = false;
 
+        [DataMember]
         [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(3), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(DesktopWidth))]
         public int? DesktopWidth { get => _DesktopWidth; set { SetProp(ref _DesktopWidth, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopWidth;
 
+        [DataMember]
         [LocalizedCategory("ConnectionInfo_Category_Screen"), PropertyOrder(4), Editor(typeof(IntegerUpDownEditor), typeof(IntegerUpDownEditor))]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(DesktopHeight))]
         public int? DesktopHeight { get => _DesktopHeight; set { SetProp(ref _DesktopHeight, value); RaisePropertyChanged(nameof(DesktopResulution)); } }
         private int? _DesktopHeight;
 
+        [DataMember]
         [Required]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(RDPConnectionInfo) + "_" + nameof(Admin))]

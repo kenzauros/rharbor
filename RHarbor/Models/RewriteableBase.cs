@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 namespace kenzauros.RHarbor.Models
 {
     [Serializable]
+    [DataContract]
     internal class RewriteableBase : BindableBase, IRewriteable
     {
         [IgnoreDataMember]

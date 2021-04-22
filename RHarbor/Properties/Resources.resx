@@ -195,6 +195,49 @@
   <data name="ConnectionInfo_Dialog_Connect_Title" xml:space="preserve">
     <value>Start connecting</value>
   </data>
+  <data name="ConnectionInfo_Dialog_Export_Error" xml:space="preserve">
+    <value>Failed to export.
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_Exported" xml:space="preserve">
+    <value>Exported to "{0}".
+Password which you input has been copied to the clipboard.
+Open the export folder after this dialog closed.</value>
+    <comment>0: File path</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_PasswordInput_Message" xml:space="preserve">
+    <value>Input password to protect this connection info.
+This password will be set to the clipboard after export.</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_Title" xml:space="preserve">
+    <value>Export connection info</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error" xml:space="preserve">
+    <value>Failed to import.
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error_CryptographicException" xml:space="preserve">
+    <value>Failed to decrypt data. Check your password.</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error_IOException" xml:space="preserve">
+    <value>Failed to read the file. Check the file or its directory.
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Imported" xml:space="preserve">
+    <value>Successfully imported "{0}".
+Note that the imported info has not been stored yet in the database.
+Please save to store.</value>
+    <comment>0: File path</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_PasswordInput_Message" xml:space="preserve">
+    <value>Input password to import this connection info.</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Title" xml:space="preserve">
+    <value>Import connection info</value>
+  </data>
   <data name="ConnectionInfo_Dialog_Remove_Error" xml:space="preserve">
     <value>Failed to remove to "{0}".
 {1}</value>
@@ -219,6 +262,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="ConnectionInfo_Dialog_Save_Title" xml:space="preserve">
     <value>Saving connection info</value>
+  </data>
+  <data name="ConnectionInfo_Replication_NameSuffix" xml:space="preserve">
+    <value>Copy</value>
   </data>
   <data name="Connection_ConnectingText" xml:space="preserve">
     <value>Connecting...</value>
@@ -287,6 +333,9 @@ This operation cannot be canceled.</value>
   <data name="MainWindow_Title" xml:space="preserve">
     <value>RHarbor</value>
   </data>
+  <data name="PasswordInputDialogWindow_Password_Label" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="RDPConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
     <value>Add new connection info</value>
   </data>
@@ -296,8 +345,14 @@ This operation cannot be canceled.</value>
   <data name="RDPConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>Discard the changes</value>
   </data>
+  <data name="RDPConnectionInfoManagement_ExportItemButton_ToolTip" xml:space="preserve">
+    <value>Export this connection info</value>
+  </data>
   <data name="RDPConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>Host</value>
+  </data>
+  <data name="RDPConnectionInfoManagement_ImportItemButton_ToolTip" xml:space="preserve">
+    <value>Import connection info from file</value>
   </data>
   <data name="RDPConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
     <value>Name</value>
@@ -386,6 +441,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>Discard the changes</value>
   </data>
+  <data name="SSHConnectionInfoManagement_ExportItemButton_ToolTip" xml:space="preserve">
+    <value>Export this connection info</value>
+  </data>
   <data name="SSHConnectionInfoManagement_FP_LocalHostColumn_Title" xml:space="preserve">
     <value>Local Host</value>
   </data>
@@ -406,6 +464,9 @@ This operation cannot be canceled.</value>
   </data>
   <data name="SSHConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>Host</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ImportItemButton_ToolTip" xml:space="preserve">
+    <value>Import connection info from file</value>
   </data>
   <data name="SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip" xml:space="preserve">
     <value>Invoke external programs</value>
