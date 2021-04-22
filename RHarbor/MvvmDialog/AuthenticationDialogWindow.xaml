@@ -45,7 +45,9 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="{Binding AuthenticationDialog_Username_Label, Source={StaticResource resources}}" VerticalContentAlignment="Center"/>
                     <Label Grid.Row="1" Content="{Binding AuthenticationDialog_Password_Label, Source={StaticResource resources}}" VerticalContentAlignment="Center"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding Username, Mode=TwoWay}"/>
+                    <TextBox Grid.Column="1" Grid.Row="0"
+                             Name="DefaultTextBox"
+                             VerticalAlignment="Center" Text="{Binding Username, Mode=TwoWay}"/>
                     <PasswordBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
                         <i:Interaction.Behaviors>
                             <behaviors:PasswordBindingBehavior Password="{Binding Password, Mode=TwoWay}"/>

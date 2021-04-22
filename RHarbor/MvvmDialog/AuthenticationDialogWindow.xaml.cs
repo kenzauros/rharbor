@@ -10,6 +10,12 @@ namespace kenzauros.RHarbor.MvvmDialog
         public AuthenticationDialogWindow()
         {
             InitializeComponent();
+            Loaded += Window_Loaded;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DefaultTextBox.Focus();
         }
     }
 }
