@@ -14,6 +14,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 namespace kenzauros.RHarbor.Models
 {
     [Serializable]
+    [DataContract]
     [LocalizedCategoryOrder("ConnectionInfo_Category_General", 1)]
     [LocalizedCategoryOrder("ConnectionInfo_Category_Authentication", 2)]
     [LocalizedCategoryOrder("ConnectionInfo_Category_KeepAlive", 3)]
@@ -94,12 +95,14 @@ namespace kenzauros.RHarbor.Models
         public string ExpectedFingerPrint { get => _ExpectedFingerPrint; set => SetProp(ref _ExpectedFingerPrint, value); }
         private string _ExpectedFingerPrint;
 
+        [DataMember]
         [Required]
         [LocalizedCategory("ConnectionInfo_Category_KeepAlive"), PropertyOrder(1)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(KeepAliveEnabled))]
         public bool KeepAliveEnabled { get => _KeepAliveEnabled; set => SetProp(ref _KeepAliveEnabled, value); }
         private bool _KeepAliveEnabled = false;
 
+        [DataMember]
         [Required]
         [LocalizedCategory("ConnectionInfo_Category_KeepAlive"), PropertyOrder(2)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(KeepAliveInterval))]
@@ -116,11 +119,13 @@ namespace kenzauros.RHarbor.Models
         }
         private long? _RequiredConnectionId;
 
+        [DataMember]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(2)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(ConnectionTimeout))]
         public int? ConnectionTimeout { get => _ConnectionTimeout; set => SetProp(ref _ConnectionTimeout, value); }
         private int? _ConnectionTimeout = null;
 
+        [DataMember]
         [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(4)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(AlwaysForwardPorts))]
         public bool? AlwaysForwardPorts { get => _AlwaysForwardPorts ?? false; set => SetProp(ref _AlwaysForwardPorts, value); }
@@ -141,7 +146,7 @@ namespace kenzauros.RHarbor.Models
         }
         private string _PortForwardings;
 
-        [IgnoreDataMember]
+        [DataMember]
         [RewriteableIgnore]
         [Browsable(false)]
         [NotMapped]

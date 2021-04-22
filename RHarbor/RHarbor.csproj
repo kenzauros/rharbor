@@ -120,6 +120,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -192,6 +193,11 @@
     <Compile Include="Models\ConnectionType.cs" />
     <Compile Include="Models\ExternalProgramDefinition.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />
+    <Compile Include="MvvmDialog\PasswordInputDialogViewModel.cs" />
+    <Compile Include="MvvmDialog\PasswordInputDialogWindow.xaml.cs">
+      <DependentUpon>PasswordInputDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\AesUtil.cs" />
     <Compile Include="Utilities\IConnectionRequest.cs" />
     <Compile Include="Models\IPassword.cs" />
     <Compile Include="MvvmDialog\AuthenticationDialogViewModel.cs" />
@@ -268,6 +274,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MvvmDialog\PasswordInputDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MvvmDialog\AuthenticationDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

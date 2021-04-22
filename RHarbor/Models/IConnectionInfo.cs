@@ -9,5 +9,7 @@ namespace kenzauros.RHarbor.Models
         string Host { get; set; }
         int Port { get; set; }
         string GroupName { get; set; }
+
+        byte[] Serialize();
     }
 }
