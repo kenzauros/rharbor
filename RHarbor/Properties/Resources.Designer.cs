@@ -388,6 +388,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Copy に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConnectionInfo_Replication_NameSuffix {
+            get {
+                return ResourceManager.GetString("ConnectionInfo_Replication_NameSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Group name に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConnectionInfoBase_GroupName {

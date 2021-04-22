@@ -263,6 +263,9 @@ This operation cannot be canceled.</value>
   <data name="ConnectionInfo_Dialog_Save_Title" xml:space="preserve">
     <value>Saving connection info</value>
   </data>
+  <data name="ConnectionInfo_Replication_NameSuffix" xml:space="preserve">
+    <value>Copy</value>
+  </data>
   <data name="Connection_ConnectingText" xml:space="preserve">
     <value>Connecting...</value>
   </data>

@@ -96,6 +96,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 var replicated = SelectedItem.Value.CloneDeep();
                 replicated.Id = -1;
+                replicated.Name = $"{replicated.Name} - {Resources.ConnectionInfo_Replication_NameSuffix}";
                 SelectedItem.Value = null;
                 EditingItem.Value = replicated;
                 IsItemEditing.Value = true;
@@ -491,7 +492,7 @@ namespace kenzauros.RHarbor.ViewModels
 
                 await MainWindow.ShowMessageDialog(
                     string.Format(Resources.ConnectionInfo_Dialog_Import_Imported, filename),
-                    Resources.ConnectionInfo_Dialog_Export_Title);
+                    Resources.ConnectionInfo_Dialog_Import_Title);
             }
             catch (Exception ex) when (ex is IOException)
             {
