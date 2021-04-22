@@ -400,16 +400,17 @@ namespace kenzauros.RHarbor.ViewModels
 
         #region Export/Import
 
-        const string ExportFileExtension = "conninfo";
+        const string ExportFileExtensionSuffix = "info";
 
         public virtual async Task ExportItem(T value)
         {
+            var ext = $"{value.ConnectionType.ToString().ToLower()}{ExportFileExtensionSuffix}";
             var dialog = new SaveFileDialog
             {
                 FilterIndex = 1,
-                Filter = $"Connection info files (*.{ExportFileExtension})|*.{ExportFileExtension}",
+                Filter = $"Connection info files (*.{ext})|*.{ext}",
                 Title = Resources.ConnectionInfo_Dialog_Export_Title,
-                FileName = $"{value.Name}.{ExportFileExtension}",
+                FileName = $"{value.Name}.{ext}",
                 OverwritePrompt = true,
             };
             if (dialog.ShowDialog() != true) return; // Break if cancel
@@ -454,10 +455,11 @@ namespace kenzauros.RHarbor.ViewModels
 
         public virtual async Task ImportItem()
         {
+            var ext = $"{new T().ConnectionType.ToString().ToLower()}{ExportFileExtensionSuffix}";
             var dialog = new OpenFileDialog
             {
                 FilterIndex = 1,
-                Filter = $"Connection info files (*.{ExportFileExtension})|*.{ExportFileExtension}",
+                Filter = $"Connection info files (*.{ext})|*.{ext}",
                 Title = Resources.ConnectionInfo_Dialog_Import_Title,
                 CheckFileExists = true,
             };
