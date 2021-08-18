@@ -2,17 +2,20 @@
 using kenzauros.RHarbor.MvvmDialog;
 using kenzauros.RHarbor.Properties;
 using kenzauros.RHarbor.Utilities;
+using Microsoft.Win32;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.Security;
 using System.Windows;
 using System.Windows.Data;
 
@@ -45,6 +48,9 @@ namespace kenzauros.RHarbor.ViewModels
         public ReadOnlyReactiveProperty<bool> IsItemSelected { get; set; }
 
         public ReactiveCommand CopyPasswordToClipboardCommand { get; }
+
+        public ReactiveCommand ExportItemCommand { get; protected set; }
+        public ReactiveCommand ImportItemCommand { get; protected set; }
 
         #region Constructors
 
@@ -90,6 +96,7 @@ namespace kenzauros.RHarbor.ViewModels
             {
                 var replicated = SelectedItem.Value.CloneDeep();
                 replicated.Id = -1;
+                replicated.Name = $"{replicated.Name} - {Resources.ConnectionInfo_Replication_NameSuffix}";
                 SelectedItem.Value = null;
                 EditingItem.Value = replicated;
                 IsItemEditing.Value = true;
@@ -203,6 +210,19 @@ namespace kenzauros.RHarbor.ViewModels
                 .Subscribe(() => Clipboard.SetText(SelectedItem.Value?.RawPassword))
                 .AddTo(Disposable);
 
+            // Export item to file
+            ExportItemCommand = IsItemSelected
+                .CombineLatest(IsItemEditing.Inverse(), (a, b) => a && b)
+                .ToReactiveCommand();
+            ExportItemCommand
+                .Subscribe(async () => await ExportItem(SelectedItem.Value))
+                .AddTo(Disposable);
+
+            // Import item from file
+            ImportItemCommand = IsItemEditing.Inverse().ToReactiveCommand();
+            ImportItemCommand
+                .Subscribe(async () => await ImportItem())
+                .AddTo(Disposable);
         }
 
         #endregion
@@ -378,5 +398,127 @@ namespace kenzauros.RHarbor.ViewModels
                     Resources.ConnectionInfo_Dialog_Connect_Title);
             }
         }
+
+        #region Export/Import
+
+        const string ExportFileExtensionSuffix = "info";
+
+        public virtual async Task ExportItem(T value)
+        {
+            var ext = $"{value.ConnectionType.ToString().ToLower()}{ExportFileExtensionSuffix}";
+            var dialog = new SaveFileDialog
+            {
+                FilterIndex = 1,
+                Filter = $"Connection info files (*.{ext})|*.{ext}",
+                Title = Resources.ConnectionInfo_Dialog_Export_Title,
+                FileName = $"{value.Name}.{ext}",
+                OverwritePrompt = true,
+            };
+            if (dialog.ShowDialog() != true) return; // Break if cancel
+            try
+            {
+                // Password input
+                var initialPassword = Membership.GeneratePassword(12, 0);
+                var (result, password) = await MainWindow.ShowPasswordInputDialog(
+                    Resources.ConnectionInfo_Dialog_Export_PasswordInput_Message,
+                    Resources.ConnectionInfo_Dialog_Export_Title,
+                    initialPassword
+                    );
+                if (result == false) return; // Break if cancel
+
+                var filename = dialog.FileName;
+                MyLogger.Log($"Exporting \"{value.Name}\" to \"{filename}\"...");
+
+                var data = value.Serialize();
+                var key = AesUtil.GenerateKeyFromPassword(password);
+                var encrypted = AesUtil.Encrypt(data, key);
+                var encoded = Convert.ToBase64String(encrypted);
+                File.WriteAllText(filename, encoded);
+
+                MyLogger.Log($"Exported \"{value.Name}\" to \"{filename}\".");
+
+                // Set password to clipboard
+                Clipboard.SetText(password);
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Export_Exported, filename),
+                    Resources.ConnectionInfo_Dialog_Export_Title);
+                // Open saved dir
+                System.Diagnostics.Process.Start(Path.GetDirectoryName(filename));
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Log($"Failed to export.", ex);
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Export_Error, ex.Message),
+                    Resources.ConnectionInfo_Dialog_Export_Title);
+            }
+        }
+
+        public virtual async Task ImportItem()
+        {
+            var ext = $"{new T().ConnectionType.ToString().ToLower()}{ExportFileExtensionSuffix}";
+            var dialog = new OpenFileDialog
+            {
+                FilterIndex = 1,
+                Filter = $"Connection info files (*.{ext})|*.{ext}",
+                Title = Resources.ConnectionInfo_Dialog_Import_Title,
+                CheckFileExists = true,
+            };
+            if (dialog.ShowDialog() != true) return; // Break if cancel
+            try
+            {
+                var filename = dialog.FileName;
+                MyLogger.Log($"Importing from \"{filename}\"...");
+
+                // Read data from file
+                var data = File.ReadAllText(filename);
+                // Password input
+                var (result, password) = await MainWindow.ShowPasswordInputDialog(
+                    Resources.ConnectionInfo_Dialog_Import_PasswordInput_Message,
+                    Resources.ConnectionInfo_Dialog_Import_Title,
+                    null
+                    );
+                if (result == false) return; // Break if cancel
+
+                var decoded = Convert.FromBase64String(data);
+                var key = AesUtil.GenerateKeyFromPassword(password);
+                var decrypted = AesUtil.Decrypt(decoded, key);
+                var info = ConnectionInfoBase.Deserialize<T>(decrypted);
+
+                EditingItem.Value = info;
+                IsItemEditing.Value = true;
+
+                MyLogger.Log($"Imported \"{info.Name}\" from \"{filename}\".");
+
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Import_Imported, filename),
+                    Resources.ConnectionInfo_Dialog_Import_Title);
+            }
+            catch (Exception ex) when (ex is IOException)
+            {
+                MyLogger.Log($"Failed to import. (IOException", ex);
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Import_Error_IOException, ex.Message),
+                    Resources.ConnectionInfo_Dialog_Import_Title);
+            }
+            catch (System.Security.Cryptography.CryptographicException ex)
+            {
+                MyLogger.Log($"Failed to decrypt.", ex);
+                await MainWindow.ShowMessageDialog(
+                    Resources.ConnectionInfo_Dialog_Import_Error_CryptographicException,
+                    Resources.ConnectionInfo_Dialog_Import_Title);
+            }
+            catch (Exception ex)
+            {
+                MyLogger.Log($"Failed to import.", ex);
+                await MainWindow.ShowMessageDialog(
+                    string.Format(Resources.ConnectionInfo_Dialog_Import_Error, ex.Message),
+                    Resources.ConnectionInfo_Dialog_Import_Title);
+            }
+        }
+
+
+        #endregion
+
     }
 }

@@ -201,6 +201,49 @@
   <data name="ConnectionInfo_Dialog_Connect_Title" xml:space="preserve">
     <value>接続開始</value>
   </data>
+  <data name="ConnectionInfo_Dialog_Export_Error" xml:space="preserve">
+    <value>エクスポートに失敗しました。
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_Exported" xml:space="preserve">
+    <value>"{0}" にエクスポートしました。
+インポート用のパスワードはクリップボードにコピーされています。
+ダイアログを閉じるとエクスポートしたフォルダーを開きます。</value>
+    <comment>0: File path</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_PasswordInput_Message" xml:space="preserve">
+    <value>この接続情報を保護するパスワードを入力してください。
+パスワードはエクスポート後クリップボードにコピーされます。</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Export_Title" xml:space="preserve">
+    <value>接続情報のエクスポート</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error" xml:space="preserve">
+    <value>インポートに失敗しました。
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error_CryptographicException" xml:space="preserve">
+    <value>接続情報の復号に失敗しました。パスワードを確認してください。</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Error_IOException" xml:space="preserve">
+    <value>ファイルの読み取りに失敗しました。ファイルやフォルダを確認してください。
+{0}</value>
+    <comment>0: Exception message</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Imported" xml:space="preserve">
+    <value>"{0}" をインポートしました。
+接続情報はまだデータベースに保存されていません。
+保存するには保存ボタンをクリックしてください。</value>
+    <comment>0: File path</comment>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_PasswordInput_Message" xml:space="preserve">
+    <value>この接続情報の保護に設定したパスワードを入力してください。</value>
+  </data>
+  <data name="ConnectionInfo_Dialog_Import_Title" xml:space="preserve">
+    <value>接続情報のインポート</value>
+  </data>
   <data name="ConnectionInfo_Dialog_Remove_Error" xml:space="preserve">
     <value>"{0}" の削除に失敗しました。
 {1}</value>
@@ -225,6 +268,9 @@
   </data>
   <data name="ConnectionInfo_Dialog_Save_Title" xml:space="preserve">
     <value>接続情報の保存</value>
+  </data>
+  <data name="ConnectionInfo_Replication_NameSuffix" xml:space="preserve">
+    <value>コピー</value>
   </data>
   <data name="Connection_ConnectingText" xml:space="preserve">
     <value>接続しています...</value>
@@ -290,6 +336,9 @@
   <data name="MainWindow_Title" xml:space="preserve">
     <value>RHarbor</value>
   </data>
+  <data name="PasswordInputDialogWindow_Password_Label" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
   <data name="RDPConnectionInfoManagement_AddNewItemButton_ToolTip" xml:space="preserve">
     <value>接続情報を追加する</value>
   </data>
@@ -299,8 +348,14 @@
   <data name="RDPConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>変更を破棄する</value>
   </data>
+  <data name="RDPConnectionInfoManagement_ExportItemButton_ToolTip" xml:space="preserve">
+    <value>この接続情報をエクスポート</value>
+  </data>
   <data name="RDPConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>ホスト</value>
+  </data>
+  <data name="RDPConnectionInfoManagement_ImportItemButton_ToolTip" xml:space="preserve">
+    <value>接続情報をインポート</value>
   </data>
   <data name="RDPConnectionInfoManagement_NameColumn_Title" xml:space="preserve">
     <value>名前</value>
@@ -392,6 +447,9 @@
   <data name="SSHConnectionInfoManagement_DiscardButton_ToolTip" xml:space="preserve">
     <value>変更を破棄する</value>
   </data>
+  <data name="SSHConnectionInfoManagement_ExportItemButton_ToolTip" xml:space="preserve">
+    <value>この接続情報をエクスポート</value>
+  </data>
   <data name="SSHConnectionInfoManagement_FP_LocalHostColumn_Title" xml:space="preserve">
     <value>ローカルホスト</value>
   </data>
@@ -412,6 +470,9 @@
   </data>
   <data name="SSHConnectionInfoManagement_HostColumn_Title" xml:space="preserve">
     <value>ホスト</value>
+  </data>
+  <data name="SSHConnectionInfoManagement_ImportItemButton_ToolTip" xml:space="preserve">
+    <value>接続情報をインポート</value>
   </data>
   <data name="SSHConnectionInfoManagement_InvokeExternalProgramButton_ToolTip" xml:space="preserve">
     <value>外部プログラムの起動</value>
