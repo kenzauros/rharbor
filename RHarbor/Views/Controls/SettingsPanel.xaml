@@ -70,6 +70,18 @@
                                                 </ContextMenu>
                                             </controls:DropDownMenuButton.DropDownMenu>
                                         </controls:DropDownMenuButton>
+                                        <Button ToolTip="{Binding Settings_MoveUpExternalProgramDefinitionButton_ToolTip, Source={StaticResource resources}}"
+                                                Command="{Binding MoveUpCommand}"
+                                                Style="{StaticResource IconButtonStyle}">
+                                            <fa:ImageAwesome Icon="ChevronUp"
+                                                             Style="{StaticResource ButtonIconStyle}" />
+                                        </Button>
+                                        <Button ToolTip="{Binding Settings_MoveDownExternalProgramDefinitionButton_ToolTip, Source={StaticResource resources}}"
+                                                Command="{Binding MoveDownCommand}"
+                                                Style="{StaticResource IconButtonStyle}">
+                                            <fa:ImageAwesome Icon="ChevronDown"
+                                                             Style="{StaticResource ButtonIconStyle}" />
+                                        </Button>
                                         <Button ToolTip="{Binding Settings_RemoveExternalProgramDefinitionButton_ToolTip, Source={StaticResource resources}}"
                                                 Command="{Binding RemoveCommand}"
                                                 Style="{StaticResource IconButtonStyle}">

@@ -911,6 +911,24 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Move down に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveDownExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_MoveDownExternalProgramDefinitionButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Move up に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveUpExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_MoveUpExternalProgramDefinitionButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Remove the selected item に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_RemoveExternalProgramDefinitionButton_ToolTip {

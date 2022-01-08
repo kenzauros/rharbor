@@ -76,6 +76,7 @@ namespace kenzauros.RHarbor.ViewModels
             ExternalProgramDefinitions.Clear();
             definitions
                 .AsEnumerable()
+                .OrderBy(x => x.SortOrder)
                 .Select(x => new ExternalProgramDefinitionViewModel(x))
                 .ToList()
                 .ForEach(ExternalProgramDefinitions.Add);

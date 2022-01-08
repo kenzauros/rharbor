@@ -426,6 +426,12 @@
   <data name="Settings_Group_ExternalProgramDefinition" xml:space="preserve">
     <value>外部プログラム</value>
   </data>
+  <data name="Settings_MoveDownExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>下に移動</value>
+  </data>
+  <data name="Settings_MoveUpExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>上に移動</value>
+  </data>
   <data name="Settings_RemoveExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
     <value>選択した外部プログラムを削除</value>
   </data>

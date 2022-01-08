@@ -47,6 +47,10 @@ namespace kenzauros.RHarbor.Models
         public bool CopyToClipboard { get => _CopyToClipboard; set => SetProp(ref _CopyToClipboard, value); }
         private bool _CopyToClipboard;
 
+        [Browsable(false)]
+        public int? SortOrder { get => _SortOrder; set => SetProp(ref _SortOrder, value); }
+        private int? _SortOrder;
+
         public override string ToString() => Name?.ToString();
 
         #region Invocation

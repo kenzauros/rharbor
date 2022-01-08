@@ -420,6 +420,12 @@ This operation cannot be canceled.</value>
   <data name="Settings_Group_ExternalProgramDefinition" xml:space="preserve">
     <value>External Programs</value>
   </data>
+  <data name="Settings_MoveDownExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="Settings_MoveUpExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
+    <value>Move up</value>
+  </data>
   <data name="Settings_RemoveExternalProgramDefinitionButton_ToolTip" xml:space="preserve">
     <value>Remove the selected item</value>
   </data>

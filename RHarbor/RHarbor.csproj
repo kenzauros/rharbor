@@ -187,6 +187,10 @@
     <Compile Include="Migrations\202103270933161_AddExternalProgramDefinitions.designer.cs">
       <DependentUpon>202103270933161_AddExternalProgramDefinitions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201080828501_AddSortOrderColumnToExternalProgramDefinition.cs" />
+    <Compile Include="Migrations\202201080828501_AddSortOrderColumnToExternalProgramDefinition.designer.cs">
+      <DependentUpon>202201080828501_AddSortOrderColumnToExternalProgramDefinition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
@@ -368,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103270933161_AddExternalProgramDefinitions.resx">
       <DependentUpon>202103270933161_AddExternalProgramDefinitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201080828501_AddSortOrderColumnToExternalProgramDefinition.resx">
+      <DependentUpon>202201080828501_AddSortOrderColumnToExternalProgramDefinition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
