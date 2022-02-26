@@ -516,6 +516,9 @@
   <data name="SSHConnectionInfo_AlwaysForwardPorts" xml:space="preserve">
     <value>常にポートフォワードを確立する</value>
   </data>
+  <data name="SSHConnectionInfo_ConnectionParameters" xml:space="preserve">
+    <value>追加パラメーター</value>
+  </data>
   <data name="SSHConnectionInfo_ConnectionTimeout" xml:space="preserve">
     <value>接続のタイムアウト (ミリ秒)</value>
   </data>

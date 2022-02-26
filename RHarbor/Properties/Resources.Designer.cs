@@ -1046,6 +1046,15 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
+        ///   Extra parameters に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_ConnectionParameters {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_ConnectionParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Connection timeout (in milliseconds) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SSHConnectionInfo_ConnectionTimeout {

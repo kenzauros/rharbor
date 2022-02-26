@@ -30,6 +30,7 @@ namespace kenzauros.RHarbor.Models
         public DbSet<RDPConnectionInfo> RDPConnectionInfos { get; set; }
         public DbSet<SSHConnectionInfo> SSHConnectionInfos { get; set; }
         public DbSet<ExternalProgramDefinition> ExternalProgramDefinitions { get; set; }
+        public DbSet<SSHConnectionParameter> SSHConnectionParameters { get; set; }
 
         public async Task<IEnumerable<ConnectionInfoBase>> EnumerateAllConnectionInfos()
         {
@@ -67,6 +68,19 @@ namespace kenzauros.RHarbor.Models
                 record.RawPassword = savePassword ? password : null;
                 await SaveChangesAsync();
             }
+        }
+
+        /// <summary>
+        /// Removes <see cref="SSHConnectionParameter"/>s which is no longer associated with <see cref="SSHConnectionInfo"/>s.
+        /// </summary>
+        /// <returns></returns>
+        public async Task RemoveUnassociatedSSHConnectionParameters()
+        {
+            List<SSHConnectionParameter> removingParams = await SSHConnectionParameters
+                .Where(x => SSHConnectionInfos.Any(ci => ci.ConnectionParameters.Any(p => p.Id == x.Id)))
+                .ToListAsync()
+                .ConfigureAwait(false);
+            SSHConnectionParameters.RemoveRange(removingParams);
         }
     }
 }

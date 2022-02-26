@@ -510,6 +510,9 @@ This operation cannot be canceled.</value>
   <data name="SSHConnectionInfo_AlwaysForwardPorts" xml:space="preserve">
     <value>Always establish fowarding ports</value>
   </data>
+  <data name="SSHConnectionInfo_ConnectionParameters" xml:space="preserve">
+    <value>Extra parameters</value>
+  </data>
   <data name="SSHConnectionInfo_ConnectionTimeout" xml:space="preserve">
     <value>Connection timeout (in milliseconds)</value>
   </data>

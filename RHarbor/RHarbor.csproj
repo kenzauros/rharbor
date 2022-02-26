@@ -191,12 +191,17 @@
     <Compile Include="Migrations\202201080828501_AddSortOrderColumnToExternalProgramDefinition.designer.cs">
       <DependentUpon>202201080828501_AddSortOrderColumnToExternalProgramDefinition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202180034493_AddSSHConnectionParameters.cs" />
+    <Compile Include="Migrations\202202180034493_AddSSHConnectionParameters.designer.cs">
+      <DependentUpon>202202180034493_AddSSHConnectionParameters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ConnectionGroup.cs" />
     <Compile Include="Models\ConnectionInfoBase.cs" />
     <Compile Include="Models\ConnectionType.cs" />
     <Compile Include="Models\ExternalProgramDefinition.cs" />
     <Compile Include="Models\IConnectionInfo.cs" />
+    <Compile Include="Models\SSHConnectionParameter.cs" />
     <Compile Include="MvvmDialog\PasswordInputDialogViewModel.cs" />
     <Compile Include="MvvmDialog\PasswordInputDialogWindow.xaml.cs">
       <DependentUpon>PasswordInputDialogWindow.xaml</DependentUpon>
@@ -375,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201080828501_AddSortOrderColumnToExternalProgramDefinition.resx">
       <DependentUpon>202201080828501_AddSortOrderColumnToExternalProgramDefinition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202180034493_AddSSHConnectionParameters.resx">
+      <DependentUpon>202202180034493_AddSSHConnectionParameters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
