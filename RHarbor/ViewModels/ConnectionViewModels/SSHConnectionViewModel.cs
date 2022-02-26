@@ -233,8 +233,24 @@ namespace kenzauros.RHarbor.ViewModels
                 ev.Wait(); // Wait for checking out the finger print
                 this.WriteLog("Connected...");
                 client.HostKeyReceived -= hostKeyEventHandler;
-            });
+            }).ConfigureAwait(false);
+            client.ErrorOccurred += SshClient_ErrorOccurred;
             SshClient = client;
+        }
+
+        /// <summary>
+        /// Occurs on error on corresponding ssh client.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SshClient_ErrorOccurred(object sender, ExceptionEventArgs e)
+        {
+            string additionalInfo = e.Exception is SshConnectionException sshConnectionException
+                ? $" ({sshConnectionException.DisconnectReason})"
+                : "";
+            this.WriteLog($"Error Occurred on SSH Client{additionalInfo}", e.Exception);
+            // Invoke Disconnect() on Dispatcher thread
+            App.Current.Dispatcher.Invoke(() => Disconnect());
         }
 
         private async Task EstablishForwardedPorts()
@@ -244,7 +260,7 @@ namespace kenzauros.RHarbor.ViewModels
                 try
                 {
                     SshClient.AddForwardedPort(fp.ForwardedPort.Value);
-                    await fp.Connect();
+                    await fp.Connect().ConfigureAwait(false);
                     this.WriteLog($"Port Forwarding Established ({fp.ToString()}).");
                 }
                 catch (Exception ex)
