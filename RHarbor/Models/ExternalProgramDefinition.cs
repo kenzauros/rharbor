@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -66,17 +67,8 @@ namespace kenzauros.RHarbor.Models
             if (!CopyToClipboard && !File.Exists(ExePath))
                 throw new FileNotFoundException(Resources.ExternalProgramDefinition_Exception_ExeNotFound);
 
-            var placeholders = new Dictionary<string, Func<SSHConnectionInfo, string>>
-            {
-                { "{host}", info => info.Host },
-                { "{port}", info => info.Port.ToString() },
-                { "{username}", info => info.Username },
-                { "{password}", info => info.RawPassword },
-                { "{keyfile}", info => info.PrivateKeyFilePath },
-            };
-            var arguments = placeholders.Aggregate(Arguments,
-                (prev, ph) => prev.Replace(ph.Key, ph.Value.Invoke(info)));
-            var exePath = ExePath.Contains(" ") ? $"\"{ExePath}\"" : ExePath;
+            string arguments = CreateArguments(info);
+            string exePath = ExePath.Contains(" ") ? $"\"{ExePath}\"" : ExePath;
             if (CopyToClipboard)
             {
                 try
@@ -110,6 +102,63 @@ namespace kenzauros.RHarbor.Models
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates a command-line arguments from the template (<see cref="Arguments"/> property) with the connection information.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public string CreateArguments(SSHConnectionInfo info)
+        {
+            string arguments = Arguments;
+            if (info.ConnectionParameters?.Count > 0)
+            {
+                Dictionary<string, string> paramDict = info.ConnectionParameters.ToDictionary(x => x.Key, x => x.Value);
+                arguments = ReplaceConnectionParameters(arguments, paramDict);
+            }
+            return ReplacePlaceholders(arguments, info);
+        }
+
+        /// <summary>
+        /// Replaces placeholders in the arguments with the values in the connection information.
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static string ReplacePlaceholders(string arguments, SSHConnectionInfo info)
+        {
+            var placeholders = new Dictionary<string, string>
+            {
+                { "host", info.Host },
+                { "port", info.Port.ToString() },
+                { "username", info.Username },
+                { "password", info.RawPassword },
+                { "keyfile", info.PrivateKeyFilePath },
+            };
+            return ReplaceConnectionParameters(arguments, placeholders);
+        }
+
+        /// <summary>
+        /// Replaces placeholders in the arguments with the connection parameters.
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static string ReplaceConnectionParameters(string arguments, Dictionary<string, string> parameters)
+        {
+            arguments = Regex
+                .Replace(arguments, @"(?<!{)\{([^{]+?)(:(.+?))?(?<!})\}", m =>
+                {
+                    if (!m.Success) { return m.Value; }
+                    string key = m.Groups[1].Value;
+                    return parameters.TryGetValue(key, out string value)
+                        ? value // parameter value
+                        : m.Groups.Count == 4 ? m.Groups[3].Value : string.Empty; // fallback value
+                })
+                .Replace(@"{{", "{")
+                .Replace(@"}}", "}");
+            return arguments;
         }
 
         #endregion
