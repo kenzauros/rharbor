@@ -224,7 +224,7 @@ namespace kenzauros.RHarbor.Models
             {
                 Name = "Tera Term",
                 ExePath = exePath,
-                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth={auth:publickey}",
+                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth={keyfile?publickey:password}",
                 CopyToClipboard = false,
             };
             return definition;

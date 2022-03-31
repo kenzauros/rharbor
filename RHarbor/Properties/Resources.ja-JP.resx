@@ -279,8 +279,9 @@
     <value>コマンドライン引数</value>
   </data>
   <data name="ExternalProgramDefinition_Arguments_Description" xml:space="preserve">
-    <value>呼び出し時に付加するコマンドライン引数を指定します。下記のパラメーターが利用できます。
-{host} : ホスト, {port} : ポート, {username} : ユーザー名, {password} : パスワード/パスフレーズ, {keyfile} : 鍵ファイルのパス</value>
+    <value>呼び出し時に付加するコマンドライン引数を指定します。 {} でキーを指定してパラメーターを引数に渡すことができます。下記のパラメーターは接続情報の値が使用されます。それ以外は「追加パラメーター」で定義した値が使用されます。
+{host} : ホスト, {port} : ポート, {username} : ユーザー名, {password} : パスワード/パスフレーズ, {keyfile} : 鍵ファイルのパス
+{keyfile?publickey:password} のように条件演算子も使用できます。</value>
   </data>
   <data name="ExternalProgramDefinition_CopyToClipboard" xml:space="preserve">
     <value>クリップボードにコピー</value>
@@ -418,7 +419,7 @@
     <value>RLogin</value>
   </data>
   <data name="Settings_AddExternalProgramDefinition_TeraTerm" xml:space="preserve">
-    <value>Tera Term (publickey)</value>
+    <value>Tera Term</value>
   </data>
   <data name="Settings_Dialog_Save_Title" xml:space="preserve">
     <value>設定の保存</value>

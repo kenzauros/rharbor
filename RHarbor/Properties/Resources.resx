@@ -273,8 +273,9 @@ This operation cannot be canceled.</value>
     <value>Arguments</value>
   </data>
   <data name="ExternalProgramDefinition_Arguments_Description" xml:space="preserve">
-    <value>Command line arguments with the following parameters.
-{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file</value>
+    <value>Command line arguments with the parameter for the pre-defined key. It can include both the connection parameters defined in the SSH connection information and the "Additional Parameters" you defined.
+{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file
+You can also use conditional parameters like "{keyfile?publickey:password}".</value>
   </data>
   <data name="ExternalProgramDefinition_CopyToClipboard" xml:space="preserve">
     <value>Copy to clipboard</value>
@@ -412,7 +413,7 @@ This operation cannot be canceled.</value>
     <value>RLogin</value>
   </data>
   <data name="Settings_AddExternalProgramDefinition_TeraTerm" xml:space="preserve">
-    <value>Tera Term (publickey)</value>
+    <value>Tera Term</value>
   </data>
   <data name="Settings_Dialog_Save_Title" xml:space="preserve">
     <value>Save settings</value>
