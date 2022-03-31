@@ -112,23 +112,7 @@ namespace kenzauros.RHarbor.Models
         public string CreateArguments(SSHConnectionInfo info)
         {
             string arguments = Arguments;
-            if (info.ConnectionParameters?.Count > 0)
-            {
-                Dictionary<string, string> paramDict = info.ConnectionParameters.ToDictionary(x => x.Key, x => x.Value);
-                arguments = ReplaceConnectionParameters(arguments, paramDict);
-            }
-            return ReplacePlaceholders(arguments, info);
-        }
-
-        /// <summary>
-        /// Replaces placeholders in the arguments with the values in the connection information.
-        /// </summary>
-        /// <param name="arguments"></param>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        public static string ReplacePlaceholders(string arguments, SSHConnectionInfo info)
-        {
-            var placeholders = new Dictionary<string, string>
+            Dictionary<string, string> paramDict = new()
             {
                 { "host", info.Host },
                 { "port", info.Port.ToString() },
@@ -136,8 +120,22 @@ namespace kenzauros.RHarbor.Models
                 { "password", info.RawPassword },
                 { "keyfile", info.PrivateKeyFilePath },
             };
-            return ReplaceConnectionParameters(arguments, placeholders);
+            if (info.ConnectionParameters?.Count > 0)
+            {
+                foreach (SSHConnectionParameter kv in info.ConnectionParameters)
+                {
+                    if (!paramDict.ContainsKey(kv.Key))
+                    {
+                        paramDict.Add(kv.Key, kv.Value);
+                    }
+                }
+            }
+            return ReplaceConnectionParameters(arguments, paramDict);
         }
+
+        static Regex NestedBracketsRegex = new(@"{[^{}]*({[^{}]*}[^{}]*)*[^{}]*}");
+        static Regex ConditionalOperator = new(@"^{(.+?)\?(.+?):(.+?)}$");
+        static Regex ParameterPlaceholderRegex = new(@"(?<!{)\{([^{=:?]+?)(:([^{=:?]+?))?(?<!})\}");
 
         /// <summary>
         /// Replaces placeholders in the arguments with the connection parameters.
@@ -147,14 +145,54 @@ namespace kenzauros.RHarbor.Models
         /// <returns></returns>
         public static string ReplaceConnectionParameters(string arguments, Dictionary<string, string> parameters)
         {
-            arguments = Regex
-                .Replace(arguments, @"(?<!{)\{([^{]+?)(:(.+?))?(?<!})\}", m =>
+            string getParamValue(string key, string fallbackValue)
+                => parameters.TryGetValue(key, out string value)
+                    ? value // parameter value
+                    : fallbackValue; // fallback value
+
+            // Nested brackets ({})
+            arguments = NestedBracketsRegex.Replace(arguments, m1 =>
+                // Conditional operator (condition ? positive : negative)
+                ConditionalOperator.Replace(m1.Value, m =>
+                    {
+                        string condition = m.Groups[1].Value;
+                        string positive = m.Groups[2].Value;
+                        string negative = m.Groups[3].Value;
+                        Match conditionExp = Regex.Match(condition, @"^(.+?)(=|!=)(.+?)$");
+                        if (conditionExp.Success)
+                        {
+                            // = or != operator with 2 operands
+                            string value = getParamValue(conditionExp.Groups[1].Value, "");
+                            bool isMatch = conditionExp.Groups[2].Value switch
+                            {
+                                "=" => value == conditionExp.Groups[3].Value,
+                                _ => value != conditionExp.Groups[3].Value,
+                            };
+                            return isMatch ? positive : negative;
+                        }
+                        else
+                        {
+                            // single operand (with/wo ! operator)
+                            Match match = Regex.Match(condition, @"^(!?)(.+)$");
+                            if (match.Success)
+                            {
+                                bool not = match.Groups[1].Value == "!"; // ! exists at first
+                                string value = getParamValue(match.Groups[2].Value, "");
+                                return not ^ !string.IsNullOrEmpty(value)
+                                    ? positive
+                                    : negative;
+                            }
+                            else
+                            {
+                                return m.Value;
+                            }
+                        }
+                    }));
+            arguments = ParameterPlaceholderRegex.Replace(arguments, m =>
                 {
-                    if (!m.Success) { return m.Value; }
                     string key = m.Groups[1].Value;
-                    return parameters.TryGetValue(key, out string value)
-                        ? value // parameter value
-                        : m.Groups.Count == 4 ? m.Groups[3].Value : string.Empty; // fallback value
+                    string fallbackValue = m.Groups.Count == 4 ? m.Groups[3].Value : string.Empty;
+                    return getParamValue(key, fallbackValue);
                 })
                 .Replace(@"{{", "{")
                 .Replace(@"}}", "}");
@@ -186,7 +224,7 @@ namespace kenzauros.RHarbor.Models
             {
                 Name = "Tera Term",
                 ExePath = exePath,
-                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth=publickey",
+                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth={auth:publickey}",
                 CopyToClipboard = false,
             };
             return definition;

@@ -234,6 +234,7 @@
     <Compile Include="ViewModels\ExternalProgramDefinitionViewModel.cs" />
     <Compile Include="ViewModels\Settings\ExternalProgramDefinitionSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="Views\Controls\ConnectionParameterKeyComboBox.cs" />
     <Compile Include="Views\Controls\DropDownMenuButton.cs" />
     <Compile Include="Views\Controls\RDPConnectionInfoManagement.xaml.cs">
       <DependentUpon>RDPConnectionInfoManagement.xaml</DependentUpon>
