@@ -133,9 +133,9 @@ namespace kenzauros.RHarbor.Models
             return ReplaceConnectionParameters(arguments, paramDict);
         }
 
-        static Regex NestedBracketsRegex = new(@"{[^{}]*({[^{}]*}[^{}]*)*[^{}]*}");
-        static Regex ConditionalOperator = new(@"^{(.+?)\?(.+?):(.+?)}$");
-        static Regex ParameterPlaceholderRegex = new(@"(?<!{)\{([^{=:?]+?)(:([^{=:?]+?))?(?<!})\}");
+        private static readonly Regex NestedBracketsRegex = new(@"{[^{}]*({[^{}]*}[^{}]*)*[^{}]*}");
+        private static readonly Regex ConditionalOperator = new(@"^{(.+?)\?(.+?):(.+?)}$");
+        private static readonly Regex ParameterPlaceholderRegex = new(@"(?<!{)\{([^{=:?]+?)(:([^{=:?]+?))?(?<!})\}");
 
         /// <summary>
         /// Replaces placeholders in the arguments with the connection parameters.

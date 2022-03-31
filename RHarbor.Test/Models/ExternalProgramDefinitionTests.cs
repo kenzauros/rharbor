@@ -87,6 +87,9 @@ namespace kenzauros.RHarbor.Models
             Assert.AreEqual("EXTRA camel case",
                 ExternalProgramDefinition.ReplaceConnectionParameters(@"{extra1} {extra1=EXTRA?{camelCase}:{snake_case}}", SampleParameters));
 
+            Assert.AreEqual("my-host-staging",
+                ExternalProgramDefinition.ReplaceConnectionParameters(@"{!stage?{host}:{host}-{stage}}", SampleParameters));
+
             // Practical paramter
             Assert.AreEqual(@"my-host:99 /ssh2 /user=""user1"" /passwd=""passwd"" /keyfile=""C:\tmp\hogehoge.key"" /auth=publickey /bg=40,88,61 /size=120,32",
                 ExternalProgramDefinition.ReplaceConnectionParameters(
