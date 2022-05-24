@@ -161,6 +161,9 @@
                             <xctk:EditorTemplateDefinition
                                 TargetProperties="PrivateKeyFilePath"
                                 EditingTemplate="{StaticResource PropertyGridEditingTemplate_PrivateKeyFilePath}" />
+                            <xctk:EditorTemplateDefinition
+                                TargetProperties="ConnectionParameters"
+                                EditingTemplate="{StaticResource PropertyGridEditingTemplate_ConnectionParameters}" />
                         </xctk:PropertyGrid.EditorDefinitions>
                     </xctk:PropertyGrid>
                     <Grid Grid.Row="2">

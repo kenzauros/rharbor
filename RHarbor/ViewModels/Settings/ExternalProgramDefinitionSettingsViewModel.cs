@@ -27,6 +27,8 @@ namespace kenzauros.RHarbor.ViewModels
         public ReactiveCommand<string> AddNewItemCommand { get; } = new();
         public ReactiveCommand RemoveCommand { get; }
         public ReactiveCommand SelectExePathCommand { get; }
+        public ReactiveCommand MoveUpCommand { get; }
+        public ReactiveCommand MoveDownCommand { get; }
 
         /// <summary>
         /// Items to be removed on save
@@ -84,13 +86,33 @@ namespace kenzauros.RHarbor.ViewModels
                     SelectedItem.Value.ExePath = openFileDialog.FileName;
                 }
             }).AddTo(Disposable);
+
+            IObservable<bool> canMoveUpOrDown = SelectedItem.Select(x => x is not null);
+            MoveUpCommand = canMoveUpOrDown.ToReactiveCommand()
+                .WithSubscribe(() =>
+                 {
+                     int oldIndex = Items.IndexOf(SelectedItem.Value);
+                     if (oldIndex > 0)
+                     {
+                         Items.Move(oldIndex, oldIndex - 1);
+                     }
+                 }, Disposable.Add);
+            MoveDownCommand = canMoveUpOrDown.ToReactiveCommand()
+                .WithSubscribe(() =>
+                {
+                    int oldIndex = Items.IndexOf(SelectedItem.Value);
+                    if (oldIndex >= 0 && oldIndex < Items.Count - 1)
+                    {
+                        Items.Move(oldIndex, oldIndex + 1);
+                    }
+                }, Disposable.Add);
         }
 
         public void ResetItems(IEnumerable<ExternalProgramDefinition> items)
         {
             SelectedItem.Value = null;
             Items.Clear();
-            foreach (var item in items.Select(x => x.CloneDeep()))
+            foreach (ExternalProgramDefinition item in items.OrderBy(x => x.SortOrder).Select(x => x.CloneDeep()))
             {
                 Items.Add(item);
             }
@@ -110,9 +132,15 @@ namespace kenzauros.RHarbor.ViewModels
                         set.Remove(currentItem); // delete
                     }
                 }
-                foreach (var item in Items)
+                // Reset sort-orders by the current display order
+                Items
+                    .Select((item, i) => (item, i))
+                    .ToList()
+                    .ForEach(tuple => tuple.item.SortOrder = tuple.i + 1);
+                // Update (or insert)
+                foreach (ExternalProgramDefinition item in Items)
                 {
-                    var currentItem = set.FirstOrDefault(x => x.Id == item.Id);
+                    ExternalProgramDefinition currentItem = set.FirstOrDefault(x => x.Id == item.Id);
                     if (currentItem == null)
                     {
                         set.Add(item); // insert

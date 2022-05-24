@@ -18,7 +18,7 @@ Click <img src="images/buttons/add-button.png" alt="plus" style="height:2ex"> bu
 The executable path and command-line argument will be automatically set in some templates. Make sure these properties match your environment.
 
 **Parameters such as `{host}` and `{username}` can be used in "Command-line argument".**
-Each parameters will be replaced with the values of the SSH connection information. Please refer to the description for "Command-line argument" for more details.
+Each parameters will be replaced with the values of the SSH connection information. Please refer to the "Command-line argument" section for more details.
 
 Click <img src="images/buttons/save-button.png" alt="Save Settings" style="height:2ex"> button at the bottom-right of the screen to save the settings.
 
@@ -32,6 +32,54 @@ You can add a program setting using the following templates.
 - RLogin
 
 Otherwise make your own setting as you wish.
+
+### Command-line argument
+
+**You can embed parameters in a command-line argument with the format like `{KEY}`.**
+
+The following parameters can be used by default. They will be replaced with the values specified in the SSH connection information.
+
+Key | Replacement
+-- | --
+`{host}` | Host name
+`{port}` | Port
+`{username}` | Username
+`{password}` | Password / Passphrade
+`{keyfile}` | File path for private key file
+
+Likewise, the parameters which you define in **"Additional Parameters"** in each connection setting can be used.
+
+In addition, **conditional operator (`condition ? positive : negative`)** can be included so that the value can be varied depending on the condition.
+
+The "condition" part can accept the following expressions. First operand (`KEY` shown in the table below) will be evaluated as the key of the parameter and another parameter (`A`) will be evaluated as string.
+
+Expression | Evaluation
+-- | --
+`KEY=A` | Positive if the value for the key eqauls to `A`
+`KEY!=A` | Positive if the value for the key NOT eqauls to `A`
+`KEY` | Positive if the value is set AND is non-empty
+`!KEY` | Positive if the value is NOT set OR is empty
+
+#### Examples for command-line argument
+
+Assume the following connection information.
+
+Parameter | Value
+-- | --
+Host name | `my-host`
+Key file path | `C:\my-host.key`
+Additional parameter `stage` | `staging`
+
+Then if you set "Example" to "Command-line argument", "Result" value will be passed as the argument for the external program.
+
+Example | Result | Explanation
+-- | -- | --
+`{stage}` | `staging` | Replaced with additional parameter `stage`'s value
+`{stage=staging?blue:red}` | `blue` | Replaced with `blue` as `stage`'s value is `staging`
+`{stage?hoge:fuga}` | `hoge` | Replaced with `hoge` as `stage` is defined
+`{!stage?{host}:{host}-{stage}}` | `my-host-staging` | Replaced with `my-host-staging` as the result of `{host}-{stage}`
+`/auth={keyfile?publickey:password}` | `/auth=publickey` | Replaced with `publickey` as `keyfile` is specified
+
 
 ### Removing a setting
 

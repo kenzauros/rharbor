@@ -326,7 +326,8 @@ namespace kenzauros.RHarbor.ViewModels
                     res = true; // returning true means ADDED
                 }
                 currentItem.RewriteWith(item);
-                await MainWindow.DbContext.SaveChangesAsync();
+                await MainWindow.DbContext.RemoveUnassociatedSSHConnectionParameters().ConfigureAwait(false);
+                await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return (res, currentItem);
             }
             catch (Exception ex)

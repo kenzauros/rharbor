@@ -469,8 +469,9 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Command line arguments with the following parameters.
-        ///{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file に類似しているローカライズされた文字列を検索します。
+        ///   Command line arguments with the parameter for the pre-defined key. It can include both the connection parameters defined in the SSH connection information and the &quot;Additional Parameters&quot; you defined.
+        ///{host} : Host, {port} : Port, {username} : Username, {password} : Password/Passphrase, {keyfile} : Path to Private key file
+        ///You can also use conditional parameters like &quot;{keyfile?publickey:password}&quot;. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ExternalProgramDefinition_Arguments_Description {
             get {
@@ -875,7 +876,7 @@ namespace kenzauros.RHarbor.Properties {
         }
         
         /// <summary>
-        ///   Tera Term (publickey) に類似しているローカライズされた文字列を検索します。
+        ///   Tera Term に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Settings_AddExternalProgramDefinition_TeraTerm {
             get {
@@ -907,6 +908,24 @@ namespace kenzauros.RHarbor.Properties {
         public static string Settings_Group_ExternalProgramDefinition {
             get {
                 return ResourceManager.GetString("Settings_Group_ExternalProgramDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Move down に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveDownExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_MoveDownExternalProgramDefinitionButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Move up に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Settings_MoveUpExternalProgramDefinitionButton_ToolTip {
+            get {
+                return ResourceManager.GetString("Settings_MoveUpExternalProgramDefinitionButton_ToolTip", resourceCulture);
             }
         }
         
@@ -1024,6 +1043,15 @@ namespace kenzauros.RHarbor.Properties {
         public static string SSHConnectionInfo_AlwaysForwardPorts {
             get {
                 return ResourceManager.GetString("SSHConnectionInfo_AlwaysForwardPorts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Extra parameters に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SSHConnectionInfo_ConnectionParameters {
+            get {
+                return ResourceManager.GetString("SSHConnectionInfo_ConnectionParameters", resourceCulture);
             }
         }
         

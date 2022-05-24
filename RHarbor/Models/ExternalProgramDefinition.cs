@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -47,6 +48,10 @@ namespace kenzauros.RHarbor.Models
         public bool CopyToClipboard { get => _CopyToClipboard; set => SetProp(ref _CopyToClipboard, value); }
         private bool _CopyToClipboard;
 
+        [Browsable(false)]
+        public int? SortOrder { get => _SortOrder; set => SetProp(ref _SortOrder, value); }
+        private int? _SortOrder;
+
         public override string ToString() => Name?.ToString();
 
         #region Invocation
@@ -62,17 +67,8 @@ namespace kenzauros.RHarbor.Models
             if (!CopyToClipboard && !File.Exists(ExePath))
                 throw new FileNotFoundException(Resources.ExternalProgramDefinition_Exception_ExeNotFound);
 
-            var placeholders = new Dictionary<string, Func<SSHConnectionInfo, string>>
-            {
-                { "{host}", info => info.Host },
-                { "{port}", info => info.Port.ToString() },
-                { "{username}", info => info.Username },
-                { "{password}", info => info.RawPassword },
-                { "{keyfile}", info => info.PrivateKeyFilePath },
-            };
-            var arguments = placeholders.Aggregate(Arguments,
-                (prev, ph) => prev.Replace(ph.Key, ph.Value.Invoke(info)));
-            var exePath = ExePath.Contains(" ") ? $"\"{ExePath}\"" : ExePath;
+            string arguments = CreateArguments(info);
+            string exePath = ExePath.Contains(" ") ? $"\"{ExePath}\"" : ExePath;
             if (CopyToClipboard)
             {
                 try
@@ -108,6 +104,101 @@ namespace kenzauros.RHarbor.Models
             }
         }
 
+        /// <summary>
+        /// Creates a command-line arguments from the template (<see cref="Arguments"/> property) with the connection information.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public string CreateArguments(SSHConnectionInfo info)
+        {
+            string arguments = Arguments;
+            Dictionary<string, string> paramDict = new()
+            {
+                { "host", info.Host },
+                { "port", info.Port.ToString() },
+                { "username", info.Username },
+                { "password", info.RawPassword },
+                { "keyfile", info.PrivateKeyFilePath },
+            };
+            if (info.ConnectionParameters?.Count > 0)
+            {
+                foreach (SSHConnectionParameter kv in info.ConnectionParameters)
+                {
+                    if (!paramDict.ContainsKey(kv.Key))
+                    {
+                        paramDict.Add(kv.Key, kv.Value);
+                    }
+                }
+            }
+            return ReplaceConnectionParameters(arguments, paramDict);
+        }
+
+        private static readonly Regex NestedBracketsRegex = new(@"{[^{}]*({[^{}]*}[^{}]*)*[^{}]*}");
+        private static readonly Regex ConditionalOperator = new(@"^{(.+?)\?(.+?):(.+?)}$");
+        private static readonly Regex ParameterPlaceholderRegex = new(@"(?<!{)\{([^{=:?]+?)(:([^{=:?]+?))?(?<!})\}");
+
+        /// <summary>
+        /// Replaces placeholders in the arguments with the connection parameters.
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static string ReplaceConnectionParameters(string arguments, Dictionary<string, string> parameters)
+        {
+            string getParamValue(string key, string fallbackValue)
+                => parameters.TryGetValue(key, out string value)
+                    ? value // parameter value
+                    : fallbackValue; // fallback value
+
+            // Nested brackets ({})
+            arguments = NestedBracketsRegex.Replace(arguments, m1 =>
+                // Conditional operator (condition ? positive : negative)
+                ConditionalOperator.Replace(m1.Value, m =>
+                    {
+                        string condition = m.Groups[1].Value;
+                        string positive = m.Groups[2].Value;
+                        string negative = m.Groups[3].Value;
+                        Match conditionExp = Regex.Match(condition, @"^(.+?)(=|!=)(.+?)$");
+                        if (conditionExp.Success)
+                        {
+                            // = or != operator with 2 operands
+                            string value = getParamValue(conditionExp.Groups[1].Value, "");
+                            bool isMatch = conditionExp.Groups[2].Value switch
+                            {
+                                "=" => value == conditionExp.Groups[3].Value,
+                                _ => value != conditionExp.Groups[3].Value,
+                            };
+                            return isMatch ? positive : negative;
+                        }
+                        else
+                        {
+                            // single operand (with/wo ! operator)
+                            Match match = Regex.Match(condition, @"^(!?)(.+)$");
+                            if (match.Success)
+                            {
+                                bool not = match.Groups[1].Value == "!"; // ! exists at first
+                                string value = getParamValue(match.Groups[2].Value, "");
+                                return not ^ !string.IsNullOrEmpty(value)
+                                    ? positive
+                                    : negative;
+                            }
+                            else
+                            {
+                                return m.Value;
+                            }
+                        }
+                    }));
+            arguments = ParameterPlaceholderRegex.Replace(arguments, m =>
+                {
+                    string key = m.Groups[1].Value;
+                    string fallbackValue = m.Groups.Count == 4 ? m.Groups[3].Value : string.Empty;
+                    return getParamValue(key, fallbackValue);
+                })
+                .Replace(@"{{", "{")
+                .Replace(@"}}", "}");
+            return arguments;
+        }
+
         #endregion
 
         #region Factory for Usual Programs
@@ -133,7 +224,7 @@ namespace kenzauros.RHarbor.Models
             {
                 Name = "Tera Term",
                 ExePath = exePath,
-                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth=publickey",
+                Arguments = "{host}:{port} /ssh2 /user=\"{username}\" /passwd=\"{password}\" /keyfile=\"{keyfile}\" /auth={keyfile?publickey:password}",
                 CopyToClipboard = false,
             };
             return definition;

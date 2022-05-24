@@ -34,6 +34,7 @@ namespace kenzauros.RHarbor.Models
         {
             All = await db.SSHConnectionInfos
                 .Include("RequiredConnection")
+                .Include("ConnectionParameters")
                 .ToListAsync().ConfigureAwait(false);
         }
 
@@ -84,6 +85,7 @@ namespace kenzauros.RHarbor.Models
         public SSHConnectionInfo()
         {
             Port = 22;
+            ConnectionParameters = new ObservableCollection<SSHConnectionParameter>();
         }
 
         [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(4)]
@@ -170,6 +172,20 @@ namespace kenzauros.RHarbor.Models
         [NotMapped]
         public virtual ICollection<RDPConnectionInfo> RDPConnections { get; set; }
 
+        #region ConnectionParameters
+
+        [RewriteableIgnore] // Rewrite manually in RewriteWith
+        [LocalizedCategory("ConnectionInfo_Category_Other"), PropertyOrder(10)]
+        [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(ConnectionParameters))]
+        public virtual ICollection<SSHConnectionParameter> ConnectionParameters
+        {
+            get => _ConnectionParameters;
+            set => SetProp(ref _ConnectionParameters, value);
+        }
+        private ICollection<SSHConnectionParameter> _ConnectionParameters;
+
+        #endregion
+
         #endregion
 
         #region IRewriteable
@@ -178,8 +194,16 @@ namespace kenzauros.RHarbor.Models
         {
             base.RewriteWith(item);
             AlwaysForwardPorts ??= false; // Set default value
-            var portForwardings = (item as SSHConnectionInfo).PortForwardingCollection?.ToArray();
-            PortForwardings = portForwardings != null ? JsonConvert.SerializeObject(portForwardings) : null;
+            if (item is SSHConnectionInfo org)
+            {
+                // PortForwardings (serialize)
+                PortForwarding[] portForwardings = org.PortForwardingCollection?.ToArray();
+                PortForwardings = portForwardings != null ? JsonConvert.SerializeObject(portForwardings) : null;
+
+                // ConnectionParameters (filter empty key records)
+                ConnectionParameters = new ObservableCollection<SSHConnectionParameter>(
+                    org.ConnectionParameters.Where(x => !string.IsNullOrWhiteSpace(x.Key)));
+            }
         }
 
         #endregion
@@ -192,7 +216,8 @@ namespace kenzauros.RHarbor.Models
         [NotMapped]
         [LocalizedCategory("ConnectionInfo_Category_Authentication"), PropertyOrder(2)]
         [LocalizedDisplayName(nameof(SSHConnectionInfo) + "_" + nameof(Password))]
-        public override string RawPassword {
+        public override string RawPassword
+        {
             get => base.RawPassword;
             set => base.RawPassword = value;
         }

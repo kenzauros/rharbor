@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace kenzauros.RHarbor.ViewModels
 {
@@ -35,9 +36,10 @@ namespace kenzauros.RHarbor.ViewModels
 
         public override void Dispose()
         {
-            foreach (var item in Collection)
+            IConnectionViewModel[] connections = Collection.ToArray();
+            foreach (IConnectionViewModel item in connections)
             {
-                item.Dispose();
+                item?.Dispose();
             }
             base.Dispose();
         }
