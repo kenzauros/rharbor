@@ -163,11 +163,11 @@ namespace kenzauros.RHarbor.ViewModels
             // Connection info filterings
             FilterText
                 .Throttle(TimeSpan.FromMilliseconds(500))
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ => RefreshCollectionView())
                 .AddTo(Disposable);
             SelectedGroup
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ => RefreshCollectionView())
                 .AddTo(Disposable);
 
@@ -190,7 +190,7 @@ namespace kenzauros.RHarbor.ViewModels
                     .StartWith(Unit.Default)
                 )
                 .Throttle(TimeSpan.FromMilliseconds(500)) // Once 500 ms
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ =>
                 {
                     var selectedGroup = SelectedGroup.Value;
