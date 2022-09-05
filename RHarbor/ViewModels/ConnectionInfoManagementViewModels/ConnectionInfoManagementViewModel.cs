@@ -317,18 +317,30 @@ namespace kenzauros.RHarbor.ViewModels
             try
             {
                 MyLogger.Log($"Saving {item.ToString()}...");
-                var res = false;
+                bool added = false;
                 var currentItem = MainWindow.DbContext.Set<T>().FirstOrDefault(x => x.Id == item.Id);
                 if (currentItem == null)
                 {
                     currentItem = new T();
                     MainWindow.DbContext.Set<T>().Add(currentItem);
-                    res = true; // returning true means ADDED
+                    added = true; // returning true means ADDED
                 }
                 currentItem.RewriteWith(item);
                 await MainWindow.DbContext.RemoveUnassociatedSSHConnectionParameters().ConfigureAwait(false);
-                await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
-                return (res, currentItem);
+                try
+                {
+                    await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
+                }
+                catch (Exception)
+                {
+                    if (added)
+                    {
+                        // revert added item on failed
+                        MainWindow.DbContext.Set<T>().Remove(currentItem);
+                    }
+                    throw;
+                }
+                return (added, currentItem);
             }
             catch (Exception ex)
             {
