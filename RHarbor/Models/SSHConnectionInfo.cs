@@ -202,7 +202,10 @@ namespace kenzauros.RHarbor.Models
 
                 // ConnectionParameters (filter empty key records)
                 ConnectionParameters = new ObservableCollection<SSHConnectionParameter>(
-                    org.ConnectionParameters.Where(x => !string.IsNullOrWhiteSpace(x.Key)));
+                    org.ConnectionParameters?
+                        .Where(x => !string.IsNullOrWhiteSpace(x.Key))
+                            ?? Array.Empty<SSHConnectionParameter>()
+                        );
             }
         }
 
