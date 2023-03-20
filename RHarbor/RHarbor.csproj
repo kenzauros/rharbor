@@ -66,11 +66,11 @@
     <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.5.1.2\lib\net46\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveProperty, Version=8.1.2.0, Culture=neutral, PublicKeyToken=910d1732782c71cb, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.8.1.2\lib\netstandard2.0\ReactiveProperty.dll</HintPath>
+    <Reference Include="ReactiveProperty, Version=9.1.2.0, Culture=neutral, PublicKeyToken=910d1732782c71cb, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveProperty.9.1.2\lib\net472\ReactiveProperty.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveProperty.Core, Version=8.1.2.0, Culture=neutral, PublicKeyToken=910d1732782c71cb, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.Core.8.1.2\lib\netstandard2.0\ReactiveProperty.Core.dll</HintPath>
+    <Reference Include="ReactiveProperty.Core, Version=9.1.2.0, Culture=neutral, PublicKeyToken=910d1732782c71cb, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveProperty.Core.9.1.2\lib\net472\ReactiveProperty.Core.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2020.0.2.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2020.0.2\lib\net40\Renci.SshNet.dll</HintPath>
