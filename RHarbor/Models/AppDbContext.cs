@@ -77,7 +77,7 @@ namespace kenzauros.RHarbor.Models
         public async Task RemoveUnassociatedSSHConnectionParameters()
         {
             List<SSHConnectionParameter> removingParams = await SSHConnectionParameters
-                .Where(x => SSHConnectionInfos.Any(ci => ci.ConnectionParameters.Any(p => p.Id == x.Id)))
+                .Where(x => !SSHConnectionInfos.Any(ci => ci.ConnectionParameters.Any(p => p.Id == x.Id)))
                 .ToListAsync()
                 .ConfigureAwait(false);
             SSHConnectionParameters.RemoveRange(removingParams);
