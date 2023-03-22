@@ -325,8 +325,25 @@ namespace kenzauros.RHarbor.ViewModels
                     MainWindow.DbContext.Set<T>().Add(currentItem);
                     added = true; // returning true means ADDED
                 }
+
+                // NOTE: SSHConnectionInfo only
+                // store previous list of SSHConnectionParameter to filter removing items
+                SSHConnectionParameter[] originalConnectionParamaters = (currentItem is SSHConnectionInfo)
+                    ? (currentItem as SSHConnectionInfo).ConnectionParameters.ToArray()
+                    : null;
+
+                // rewrite current record
                 currentItem.RewriteWith(item);
-                await MainWindow.DbContext.RemoveUnassociatedSSHConnectionParameters().ConfigureAwait(false);
+
+                if (originalConnectionParamaters != null && currentItem is SSHConnectionInfo sshInfo)
+                {
+                    // NOTE: SSHConnectionInfo only
+                    // remove orphan parameters from table
+                    SSHConnectionParameter[] removing = originalConnectionParamaters
+                        .Where(x => !sshInfo.ConnectionParameters.Any(y => y.Id == x.Id))
+                        .ToArray();
+                    MainWindow.DbContext.SSHConnectionParameters.RemoveRange(removing);
+                }
                 try
                 {
                     await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
