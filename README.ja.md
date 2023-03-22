@@ -41,8 +41,8 @@ RHarbor はこんな方に便利です。
 
 ## 動作環境
 
-- Windows 7 以降
-- .NET Framework 4.6.1
+- Windows 10 以降
+- .NET Framework 4.8
 
 各バージョンに適した .NET ランタイムをインストールしてください。
 

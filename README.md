@@ -41,8 +41,8 @@ RHarbor is not able to use as a SSH client/terminal but can call your favorite S
 
 ## Environment
 
-- Windwos 7 SP1+
-- .NET Framework 4.6.1
+- Windwos 10+
+- .NET Framework 4.8
 
 Install a suitable of .NET Runtime from the following page.
 
