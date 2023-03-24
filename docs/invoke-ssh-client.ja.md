@@ -101,7 +101,7 @@ SSH 接続情報で <img src="images/buttons/ssh-client-button.png" alt="SSH ク
 
 **RHarbor で利用できる SSH の鍵ファイルは OpenSSH 形式であるため、 [PuTTY](https://www.putty.org/) でそのまま利用することはできません。**
 
-ここでは RHarbor の外部プログラム呼び出し機能を使って PuTTY で接続する方法をご紹介します。
+ここでは RHarbor の外部プログラム呼び出し機能を使って PuTTY で接続する方法を紹介します。
 
 まず、鍵ファイルは [PuTTYgen](https://www.puttygen.com/) (PuTTY に同梱) を利用して PuTTY 形式に変換しておきます。
 また、`<OpenSSH の鍵ファイル名>.ppk` にして同じフォルダに配置します。
@@ -109,5 +109,3 @@ SSH 接続情報で <img src="images/buttons/ssh-client-button.png" alt="SSH ク
 たとえば OpenSSH 形式の鍵ファイル名が `key.pem` であれば `key.pem.ppk` のようになります。
 
 これでコマンドライン引数の設定で `putty -ssh -i "{keyfile}.ppk"` のように指定すれば PuTTY 形式の鍵ファイルを渡すことができます。
-
-
