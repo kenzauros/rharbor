@@ -69,18 +69,5 @@ namespace kenzauros.RHarbor.Models
                 await SaveChangesAsync();
             }
         }
-
-        /// <summary>
-        /// Removes <see cref="SSHConnectionParameter"/>s which is no longer associated with <see cref="SSHConnectionInfo"/>s.
-        /// </summary>
-        /// <returns></returns>
-        public async Task RemoveUnassociatedSSHConnectionParameters()
-        {
-            List<SSHConnectionParameter> removingParams = await SSHConnectionParameters
-                .Where(x => SSHConnectionInfos.Any(ci => ci.ConnectionParameters.Any(p => p.Id == x.Id)))
-                .ToListAsync()
-                .ConfigureAwait(false);
-            SSHConnectionParameters.RemoveRange(removingParams);
-        }
     }
 }

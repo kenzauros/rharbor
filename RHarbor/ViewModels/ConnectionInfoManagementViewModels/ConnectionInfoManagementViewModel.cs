@@ -163,11 +163,11 @@ namespace kenzauros.RHarbor.ViewModels
             // Connection info filterings
             FilterText
                 .Throttle(TimeSpan.FromMilliseconds(500))
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ => RefreshCollectionView())
                 .AddTo(Disposable);
             SelectedGroup
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ => RefreshCollectionView())
                 .AddTo(Disposable);
 
@@ -190,7 +190,7 @@ namespace kenzauros.RHarbor.ViewModels
                     .StartWith(Unit.Default)
                 )
                 .Throttle(TimeSpan.FromMilliseconds(500)) // Once 500 ms
-                .ObserveOnDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(_ =>
                 {
                     var selectedGroup = SelectedGroup.Value;
@@ -317,18 +317,47 @@ namespace kenzauros.RHarbor.ViewModels
             try
             {
                 MyLogger.Log($"Saving {item.ToString()}...");
-                var res = false;
+                bool added = false;
                 var currentItem = MainWindow.DbContext.Set<T>().FirstOrDefault(x => x.Id == item.Id);
                 if (currentItem == null)
                 {
                     currentItem = new T();
                     MainWindow.DbContext.Set<T>().Add(currentItem);
-                    res = true; // returning true means ADDED
+                    added = true; // returning true means ADDED
                 }
+
+                // NOTE: SSHConnectionInfo only
+                // store previous list of SSHConnectionParameter to filter removing items
+                SSHConnectionParameter[] originalConnectionParamaters = (currentItem is SSHConnectionInfo)
+                    ? (currentItem as SSHConnectionInfo).ConnectionParameters.ToArray()
+                    : null;
+
+                // rewrite current record
                 currentItem.RewriteWith(item);
-                await MainWindow.DbContext.RemoveUnassociatedSSHConnectionParameters().ConfigureAwait(false);
-                await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
-                return (res, currentItem);
+
+                if (originalConnectionParamaters != null && currentItem is SSHConnectionInfo sshInfo)
+                {
+                    // NOTE: SSHConnectionInfo only
+                    // remove orphan parameters from table
+                    SSHConnectionParameter[] removing = originalConnectionParamaters
+                        .Where(x => !sshInfo.ConnectionParameters.Any(y => y.Id == x.Id))
+                        .ToArray();
+                    MainWindow.DbContext.SSHConnectionParameters.RemoveRange(removing);
+                }
+                try
+                {
+                    await MainWindow.DbContext.SaveChangesAsync().ConfigureAwait(false);
+                }
+                catch (Exception)
+                {
+                    if (added)
+                    {
+                        // revert added item on failed
+                        MainWindow.DbContext.Set<T>().Remove(currentItem);
+                    }
+                    throw;
+                }
+                return (added, currentItem);
             }
             catch (Exception ex)
             {

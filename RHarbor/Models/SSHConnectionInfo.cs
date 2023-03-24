@@ -201,8 +201,39 @@ namespace kenzauros.RHarbor.Models
                 PortForwardings = portForwardings != null ? JsonConvert.SerializeObject(portForwardings) : null;
 
                 // ConnectionParameters (filter empty key records)
-                ConnectionParameters = new ObservableCollection<SSHConnectionParameter>(
-                    org.ConnectionParameters.Where(x => !string.IsNullOrWhiteSpace(x.Key)));
+                List<SSHConnectionParameter> newParams = org.ConnectionParameters?
+                    .Where(x => !string.IsNullOrWhiteSpace(x.Key))
+                    .GroupBy(x => x.Key)
+                    .Select(x => x.First())
+                    .ToList()
+                        ?? new List<SSHConnectionParameter>();
+                { // remove
+                    List<SSHConnectionParameter> removingParams = ConnectionParameters
+                        .Where(x => !newParams.Any(y => y.Id == x.Id))
+                        .ToList();
+                    foreach (SSHConnectionParameter parameter in removingParams)
+                    {
+                        ConnectionParameters.Remove(parameter);
+                    }
+                }
+                { // add
+                    List<SSHConnectionParameter> addingParams = newParams
+                        .Where(x => !ConnectionParameters.Any(y => y.Id == x.Id))
+                        .ToList();
+                    foreach (SSHConnectionParameter parameter in addingParams)
+                    {
+                        ConnectionParameters.Add(parameter);
+                    }
+                }
+                { // update
+                    List<SSHConnectionParameter> updatingParams = newParams
+                        .Where(x => ConnectionParameters.Any(y => y.Id == x.Id))
+                        .ToList();
+                    foreach (SSHConnectionParameter parameter in updatingParams)
+                    {
+                        ConnectionParameters.First(x => x.Id == parameter.Id).RewriteWith(parameter);
+                    }
+                }
             }
         }
 
