@@ -15,16 +15,16 @@ namespace kenzauros.RHarbor.Utilities.Test
         public void SetArgs_ShouldUnderstandOpenArg(string arg)
         {
             ArgumentsHelper.SetArgs(arg);
-            Assert.AreEqual(true, ArgumentsHelper.HasConnectionSpecified);
-            Assert.AreEqual(2, ArgumentsHelper.SpecifiedConnections.Count());
+            Assert.That(ArgumentsHelper.HasConnectionSpecified, Is.True);
+            Assert.That(ArgumentsHelper.SpecifiedConnections.Count(), Is.EqualTo(2));
 
             // SpecifiedConnections
             var conn1 = ArgumentsHelper.SpecifiedConnections.ElementAt(0);
-            Assert.AreEqual(ConnectionType.RDP, conn1.Type);
-            Assert.AreEqual(13, conn1.ConnectionId);
+            Assert.That(conn1.Type, Is.EqualTo(ConnectionType.RDP));
+            Assert.That(conn1.ConnectionId, Is.EqualTo(13));
             var conn2 = ArgumentsHelper.SpecifiedConnections.ElementAt(1);
-            Assert.AreEqual(ConnectionType.SSH, conn2.Type);
-            Assert.AreEqual(2, conn2.ConnectionId);
+            Assert.That(conn2.Type, Is.EqualTo(ConnectionType.SSH));
+            Assert.That(conn2.ConnectionId, Is.EqualTo(2));
         }
     }
 }

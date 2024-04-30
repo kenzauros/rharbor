@@ -1,10 +1,5 @@
 ﻿using kenzauros.RHarbor.IPC;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kenzauros.RHarbor.Utilities.Test
 {
@@ -20,13 +15,13 @@ namespace kenzauros.RHarbor.Utilities.Test
             };
             processCommander.Invoke(Models.ConnectionType.RDP, 800);
             processCommander.Invoke(Models.ConnectionType.SSH, 900);
-            Assert.AreEqual(2, ConnectionRequest.Singleton.Queue.Count);
+            Assert.That(ConnectionRequest.Singleton.Queue.Count, Is.EqualTo(2));
             var (type, id) = ConnectionRequest.Singleton.Queue.Dequeue();
-            Assert.AreEqual(Models.ConnectionType.RDP, type);
-            Assert.AreEqual(800, id);
+            Assert.That(type, Is.EqualTo(Models.ConnectionType.RDP));
+            Assert.That(id, Is.EqualTo(800));
             (type, id) = ConnectionRequest.Singleton.Queue.Dequeue();
-            Assert.AreEqual(Models.ConnectionType.SSH, type);
-            Assert.AreEqual(900, id);
+            Assert.That(type, Is.EqualTo(Models.ConnectionType.SSH));
+            Assert.That(id, Is.EqualTo(900));
         }
 
         [TestCase]
