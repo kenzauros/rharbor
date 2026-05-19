@@ -1,5 +1,6 @@
 ﻿using kenzauros.RHarbor.IPC;
 using NUnit.Framework;
+using System;
 
 namespace kenzauros.RHarbor.Utilities.Test
 {
@@ -31,9 +32,7 @@ namespace kenzauros.RHarbor.Utilities.Test
             {
                 ConnectionRequest = ConnectionRequest.Singleton
             };
-            Assert.DoesNotThrow(() => processCommander.Activate());
+            Assert.DoesNotThrow(new Action(() => processCommander.Activate()));
         }
-
-
     }
 }
