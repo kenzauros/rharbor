@@ -171,12 +171,10 @@ namespace kenzauros.RHarbor
         {
             try
             {
-                using (var listener = new TcpListener(IPAddress.Loopback, port))
-                {
-                    listener.Start();
-                    listener.Stop();
-                    return true;
-                }
+                TcpListener listener = new(IPAddress.Loopback, port);
+                listener.Start();
+                listener.Stop();
+                return true;
             }
             catch (SocketException)
             {
