@@ -90,6 +90,49 @@ namespace kenzauros.RHarbor.Models
         }
 
         [TestCase]
+        public void ReplaceConnectionParameters_DoubleQuoteInValue()
+        {
+            // Double quote in parameter value should be escaped as ""
+            Assert.That(
+                ExternalProgramDefinition.ReplaceConnectionParameters(
+                    @"--arg=""{password}""",
+                    new Dictionary<string, string> { { "password", "pass\"word" } }),
+                Is.EqualTo("--arg=\"pass\"\"word\""));
+
+            // Value that is only a double quote
+            Assert.That(
+                ExternalProgramDefinition.ReplaceConnectionParameters(
+                    @"--arg=""{password}""",
+                    new Dictionary<string, string> { { "password", "\"" } }),
+                Is.EqualTo("--arg=\"\"\"\""));
+
+            // Value with multiple consecutive double quotes
+            Assert.That(
+                ExternalProgramDefinition.ReplaceConnectionParameters(
+                    @"--arg=""{password}""",
+                    new Dictionary<string, string> { { "password", "\"\"" } }),
+                Is.EqualTo("--arg=\"\"\"\"\"\""));
+
+            // Value ending with a double quote
+            Assert.That(
+                ExternalProgramDefinition.ReplaceConnectionParameters(
+                    @"--arg=""{password}""",
+                    new Dictionary<string, string> { { "password", "pass\"" } }),
+                Is.EqualTo("--arg=\"pass\"\"\""));
+
+            // Practical Tera Term template with password containing double quote
+            var parameters = new Dictionary<string, string>(SampleParameters)
+            {
+                ["password"] = "pass\"word",
+            };
+            Assert.That(
+                ExternalProgramDefinition.ReplaceConnectionParameters(
+                    @"{host}:{port} /ssh2 /user=""{username}"" /passwd=""{password}"" /auth=password",
+                    parameters),
+                Is.EqualTo("my-host:99 /ssh2 /user=\"user1\" /passwd=\"pass\"\"word\" /auth=password"));
+        }
+
+        [TestCase]
         public void ReplaceConnectionParameters_Complex()
         {
             // Complex
