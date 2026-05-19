@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -136,7 +138,7 @@ namespace kenzauros.RHarbor
             var key = CreateKey(info);
             if (RecordDictionary.ContainsKey(key))
             {
-                return RecordDictionary[key].Except(GetUnavailableLocalPorts()).FirstOrDefault();
+                return RecordDictionary[key].FirstOrDefault(p => IsAvailablePort(p));
             }
             return 0;
         }
@@ -160,11 +162,29 @@ namespace kenzauros.RHarbor
 
         /// <summary>
         /// Gets whether the specified port number is currently available or not.
+        /// Performs an actual socket bind to reliably verify availability,
+        /// which also catches ports in TIME_WAIT state or excluded by the OS.
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
         public static bool IsAvailablePort(int port)
-            => GetUnavailableLocalPorts().All(x => x != port);
+        {
+            try
+            {
+                using (var listener = new TcpListener(IPAddress.Loopback, port))
+                {
+                    listener.Start();
+                    listener.Stop();
+                    return true;
+                }
+            }
+            catch (SocketException)
+            {
+                // Any SocketException during bind means the port is unavailable
+                // (e.g., AddressAlreadyInUse or AccessDenied for OS-excluded ports).
+                return false;
+            }
+        }
 
         #endregion
     }
