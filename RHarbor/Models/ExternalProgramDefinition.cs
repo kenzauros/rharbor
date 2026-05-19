@@ -193,7 +193,7 @@ namespace kenzauros.RHarbor.Models
                     string key = m.Groups[1].Value;
                     string fallbackValue = m.Groups.Count == 4 ? m.Groups[3].Value : string.Empty;
                     var value = getParamValue(key, fallbackValue);
-                    return value?.Replace("\"", "\\\"") ?? string.Empty;
+                    return value?.Replace("\"", "\"\"") ?? string.Empty;
                 })
                 .Replace(@"{{", "{")
                 .Replace(@"}}", "}");
