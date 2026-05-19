@@ -218,6 +218,7 @@
       <DependentUpon>AuthenticationDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="IPC\IProcessCommander.cs" />
+    <Compile Include="RDP\FreeRDPLocator.cs" />
     <Compile Include="RDP\RDPClient.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
     <Compile Include="Utilities\ArgumentsHelper.cs" />
