@@ -11,6 +11,7 @@ RHarbor helps you to manage your Remote Desktop and SSH connections.
     - Grouping
     - Search by the connection name or the host name
     - Replication of an existing information
+    - Optional FreeRDP support (auto-detected; falls back to `mstsc.exe` if not found)
 - SSH connection information management
     - Configurable properties: Host, Port, User name, Password/Pass phrase, Private key for the server, Keep alive
     - Fixed port forwarding
@@ -26,7 +27,7 @@ RHarbor helps you to manage your Remote Desktop and SSH connections.
 
 With RHarbor, you can manage your multiple connection informations for Remote Desktop and SSH.
 
-You need not to feel the change of usability since RHarbor uses Windows-standard remote desktop application (`mstsc.exe`).
+RHarbor uses [FreeRDP](https://www.freerdp.com/) when a compatible binary is found next to `RHarbor.exe`, and falls back to the Windows-standard remote desktop application (`mstsc.exe`) otherwise.
 
 RHarbor is recommended for the following people.
 
@@ -85,6 +86,24 @@ To initialize the setting please shutdown RHarbor and then delete `RHarbor.db`. 
 To back up your connection settings, just copy `RHarbor.db` to your backup location.
 
 RHarbor automatically backs it up to your profile folder (typically `C:\Users\<Username>\AppData\Roaming\RHarbor`).
+
+## FreeRDP Support
+
+RHarbor optionally supports [FreeRDP](https://www.freerdp.com/) as an alternative RDP client to `mstsc.exe`.
+
+### Setup
+
+1. Download FreeRDP and place its binary inside a subdirectory named with a `freerdp` prefix (e.g. `freerdp3.3.0`) in the same folder as `RHarbor.exe`.
+2. RHarbor automatically detects `sdl-freerdp.exe` or `wfreerdp.exe` in those directories (`sdl-freerdp.exe` takes priority).
+3. If multiple `freerdp*` directories exist, the lexicographically latest folder name is tried first (treating folder name order as version order).
+4. If no compatible binary is found, RHarbor silently falls back to `mstsc.exe`.
+
+```
+RHarbor.exe
+freerdp3.3.0\
+    sdl-freerdp.exe   ← used preferentially
+    wfreerdp.exe
+```
 
 ## Notice
 
