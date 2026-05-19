@@ -93,14 +93,14 @@ RHarbor optionally supports [FreeRDP](https://www.freerdp.com/) as an alternativ
 
 ### Setup
 
-1. Download FreeRDP and place its binary inside a subdirectory named with a `freerdp` prefix (e.g. `freerdp3.3.0`) in the same folder as `RHarbor.exe`.
+1. Download FreeRDP and place its binary inside a subdirectory named with a `freerdp` prefix (e.g. `freerdp3.26.0`) in the same folder as `RHarbor.exe`.
 2. RHarbor automatically detects `sdl-freerdp.exe` or `wfreerdp.exe` in those directories (`sdl-freerdp.exe` takes priority).
 3. If multiple `freerdp*` directories exist, the lexicographically latest folder name is tried first (treating folder name order as version order).
 4. If no compatible binary is found, RHarbor silently falls back to `mstsc.exe`.
 
 ```
 RHarbor.exe
-freerdp3.3.0\
+freerdp3.26.0\
     sdl-freerdp.exe   ← used preferentially
     wfreerdp.exe
 ```

@@ -95,14 +95,14 @@ RHarbor は `mstsc.exe` の代替 RDP クライアントとして [FreeRDP](http
 
 ### セットアップ
 
-1. FreeRDP をダウンロードし、`RHarbor.exe` と同じフォルダーに `freerdp` で始まるサブディレクトリ (例: `freerdp3.3.0`) を作成してバイナリを配置してください。
+1. FreeRDP をダウンロードし、`RHarbor.exe` と同じフォルダーに `freerdp` で始まるサブディレクトリ (例: `freerdp3.26.0`) を作成してバイナリを配置してください。
 2. RHarbor はそのディレクトリ内の `sdl-freerdp.exe` または `wfreerdp.exe` を自動検出します (`sdl-freerdp.exe` が優先されます)。
 3. `freerdp*` ディレクトリが複数存在する場合は、フォルダー名の辞書順で最も新しいものから順に試行されます (フォルダー名をバージョン順とみなします)。
 4. 対応するバイナリが見つからない場合は、自動的に `mstsc.exe` にフォールバックします。
 
 ```
 RHarbor.exe
-freerdp3.3.0\
+freerdp3.26.0\
     sdl-freerdp.exe   ← 優先して使用
     wfreerdp.exe
 ```
