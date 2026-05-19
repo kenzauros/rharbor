@@ -69,6 +69,7 @@
     <Compile Include="FirstTest.cs" />
     <Compile Include="Models\ExternalProgramDefinitionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RDP\FreeRDPLocatorTests.cs" />
     <Compile Include="Utilities\ArgumentsHelperTest.cs" />
     <Compile Include="Utilities\ProcessCommanderTest.cs" />
   </ItemGroup>
