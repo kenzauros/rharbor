@@ -141,9 +141,9 @@ disable cursor setting:i:0
 bitmapcachepersistenable:i:1
 full address:s:{host ?? Host}:{port ?? (Port > 0 ? Port : 3389)}
 audiomode:i:1
-redirectprinters:i:1
+redirectprinters:i:0
 redirectcomports:i:0
-redirectsmartcards:i:1
+redirectsmartcards:i:0
 redirectclipboard:i:1
 redirectposdevices:i:0
 drivestoredirect:s:
